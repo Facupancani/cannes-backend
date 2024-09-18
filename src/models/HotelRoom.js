@@ -1,10 +1,6 @@
-// Definición del modelo HotelRoom, es como se estructuran los datos en la base de datos.
-
-
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');  // Importa la conexión
+const sequelize = require('../config/database');
 
-// Definir el modelo HotelRoom
 const HotelRoom = sequelize.define('HotelRoom', {
   id: {
     type: DataTypes.BIGINT,
@@ -17,20 +13,20 @@ const HotelRoom = sequelize.define('HotelRoom', {
     allowNull: false
   },
   pred_price: {
-    type: DataTypes.DECIMAL(65, 0),  // Define el tipo y la precisión
-    allowNull: true,  // Puede ser nulo
+    type: DataTypes.DECIMAL(65, 0),
+    allowNull: true,  
   },
   pred_time: {
     type: DataTypes.TIME(6),
-    allowNull: true,  // Puede ser nulo
+    allowNull: true, 
   },
   state: {
     type: DataTypes.STRING(100),
-    allowNull: true,  // Puede ser nulo
+    allowNull: true, 
   },
   current_shift_id: {
     type: DataTypes.INTEGER,
-    allowNull: true  // Puede ser nulo
+    allowNull: true
   }
 }, {
   tableName: 'hotel_room',  // Nombre de la tabla en la base de datos

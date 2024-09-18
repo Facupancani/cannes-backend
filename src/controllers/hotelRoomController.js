@@ -1,5 +1,3 @@
-// Lógica para manejar las solicitudes y respuestas. Es el puente entre las rutas y los modelos.
-
 const HotelRoom = require('../models/HotelRoom');
 
 // Obtener todas las habitaciones

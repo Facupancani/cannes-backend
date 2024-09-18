@@ -1,5 +1,3 @@
-// Rutas para manejar las solicitudes relacionadas con las habitaciones
-
 const express = require('express');
 const router = express.Router();
 const hotelRoomController = require('../controllers/hotelRoomController');
