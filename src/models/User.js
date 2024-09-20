@@ -1,33 +1,37 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');  // Importa la conexión
 
-const Shift = sequelize.define('shift', {
+const User = sequelize.define('user', {
     id:{
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
     },
-    room_id:{
+    name:{
+        type: DataTypes.STRING(100),
+        allowNull: false,
+    },
+    last_name:{
+        type: DataTypes.STRING(100),
+        allowNull: false,
+    },
+    role:{
+        type: DataTypes.STRING(100),
+        allowNull: false,
+    },
+    password:{
+        type: DataTypes.STRING(100),
+        allowNull: false,
+    },
+    fingerprint: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    start:{
-        type: DataTypes.TIME,
-        allowNull: false,
-    },
-    finish:{
-        type: DataTypes.TIME,
-        allowNull: false,
-    },
-    type:{
-        type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true
     }
 
-},{
-    tableName: 'shift',  // Nombre de la tabla en la base de datos
+}, {
+    tableName: 'user',  // Nombre de la tabla en la base de datos
     timestamps: false         // Si no tienes campos createdAt y updatedAt
   })
 
-module.exports = Shift
+module.exports = User
