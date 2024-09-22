@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-09-2024 a las 00:50:35
+-- Tiempo de generación: 22-09-2024 a las 23:54:41
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -144,7 +144,7 @@ CREATE TABLE `user` (
   `id` bigint(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
-  `role` varchar(100) NOT NULL,
+  `role` varchar(100) NOT NULL DEFAULT 'Invitado',
   `password` varchar(100) NOT NULL,
   `fingerprint` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -154,10 +154,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `last_name`, `role`, `password`, `fingerprint`) VALUES
-(1, 'Cynthia', 'Rodriguez', 'Conserje', 'cynthia123', 1),
-(2, 'Maximo', 'Pancani', 'Administrador', 'maxi123', 2),
-(3, 'Luciano', 'Frias', 'Administrador', '$2a$10$tcQSj2aAuks.kvwGlm0bmuiJMwZBxXm0Mb7ZR4LxuaumzDX8szcXm', NULL),
-(4, 'John', 'Doe', 'Administrador', '$2a$10$Tquj.kBdQtzVAbY9wKWKxuc5lIUm.90ISKnPF8ZKPZODrY3zf94/m', NULL);
+(4, 'John', 'Doe', 'Administrador', '$2a$10$Tquj.kBdQtzVAbY9wKWKxuc5lIUm.90ISKnPF8ZKPZODrY3zf94/m', NULL),
+(6, 'Luciano', 'Frias', 'Administrador', '$2a$10$xw79Ga0JJRQwc.35tEQkw.D8UY9QB/MxvfjeVvjPTuC/YoP1dCDd.', NULL),
+(7, 'Karina', 'Barcala', 'Invitado', '$2a$10$thpNvhNrKrsa9V7hzbHit.PolCuw4cAn4YHKLgDGWv.qJtHIF4q1i', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -234,7 +233,7 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
