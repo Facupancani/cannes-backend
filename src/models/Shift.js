@@ -13,11 +13,11 @@ const Shift = sequelize.define('shift', {
         allowNull: false,
     },
     start:{
-        type: DataTypes.TIME,
+        type: DataTypes.DATE,
         allowNull: false,
     },
     finish:{
-        type: DataTypes.TIME,
+        type: DataTypes.DATE,
         allowNull: false,
     },
     type:{
@@ -25,4 +25,9 @@ const Shift = sequelize.define('shift', {
         allowNull: false,
     }
 
-})
+}, {
+    tableName: 'shift',
+    timestamps: false
+  });
+  
+  module.exports = Shift;

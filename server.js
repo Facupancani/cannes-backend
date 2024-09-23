@@ -20,6 +20,8 @@ app.use(cors({
 
 app.use(express.json());
 app.use(require('./src/routes/HotelRoomRoutes'));
+app.use(require('./src/routes/ShiftRoutes')); 
+
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
