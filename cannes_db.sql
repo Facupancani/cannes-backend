@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-09-2024 a las 23:54:41
+-- Tiempo de generación: 25-09-2024 a las 00:14:08
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -144,6 +144,7 @@ CREATE TABLE `user` (
   `id` bigint(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
+  `username` varchar(100) NOT NULL,
   `role` varchar(100) NOT NULL DEFAULT 'Invitado',
   `password` varchar(100) NOT NULL,
   `fingerprint` int(255) DEFAULT NULL
@@ -153,10 +154,10 @@ CREATE TABLE `user` (
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `last_name`, `role`, `password`, `fingerprint`) VALUES
-(4, 'John', 'Doe', 'Administrador', '$2a$10$Tquj.kBdQtzVAbY9wKWKxuc5lIUm.90ISKnPF8ZKPZODrY3zf94/m', NULL),
-(6, 'Luciano', 'Frias', 'Administrador', '$2a$10$xw79Ga0JJRQwc.35tEQkw.D8UY9QB/MxvfjeVvjPTuC/YoP1dCDd.', NULL),
-(7, 'Karina', 'Barcala', 'Invitado', '$2a$10$thpNvhNrKrsa9V7hzbHit.PolCuw4cAn4YHKLgDGWv.qJtHIF4q1i', NULL);
+INSERT INTO `user` (`id`, `name`, `last_name`, `username`, `role`, `password`, `fingerprint`) VALUES
+(10, 'John', 'Doe', 'johndoe123', 'Conserje', '$2a$10$IdwXT/zJsX2p/3hxXe0SYON5KBrz9nPrErxnFsaJlOWP4Cn80za0C', NULL),
+(11, 'Luciano', 'Frias', 'luciano123', 'Conserje', '$2a$10$Qp45Vw.vEs4rl8tZEyeA2eLRI8Wk3kHVZawn6UUlpd2q4X3sOWH9.', NULL),
+(19, 'Maximo', 'Pancani', 'maxi123', 'Conserje', '$2a$10$Y9HXway6zk/5L0YGF7bQ3uTBpE2J0Yj/TStApUZ1uHVabaCmGTznC', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -233,7 +234,7 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restricciones para tablas volcadas

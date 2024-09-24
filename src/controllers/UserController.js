@@ -6,19 +6,26 @@ exports.registerUser = async (req, res) => {
 
     try {
 
-    const {name, last_name, password, role, fingerprint } = req.body;
+    const { username, name, last_name, password, role, fingerprint } = req.body;
 
-    if (!name || !last_name || !role || !password) {
-        return res.status(400).json({ error: 'All fields are required' });
+    if (!username ||!name || !last_name || !role || !password) {
+        return res.status(401).json({ error: 'All fields are required' });
+    }
+
+    if (username.length < 5){
+        return res.status(402).json({ error: 'Username should be longer than 5 characters'})
+    }
+
+    if (password.length < 5) {
+        return res.status(403).json({ error: 'Password should be longer than 5 characters'})
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    console.log(hashedPassword)
-
         const newUser = await User.create({
             name,
             last_name,
+            username,
             password: hashedPassword,
             role
         })
@@ -34,19 +41,20 @@ exports.loginUser = async (req, res) => {
     try {
     const JWT_SECRET = 'cannes123'
 
-    const { name, password } = req.body;
+    const { username, password } = req.body;
 
-    if (!name || !password) {
-        return res.status(400).json({ error: 'Name and password are required' });
+
+    if (!username || !password) {
+        return res.status(401).json({ error: 'Username and password are required' });
     }
 
-    const user = await User.findOne({where: {name}});
-    if (!user) return res.status(400).send({ error: 'User not found' });
+    const user = await User.findOne({where: {username}});
+    if (!user) return res.status(402).send({ error: 'User not found' });
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) return res.status(400).send({ error: 'Invalid password' });
+    if (!isPasswordValid) return res.status(403).send({ error: 'Invalid password' });
 
-    const token = jwt.sign({ id: user.id, name: user.name, last_name: user.last_name, role: user.role}, JWT_SECRET, {expiresIn: '4h'});
+    const token = jwt.sign({ id: user.id, name: user.name, last_name: user.last_name, username: user.username, role: user.role}, JWT_SECRET, {expiresIn: '4h'});
     res.status(200).send({ token });
     } catch (err) {
         console.error(err);
