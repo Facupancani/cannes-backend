@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-09-2024 a las 00:14:08
+-- Tiempo de generación: 29-09-2024 a las 03:44:10
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -31,16 +31,18 @@ CREATE TABLE `consumition` (
   `id` int(11) NOT NULL,
   `shift_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `ammount` int(11) NOT NULL
+  `amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `consumition`
 --
 
-INSERT INTO `consumition` (`id`, `shift_id`, `product_id`, `ammount`) VALUES
+INSERT INTO `consumition` (`id`, `shift_id`, `product_id`, `amount`) VALUES
 (1, 1, 1, 2),
-(2, 1, 1, 3);
+(2, 1, 1, 3),
+(3, 1, 1, 1),
+(4, 2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -95,6 +97,27 @@ CREATE TABLE `laundry` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `product`
+--
+
+CREATE TABLE `product` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `price` int(11) NOT NULL,
+  `deposit` int(11) NOT NULL,
+  `amount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `product`
+--
+
+INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
+(1, 'Agua Villavicencio', 5000, 1, 5);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `shift`
 --
 
@@ -111,28 +134,8 @@ CREATE TABLE `shift` (
 --
 
 INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`) VALUES
-(1, 1, '13:48:00.000000', '16:48:00.000000', 'Normal');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `stock`
---
-
-CREATE TABLE `stock` (
-  `product_id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `price` int(11) NOT NULL,
-  `deposit` int(11) NOT NULL,
-  `ammount` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `stock`
---
-
-INSERT INTO `stock` (`product_id`, `name`, `price`, `deposit`, `ammount`) VALUES
-(1, 'Agua Villavicencio', 5000, 1, 5);
+(1, 1, '13:48:00.000000', '16:48:00.000000', 'Normal'),
+(2, 2, '10:00:00.000000', '15:00:00.000000', 'Estadia');
 
 -- --------------------------------------------------------
 
@@ -157,7 +160,8 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `name`, `last_name`, `username`, `role`, `password`, `fingerprint`) VALUES
 (10, 'John', 'Doe', 'johndoe123', 'Conserje', '$2a$10$IdwXT/zJsX2p/3hxXe0SYON5KBrz9nPrErxnFsaJlOWP4Cn80za0C', NULL),
 (11, 'Luciano', 'Frias', 'luciano123', 'Conserje', '$2a$10$Qp45Vw.vEs4rl8tZEyeA2eLRI8Wk3kHVZawn6UUlpd2q4X3sOWH9.', NULL),
-(19, 'Maximo', 'Pancani', 'maxi123', 'Conserje', '$2a$10$Y9HXway6zk/5L0YGF7bQ3uTBpE2J0Yj/TStApUZ1uHVabaCmGTznC', NULL);
+(19, 'Maximo', 'Pancani', 'maxi123', 'Conserje', '$2a$10$Y9HXway6zk/5L0YGF7bQ3uTBpE2J0Yj/TStApUZ1uHVabaCmGTznC', NULL),
+(20, 'Karina', 'Barcala', 'karina123', 'Conserje', '$2a$10$Efy6z10zZNZGYW/s5CIOAuTnHlGGcpElW4ICc8PimUPXWZ.pdiegi', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -184,17 +188,17 @@ ALTER TABLE `laundry`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `shift`
 --
 ALTER TABLE `shift`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `shift_to_room_id_foreign_key` (`room_id`);
-
---
--- Indices de la tabla `stock`
---
-ALTER TABLE `stock`
-  ADD PRIMARY KEY (`product_id`);
 
 --
 -- Indices de la tabla `user`
@@ -210,7 +214,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
@@ -219,22 +223,22 @@ ALTER TABLE `laundry`
   MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `shift`
+-- AUTO_INCREMENT de la tabla `product`
 --
-ALTER TABLE `shift`
+ALTER TABLE `product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `stock`
+-- AUTO_INCREMENT de la tabla `shift`
 --
-ALTER TABLE `stock`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `shift`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Restricciones para tablas volcadas
@@ -244,7 +248,7 @@ ALTER TABLE `user`
 -- Filtros para la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  ADD CONSTRAINT `fk_product_id` FOREIGN KEY (`product_id`) REFERENCES `stock` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_shift_id` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

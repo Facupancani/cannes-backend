@@ -1,4 +1,7 @@
+const sequelize = require('../config/database');
+const { Sequelize } = require('sequelize')
 const Consumition = require('../models/Consumition');
+const Product = require('../models/Product')
 
 // Obtener todas las habitaciones
 exports.getAllConsumitions = async (req, res) => {
@@ -23,6 +26,35 @@ exports.getConsumitionById = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.getConsumitionsDetails = async(req, res) => {
+  try {
+    const sqlQuery = `
+    SELECT
+    c.id,
+    c.shift_id,
+    c.amount,
+    p.name,
+    p.price
+  FROM 
+    consumition c
+  JOIN 
+    product p ON c.product_id = p.id
+  `
+    const [results, metadata] = await sequelize.query(sqlQuery)
+
+    if (results) {
+      res.json(results)
+    } else {
+      res.status(404).json({ error: 'Consumition not found' })
+    }
+
+
+  } catch (error) {
+    console.error('Error fetching consumition details:', error);
+  }
+
+}
 
 // Crear una nueva habitación
 exports.createConsumition = async (req, res) => {

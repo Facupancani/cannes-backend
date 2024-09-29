@@ -1,18 +1,22 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');  // Importa la conexión
 
-const Consumition = sequelize.define('consumition', {
+const Product = sequelize.define('product', {
     id:{
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
     },
-    shift_id:{
+    name:{
+        type: DataTypes.STRING(50),
+        allowNull: false,
+    },
+    price:{
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    product_id:{
+    deposit:{
         type: DataTypes.INTEGER,
         allowNull: false,
     },
@@ -21,9 +25,9 @@ const Consumition = sequelize.define('consumition', {
         allowNull: false,
     }
 
-}, {
-    tableName: 'consumition',  // Nombre de la tabla en la base de datos
+},{
+    tableName: 'product',  // Nombre de la tabla en la base de datos
     timestamps: false         // Si no tienes campos createdAt y updatedAt
   })
 
-module.exports = Consumition
+module.exports = Product
