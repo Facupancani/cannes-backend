@@ -11,6 +11,9 @@ router.get('/consumitions/:id', consumitionController.getConsumitionById);
 // Obtener detalles de consumiciones
 router.get('/consumitions-details', consumitionController.getConsumitionsDetails)
 
+// Obtener detalles de consumicion por ID
+router.get('/consumitions-details/:id', consumitionController.getConsumitionsDetailsByRoomId)
+
 // Crear una nueva consumicion
 router.post('/consumitions', consumitionController.createConsumition);
 

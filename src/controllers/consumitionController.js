@@ -56,11 +56,45 @@ exports.getConsumitionsDetails = async(req, res) => {
 
 }
 
+exports.getConsumitionsDetailsByRoomId = async(req, res) => {
+
+  const ROOM_ID = req.params.id
+
+  try {
+    const sqlQuery = `
+    SELECT
+    c.id,
+    c.shift_id,
+    c.amount,
+    p.name,
+    p.price
+  FROM 
+    consumition c
+  JOIN 
+    product p ON c.product_id = p.id
+  WHERE
+  c.shift_id = ${ROOM_ID}
+  `
+    const [results, metadata] = await sequelize.query(sqlQuery)
+
+    if (results) {
+      res.json(results)
+    } else {
+      res.status(404).json({ error: 'Consumition not found' })
+    }
+
+
+  } catch (error) {
+    console.error('Error fetching consumition details:', error);
+  }
+
+}
+
 // Crear una nueva habitación
 exports.createConsumition = async (req, res) => {
   try {
-    const { turno_id, producto_id, cantidad } = req.body;
-    const newConsumition = await Consumition.create({ turno_id, producto_id, cantidad });
+    const { shift_id , product_id, amount } = req.body;
+    const newConsumition = await Consumition.create({ shift_id, product_id, amount });
     res.status(201).json(newConsumition);
   } catch (err) {
     res.status(500).json({ error: err.message });

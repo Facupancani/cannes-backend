@@ -14,6 +14,9 @@ router.post('/hotel-rooms', hotelRoomController.createRoom);
 // Actualizar una habitación
 router.put('/hotel-rooms/:id', hotelRoomController.updateRoom);
 
+
+router.put('/hotel-rooms-state/:id', hotelRoomController.updateRoomState)
+
 // Eliminar una habitación
 router.delete('/hotel-rooms/:id', hotelRoomController.deleteRoom);
 
