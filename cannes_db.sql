@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-09-2024 a las 03:44:10
+-- Tiempo de generación: 30-09-2024 a las 02:34:16
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -74,8 +74,8 @@ INSERT INTO `hotel_room` (`id`, `room_number`, `pred_price`, `pred_time`, `state
 (8, 8, NULL, NULL, 'Limpiando', NULL),
 (9, 9, NULL, NULL, 'Disponible', NULL),
 (10, 10, NULL, NULL, 'Disponible', NULL),
-(11, 11, NULL, NULL, 'Ocupado', NULL),
-(12, 12, NULL, NULL, 'Disponible', NULL),
+(11, 11, NULL, NULL, 'Disponible', NULL),
+(12, 12, NULL, NULL, 'Ocupado', NULL),
 (13, 13, NULL, NULL, 'Disponible', NULL),
 (14, 14, NULL, NULL, 'Mantenimiento', NULL),
 (15, 15, NULL, NULL, 'Disponible', NULL),
@@ -160,7 +160,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `name`, `last_name`, `username`, `role`, `password`, `fingerprint`) VALUES
 (10, 'John', 'Doe', 'johndoe123', 'Conserje', '$2a$10$IdwXT/zJsX2p/3hxXe0SYON5KBrz9nPrErxnFsaJlOWP4Cn80za0C', NULL),
 (11, 'Luciano', 'Frias', 'luciano123', 'Conserje', '$2a$10$Qp45Vw.vEs4rl8tZEyeA2eLRI8Wk3kHVZawn6UUlpd2q4X3sOWH9.', NULL),
-(19, 'Maximo', 'Pancani', 'maxi123', 'Conserje', '$2a$10$Y9HXway6zk/5L0YGF7bQ3uTBpE2J0Yj/TStApUZ1uHVabaCmGTznC', NULL),
+(19, 'Maximo', 'Pancani', 'maxi123', 'Administrador', '$2a$10$Y9HXway6zk/5L0YGF7bQ3uTBpE2J0Yj/TStApUZ1uHVabaCmGTznC', NULL),
 (20, 'Karina', 'Barcala', 'karina123', 'Conserje', '$2a$10$Efy6z10zZNZGYW/s5CIOAuTnHlGGcpElW4ICc8PimUPXWZ.pdiegi', NULL);
 
 --
@@ -214,7 +214,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
