@@ -73,6 +73,7 @@ exports.updateRoomState = async (req, res) => {
   }
 }
 
+
 // Eliminar una habitación
 exports.deleteRoom = async (req, res) => {
   try {

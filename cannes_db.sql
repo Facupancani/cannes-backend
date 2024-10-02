@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-09-2024 a las 02:34:16
+-- Tiempo de generación: 02-10-2024 a las 23:29:24
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -53,7 +53,7 @@ INSERT INTO `consumition` (`id`, `shift_id`, `product_id`, `amount`) VALUES
 CREATE TABLE `hotel_room` (
   `id` bigint(100) NOT NULL,
   `room_number` int(100) NOT NULL,
-  `pred_price` decimal(65,0) DEFAULT NULL,
+  `pred_price` decimal(65,0) DEFAULT 0,
   `pred_time` time DEFAULT '00:00:00',
   `state` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'Deshabilitado',
   `current_shift_id` int(255) DEFAULT NULL
@@ -64,22 +64,22 @@ CREATE TABLE `hotel_room` (
 --
 
 INSERT INTO `hotel_room` (`id`, `room_number`, `pred_price`, `pred_time`, `state`, `current_shift_id`) VALUES
-(1, 1, NULL, '14:30:00', 'Ocupado', NULL),
-(2, 2, NULL, NULL, 'Disponible', NULL),
-(3, 3, NULL, '15:15:00', 'Ocupado', NULL),
-(4, 4, NULL, NULL, 'Esperando_Limpieza', NULL),
-(5, 5, NULL, NULL, 'Esperando_Limpieza', NULL),
-(6, 6, NULL, NULL, 'Limpiando', NULL),
-(7, 7, NULL, NULL, 'Disponible', NULL),
-(8, 8, NULL, NULL, 'Limpiando', NULL),
-(9, 9, NULL, NULL, 'Disponible', NULL),
-(10, 10, NULL, NULL, 'Disponible', NULL),
-(11, 11, NULL, NULL, 'Disponible', NULL),
-(12, 12, NULL, NULL, 'Ocupado', NULL),
-(13, 13, NULL, NULL, 'Disponible', NULL),
-(14, 14, NULL, NULL, 'Mantenimiento', NULL),
-(15, 15, NULL, NULL, 'Disponible', NULL),
-(16, 16, NULL, NULL, 'Disponible', NULL);
+(1, 1, 0, '14:30:00', 'Disponible', NULL),
+(2, 2, 0, NULL, 'Disponible', NULL),
+(3, 3, 0, '15:15:00', 'Ocupado', NULL),
+(4, 4, 0, NULL, 'Esperando_Limpieza', NULL),
+(5, 5, 0, NULL, 'Esperando_Limpieza', NULL),
+(6, 6, 0, NULL, 'Limpiando', NULL),
+(7, 7, 0, NULL, 'Ocupado', NULL),
+(8, 8, 0, NULL, 'Limpiando', NULL),
+(9, 9, 0, NULL, 'Disponible', NULL),
+(10, 10, 0, NULL, 'Disponible', NULL),
+(11, 11, 0, NULL, 'Disponible', NULL),
+(12, 12, 0, NULL, 'Ocupado', NULL),
+(13, 13, 0, NULL, 'Disponible', NULL),
+(14, 14, 0, NULL, 'Mantenimiento', NULL),
+(15, 15, 0, NULL, 'Disponible', NULL),
+(16, 16, 0, NULL, 'Disponible', NULL);
 
 -- --------------------------------------------------------
 
