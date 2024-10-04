@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-10-2024 a las 23:29:24
+-- Tiempo de generación: 04-10-2024 a las 04:41:57
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -53,8 +53,6 @@ INSERT INTO `consumition` (`id`, `shift_id`, `product_id`, `amount`) VALUES
 CREATE TABLE `hotel_room` (
   `id` bigint(100) NOT NULL,
   `room_number` int(100) NOT NULL,
-  `pred_price` decimal(65,0) DEFAULT 0,
-  `pred_time` time DEFAULT '00:00:00',
   `state` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'Deshabilitado',
   `current_shift_id` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -63,23 +61,23 @@ CREATE TABLE `hotel_room` (
 -- Volcado de datos para la tabla `hotel_room`
 --
 
-INSERT INTO `hotel_room` (`id`, `room_number`, `pred_price`, `pred_time`, `state`, `current_shift_id`) VALUES
-(1, 1, 0, '14:30:00', 'Disponible', NULL),
-(2, 2, 0, NULL, 'Disponible', NULL),
-(3, 3, 0, '15:15:00', 'Ocupado', NULL),
-(4, 4, 0, NULL, 'Esperando_Limpieza', NULL),
-(5, 5, 0, NULL, 'Esperando_Limpieza', NULL),
-(6, 6, 0, NULL, 'Limpiando', NULL),
-(7, 7, 0, NULL, 'Ocupado', NULL),
-(8, 8, 0, NULL, 'Limpiando', NULL),
-(9, 9, 0, NULL, 'Disponible', NULL),
-(10, 10, 0, NULL, 'Disponible', NULL),
-(11, 11, 0, NULL, 'Disponible', NULL),
-(12, 12, 0, NULL, 'Ocupado', NULL),
-(13, 13, 0, NULL, 'Disponible', NULL),
-(14, 14, 0, NULL, 'Mantenimiento', NULL),
-(15, 15, 0, NULL, 'Disponible', NULL),
-(16, 16, 0, NULL, 'Disponible', NULL);
+INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`) VALUES
+(1, 1, 'Ocupado', NULL),
+(2, 2, 'Ocupado', NULL),
+(3, 3, 'Ocupado', NULL),
+(4, 4, 'Esperando_Limpieza', NULL),
+(5, 5, 'Esperando_Limpieza', NULL),
+(6, 6, 'Limpiando', NULL),
+(7, 7, 'Disponible', NULL),
+(8, 8, 'Limpiando', NULL),
+(9, 9, 'Disponible', NULL),
+(10, 10, 'Disponible', NULL),
+(11, 11, 'Disponible', NULL),
+(12, 12, 'Ocupado', NULL),
+(13, 13, 'Disponible', NULL),
+(14, 14, 'Mantenimiento', NULL),
+(15, 15, 'Disponible', NULL),
+(16, 16, 'Disponible', NULL);
 
 -- --------------------------------------------------------
 
@@ -126,16 +124,18 @@ CREATE TABLE `shift` (
   `room_id` bigint(100) NOT NULL,
   `start` time(6) NOT NULL DEFAULT current_timestamp(),
   `finish` time(6) DEFAULT NULL,
-  `type` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'Normal'
+  `type` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'Normal',
+  `total_price` decimal(10,0) NOT NULL DEFAULT 0,
+  `remaining_time` time NOT NULL DEFAULT '00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `shift`
 --
 
-INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`) VALUES
-(1, 1, '13:48:00.000000', '16:48:00.000000', 'Normal'),
-(2, 2, '10:00:00.000000', '15:00:00.000000', 'Estadia');
+INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `total_price`, `remaining_time`) VALUES
+(1, 1, '13:48:00.000000', '16:48:00.000000', 'Normal', 0, '00:00:00'),
+(2, 2, '10:00:00.000000', '15:00:00.000000', 'Estadia', 0, '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -179,7 +179,8 @@ ALTER TABLE `consumition`
 -- Indices de la tabla `hotel_room`
 --
 ALTER TABLE `hotel_room`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `hotel_room_to_shift_fk` (`current_shift_id`);
 
 --
 -- Indices de la tabla `laundry`
@@ -232,7 +233,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
@@ -250,6 +251,12 @@ ALTER TABLE `user`
 ALTER TABLE `consumition`
   ADD CONSTRAINT `fk_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_shift_id` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `hotel_room`
+--
+ALTER TABLE `hotel_room`
+  ADD CONSTRAINT `hotel_room_to_shift_fk` FOREIGN KEY (`current_shift_id`) REFERENCES `shift` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `shift`

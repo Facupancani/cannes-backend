@@ -12,14 +12,6 @@ const HotelRoom = sequelize.define('HotelRoom', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  pred_price: {
-    type: DataTypes.DECIMAL(65, 0),
-    allowNull: true,  
-  },
-  pred_time: {
-    type: DataTypes.TIME(6),
-    allowNull: true, 
-  },
   state: {
     type: DataTypes.STRING(100),
     allowNull: true, 
