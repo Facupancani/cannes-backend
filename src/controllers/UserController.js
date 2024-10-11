@@ -2,6 +2,7 @@ const User = require('../models/User')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+// Registrar usuario
 exports.registerUser = async (req, res) => {
 
     try {
@@ -36,6 +37,7 @@ exports.registerUser = async (req, res) => {
     }
 }
 
+// Inicio de sesion de usuario
 exports.loginUser = async (req, res) => {
 
     try {
@@ -64,7 +66,7 @@ exports.loginUser = async (req, res) => {
     
 }
 
-
+// Obtener todos los usuarios
 exports.getAllUsers = async (req, res) => {
     try {
       const users = await User.findAll();

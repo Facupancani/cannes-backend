@@ -1,10 +1,12 @@
 const HotelRoom = require('../models/HotelRoom');
 const Shift = require('../models/Shift');
-const { updateRoomShiftId } = require('./hotelRoomController');
 
+// Obtener turno por ID
 exports.getShiftById = async (req, res) => {
     try {
-        const currentShift = Shift.findByPk(req.params.id);
+        const shift_id = req.params.id
+
+        const currentShift = await Shift.findByPk(shift_id);
         if (currentShift) {
             res.json(currentShift);
         } else {
@@ -15,8 +17,8 @@ exports.getShiftById = async (req, res) => {
     }
 }
 
+// Crear un turno
 exports.createShift = async (req, res) => {
-
     try {
         const { room_id, start, finish, type, total_price, remaining_time } = req.body
         const newShift = await Shift.create({
@@ -33,17 +35,14 @@ exports.createShift = async (req, res) => {
             )
 
         res.status(201).json(newShift)
-
-        
-
     } catch (err) {
         res.status(500).json( {error: err.message} )
     }
 }
 
 
-
-exports.closeShift = async (req, res) => {
+// Borrar un shift por ID
+exports.deleteShift = async (req, res) => {
     try {
         const shift = await Shift.findByPk(req.params.id)
 

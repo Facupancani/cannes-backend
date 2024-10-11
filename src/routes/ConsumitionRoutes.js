@@ -5,17 +5,18 @@ const consumitionController = require('../controllers/consumitionController');
 // Obtener todas las consumiciones
 router.get('/consumitions', consumitionController.getAllConsumitions);
 
-// Obtener una consumicion por ID
-router.get('/consumitions/:id', consumitionController.getConsumitionById);
-
-// Obtener detalles de consumiciones
-router.get('/consumitions-details', consumitionController.getConsumitionsDetails)
-
-// Obtener detalles de consumicion por ID
-router.get('/consumitions-details/:id', consumitionController.getConsumitionsDetailsByRoomId)
+// Obtener todos los datos sobre consumiciones (consumicion y producto)
+router.get('/consumitions/with-products', consumitionController.getConsumitionsDetails)
 
 // Crear una nueva consumicion
 router.post('/consumitions', consumitionController.createConsumition);
+
+
+// Obtener una consumicion por ID
+router.get('/consumitions/:id', consumitionController.getConsumitionById);
+
+// Obtener todos los datos de una consumicion por numero de habitacion (consumicion y producto)
+router.get('/consumitions/with-products/:id', consumitionController.getConsumitionsDetailsByRoomId)
 
 // Actualizar una consumicion
 router.put('/consumitions/:id', consumitionController.updateConsumition);

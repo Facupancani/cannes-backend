@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize')
 const Consumition = require('../models/Consumition');
 const Product = require('../models/Product')
 
-// Obtener todas las habitaciones
+// Obtener todas las consumiciones
 exports.getAllConsumitions = async (req, res) => {
   try {
     const consumitions = await Consumition.findAll();
@@ -13,7 +13,7 @@ exports.getAllConsumitions = async (req, res) => {
   }
 };
 
-// Obtener una habitación por ID
+// Obtener una consumicion por ID
 exports.getConsumitionById = async (req, res) => {
   try {
     const consumition = await Consumition.findByPk(req.params.id);
@@ -27,6 +27,7 @@ exports.getConsumitionById = async (req, res) => {
   }
 };
 
+// Obtener todos los datos sobre consumiciones (consumicion y producto)
 exports.getConsumitionsDetails = async(req, res) => {
   try {
     const sqlQuery = `
@@ -46,19 +47,20 @@ exports.getConsumitionsDetails = async(req, res) => {
     if (results) {
       res.json(results)
     } else {
-      res.status(404).json({ error: 'Consumition not found' })
+      res.status(404).json({ error: 'Consumition details not found' })
     }
 
 
   } catch (error) {
-    console.error('Error fetching consumition details:', error);
+    res.status(500).json({ error: error.message })
   }
 
 }
 
+// Obtener todos los datos de una consumicion por numero de habitacion (consumicion y producto)
 exports.getConsumitionsDetailsByRoomId = async(req, res) => {
 
-  const ROOM_ID = req.params.id
+  const room_id = req.params.id
 
   try {
     const sqlQuery = `
@@ -73,7 +75,7 @@ exports.getConsumitionsDetailsByRoomId = async(req, res) => {
   JOIN 
     product p ON c.product_id = p.id
   WHERE
-  c.shift_id = ${ROOM_ID}
+  c.shift_id = ${room_id}
   `
     const [results, metadata] = await sequelize.query(sqlQuery)
 
@@ -83,14 +85,13 @@ exports.getConsumitionsDetailsByRoomId = async(req, res) => {
       res.status(404).json({ error: 'Consumition not found' })
     }
 
-
   } catch (error) {
-    console.error('Error fetching consumition details:', error);
+    res.status(500).json({ error: error.message })
   }
 
 }
 
-// Crear una nueva habitación
+// Crear una nueva consumicion
 exports.createConsumition = async (req, res) => {
   try {
     const { shift_id , product_id, amount } = req.body;
@@ -101,17 +102,17 @@ exports.createConsumition = async (req, res) => {
   }
 };
 
-// Actualizar una habitación
+// Actualizar una consumicion
 exports.updateConsumition = async (req, res) => {
   try {
-    const { turno_id, producto_id, cantidad } = req.body;
+    const { shift_id, product_id, amount } = req.body;
     const consumition = await Consumition.findByPk(req.params.id);
-    if (room) {
-      consumition.turno_id = turno_id;
-      consumition.producto_id = producto_id;
-      consumition.cantidad = cantidad;
+    if (consumition) {
+      consumition.shift_id = shift_id;
+      consumition.product_id = product_id;
+      consumition.amount = amount;
       await consumition.save();
-      res.json(room);
+      res.json(consumition);
     } else {
       res.status(404).json({ error: 'Consumition not found' });
     }
@@ -120,7 +121,7 @@ exports.updateConsumition = async (req, res) => {
   }
 };
 
-// Eliminar una habitación
+// Eliminar una consumicion
 exports.deleteConsumition = async (req, res) => {
   try {
     const consumition = await Consumition.findByPk(req.params.id);

@@ -14,9 +14,8 @@ exports.getAllRooms = async (req, res) => {
 exports.getRoomById = async (req, res) => {
   try {
     const room_number = req.params.id
-
     const room = await HotelRoom.findOne({ where: {room_number: room_number} })
-
+    
     if (room) {
       res.json(room);
     } else {
@@ -38,14 +37,22 @@ exports.createRoom = async (req, res) => {
   }
 };
 
-// Actualizar una habitación
+// Actualizar una habitacion
 exports.updateRoom = async (req, res) => {
   try {
-    const { room_number, state } = req.body;
-    const room = await HotelRoom.findOne({ where: {room_number: room_number} })
+    const room_number = req.params.id; // Assuming room number is passed as a parameter
+    const { state, shift_id, room_number: newRoomNumber } = req.body;
+
+    // Find the room by room_number
+    const room = await HotelRoom.findOne({ where: { room_number: room_number } });
+
     if (room) {
-      room.room_number = room_number;
-      room.state = state;
+      // Update the room properties conditionally
+      if (newRoomNumber) room.room_number = newRoomNumber;
+      if (state) room.state = state;
+      if (shift_id) room.current_shift_id = shift_id;
+
+      // Save the updated room
       await room.save();
       res.json(room);
     } else {
@@ -55,44 +62,6 @@ exports.updateRoom = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
-exports.updateRoomState = async (req, res) => {
-  try {
-    const {state} = req.body;
-    const room_number = req.params.id
-
-    const room = await HotelRoom.findOne({where: {room_number: room_number}})
-
-    if (room) {
-      room.state = state;
-      await room.save()
-      res.json(room)
-    } else {
-      res.status(404).json({error: 'Room not found'})
-    }
-  } catch (err) {
-    res.status(500).json({error: err.message})
-  }
-}
-
-exports.updateRoomShiftId = async (req, res) => {
-  try {
-      const room_number = req.params.id
-      const {shift_id} = req.body
-
-      const room = await HotelRoom.findOne({ where: {room_number: room_number} })
-
-      if (room){
-        room.current_shift_id = shift_id
-        await room.save()
-        res.json(room)
-      } else {
-        res.status(404).json({error: 'Room not found'})
-      }
-  } catch (err) {
-    res.status(500).json({error: err.message})
-  }
-}
 
 // Eliminar una habitación
 exports.deleteRoom = async (req, res) => {

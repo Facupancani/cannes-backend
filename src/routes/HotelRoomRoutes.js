@@ -3,24 +3,19 @@ const router = express.Router();
 const hotelRoomController = require('../controllers/hotelRoomController');
 
 // Obtener todas las habitaciones
-router.get('/hotel-rooms', hotelRoomController.getAllRooms);
-
-// Obtener una habitación por ID
-router.get('/hotel-rooms/:id', hotelRoomController.getRoomById);
+router.get('/rooms', hotelRoomController.getAllRooms);
 
 // Crear una nueva habitación
-router.post('/hotel-rooms', hotelRoomController.createRoom);
+router.post('/rooms', hotelRoomController.createRoom);
+
+
+// Obtener una habitación por ID
+router.get('/rooms/:id', hotelRoomController.getRoomById);
 
 // Actualizar una habitación
-router.put('/hotel-rooms/:id', hotelRoomController.updateRoom);
+router.put('/rooms/:id', hotelRoomController.updateRoom);
 
-// Actualizar estado de habitacion
-router.put('/hotel-rooms-state/:id', hotelRoomController.updateRoomState)
-
-// Actualizar ID de Shift en tabla Hotel Room
-router.put('/hotel-rooms-shift/:id', hotelRoomController.updateRoomShiftId)
-
-// Eliminar una habitación
-router.delete('/hotel-rooms/:id', hotelRoomController.deleteRoom);
+// Eliminar una habitación por ID
+router.delete('/rooms/:id', hotelRoomController.deleteRoom);
 
 module.exports = router;
