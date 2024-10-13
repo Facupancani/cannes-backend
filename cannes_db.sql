@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2024 a las 21:19:40
+-- Tiempo de generación: 14-10-2024 a las 00:53:54
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -34,6 +34,13 @@ CREATE TABLE `consumition` (
   `amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `consumition`
+--
+
+INSERT INTO `consumition` (`id`, `shift_id`, `product_id`, `amount`) VALUES
+(9, 92, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -53,7 +60,7 @@ CREATE TABLE `hotel_room` (
 
 INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`) VALUES
 (1, 1, 'Disponible', NULL),
-(2, 2, 'Ocupado', 108),
+(2, 2, 'Disponible', NULL),
 (3, 3, 'Ocupado', 92),
 (4, 4, 'Esperando_Limpieza', NULL),
 (5, 5, 'Esperando_Limpieza', NULL),
@@ -63,7 +70,7 @@ INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`) VALU
 (9, 9, 'Disponible', NULL),
 (10, 10, 'Disponible', NULL),
 (11, 11, 'Disponible', NULL),
-(12, 12, 'Ocupado', 93),
+(12, 12, 'Disponible', NULL),
 (13, 13, 'Disponible', NULL),
 (14, 14, 'Mantenimiento', NULL),
 (15, 15, 'Disponible', NULL),
@@ -124,9 +131,7 @@ CREATE TABLE `shift` (
 --
 
 INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `total_price`, `remaining_time`) VALUES
-(92, 3, '12:00:00.000000', '24:00:00.000000', 'Normal', 20000, '05:00:00'),
-(93, 12, '14:00:00.000000', '19:00:00.000000', 'Normal', 20000, '05:00:00'),
-(108, 2, '14:00:00.000000', '19:00:00.000000', 'Normal', 20000, '05:00:00');
+(92, 3, '12:00:00.000000', '24:00:00.000000', 'Normal', 20000, '05:00:00');
 
 -- --------------------------------------------------------
 
@@ -207,7 +212,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
@@ -225,7 +230,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
