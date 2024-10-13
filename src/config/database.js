@@ -2,6 +2,7 @@
 
 const { Sequelize } = require('sequelize');
 
+
 // Create Sequelize instance
 const sequelize = new Sequelize('cannes_db', 'root', '', {
   host: 'localhost',
