@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2024 a las 01:54:32
+-- Tiempo de generación: 13-10-2024 a las 21:19:40
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -52,7 +52,7 @@ CREATE TABLE `hotel_room` (
 --
 
 INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`) VALUES
-(1, 1, 'Ocupado', 107),
+(1, 1, 'Disponible', NULL),
 (2, 2, 'Ocupado', 108),
 (3, 3, 'Ocupado', 92),
 (4, 4, 'Esperando_Limpieza', NULL),
@@ -124,9 +124,8 @@ CREATE TABLE `shift` (
 --
 
 INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `total_price`, `remaining_time`) VALUES
-(92, 3, '14:00:00.000000', '19:00:00.000000', 'Normal', 20000, '05:00:00'),
+(92, 3, '12:00:00.000000', '24:00:00.000000', 'Normal', 20000, '05:00:00'),
 (93, 12, '14:00:00.000000', '19:00:00.000000', 'Normal', 20000, '05:00:00'),
-(107, 1, '14:00:00.000000', '19:00:00.000000', 'Normal', 20000, '05:00:00'),
 (108, 2, '14:00:00.000000', '19:00:00.000000', 'Normal', 20000, '05:00:00');
 
 -- --------------------------------------------------------
@@ -226,7 +225,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
