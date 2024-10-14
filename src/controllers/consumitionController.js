@@ -67,13 +67,10 @@ exports.getConsumitionsDetailsByRoomId = async(req, res) => {
     SELECT
     c.id,
     c.shift_id,
-    c.amount,
-    p.name,
-    p.price
+    c.description,
+    c.price
   FROM 
     consumition c
-  JOIN 
-    product p ON c.product_id = p.id
   WHERE
   c.shift_id = ${room_id}
   `
