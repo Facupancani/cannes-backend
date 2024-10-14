@@ -1,3 +1,4 @@
+const sequelize = require('../config/database');
 const HotelRoom = require('../models/HotelRoom');
 
 // Obtener todas las habitaciones
@@ -9,6 +10,22 @@ exports.getAllRooms = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// Obtener todas las habitaciones con sus respectivos shift
+exports.getAllRoomsWithShift = async (req,res) => {
+  try {
+    const sqlQuery = `
+    SELECT hotel_room.*, shift.start, shift.finish, shift.type
+    FROM hotel_room
+    LEFT JOIN shift ON hotel_room.current_shift_id = shift.id;
+`
+    const [results, metadata] = await sequelize.query(sqlQuery)
+    res.json(results)
+
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+}
 
 // Obtener una habitación por ID
 exports.getRoomById = async (req, res) => {
