@@ -20,17 +20,13 @@ const Shift = sequelize.define('shift', {
         type: DataTypes.DATE,
         allowNull: false,
     },
-    total_price: {
-        type: DataTypes.DECIMAL(10, 0),
-        allowNull: true,  
-    },
-    remaining_time: {
-        type: DataTypes.TIME(0),
-        allowNull: true, 
-    },
     type:{
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    total_price: {
+        type: DataTypes.DECIMAL(10, 0),
+        allowNull: true,  
     }
 
 },{

@@ -21,14 +21,13 @@ exports.getShiftById = async (req, res) => {
 // Crear un turno
 exports.createShift = async (req, res) => {
     try {
-        const { room_id, start, finish, type, total_price, remaining_time } = req.body
+        const { room_id, start, finish, type, total_price} = req.body
         const newShift = await Shift.create({
             room_id, 
             start, 
             finish, 
             type, 
-            total_price, 
-            remaining_time})
+            total_price})
 
             await HotelRoom.update(
                 {current_shift_id: newShift.id},
