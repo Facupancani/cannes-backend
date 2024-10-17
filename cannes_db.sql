@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-10-2024 a las 00:53:54
+-- Tiempo de generación: 17-10-2024 a las 03:21:42
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -30,16 +30,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `consumition` (
   `id` int(11) NOT NULL,
   `shift_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `amount` int(11) NOT NULL
+  `description` varchar(100) NOT NULL,
+  `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `consumition`
---
-
-INSERT INTO `consumition` (`id`, `shift_id`, `product_id`, `amount`) VALUES
-(9, 92, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -51,30 +44,32 @@ CREATE TABLE `hotel_room` (
   `id` bigint(100) NOT NULL,
   `room_number` int(100) NOT NULL,
   `state` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'Deshabilitado',
-  `current_shift_id` int(255) DEFAULT NULL
+  `current_shift_id` int(255) DEFAULT NULL,
+  `pred_price` int(100) NOT NULL,
+  `pred_time` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `hotel_room`
 --
 
-INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`) VALUES
-(1, 1, 'Disponible', NULL),
-(2, 2, 'Disponible', NULL),
-(3, 3, 'Ocupado', 92),
-(4, 4, 'Esperando_Limpieza', NULL),
-(5, 5, 'Esperando_Limpieza', NULL),
-(6, 6, 'Limpiando', NULL),
-(7, 7, 'Disponible', NULL),
-(8, 8, 'Limpiando', NULL),
-(9, 9, 'Disponible', NULL),
-(10, 10, 'Disponible', NULL),
-(11, 11, 'Disponible', NULL),
-(12, 12, 'Disponible', NULL),
-(13, 13, 'Disponible', NULL),
-(14, 14, 'Mantenimiento', NULL),
-(15, 15, 'Disponible', NULL),
-(16, 16, 'Disponible', NULL);
+INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pred_price`, `pred_time`) VALUES
+(1, 1, 'Ocupado', 171, 0, 0),
+(2, 2, 'Ocupado', 172, 0, 0),
+(3, 3, 'Disponible', NULL, 0, 0),
+(4, 4, 'Esperando_Limpieza', NULL, 0, 0),
+(5, 5, 'Esperando_Limpieza', NULL, 0, 0),
+(6, 6, 'Limpiando', NULL, 0, 0),
+(7, 7, 'Disponible', NULL, 0, 0),
+(8, 8, 'Limpiando', NULL, 0, 0),
+(9, 9, 'Disponible', NULL, 0, 0),
+(10, 10, 'Disponible', NULL, 0, 0),
+(11, 11, 'Disponible', NULL, 0, 0),
+(12, 12, 'Disponible', NULL, 0, 0),
+(13, 13, 'Disponible', NULL, 0, 0),
+(14, 14, 'Mantenimiento', NULL, 0, 0),
+(15, 15, 'Disponible', NULL, 0, 0),
+(16, 16, 'Disponible', NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -108,7 +103,8 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
-(1, 'Agua Villavicencio', 5000, 1, 5);
+(1, 'Agua Villavicencio', 5000, 1, 5),
+(2, 'Cerveza Corona', 5000, 1, 8);
 
 -- --------------------------------------------------------
 
@@ -119,19 +115,19 @@ INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
 CREATE TABLE `shift` (
   `id` int(11) NOT NULL,
   `room_id` bigint(100) NOT NULL,
-  `start` time(6) NOT NULL DEFAULT current_timestamp(),
-  `finish` time(6) DEFAULT NULL,
+  `start` datetime NOT NULL DEFAULT current_timestamp(),
+  `finish` datetime DEFAULT NULL,
   `type` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'Normal',
-  `total_price` decimal(10,0) NOT NULL DEFAULT 0,
-  `remaining_time` time NOT NULL DEFAULT '00:00:00'
+  `total_price` decimal(10,0) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `shift`
 --
 
-INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `total_price`, `remaining_time`) VALUES
-(92, 3, '12:00:00.000000', '24:00:00.000000', 'Normal', 20000, '05:00:00');
+INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `total_price`) VALUES
+(171, 1, '2024-10-16 22:17:04', '2024-10-17 00:17:04', 'Normal', 20000),
+(172, 2, '2024-10-16 22:17:57', '2024-10-17 00:17:57', 'Normal', 20000);
 
 -- --------------------------------------------------------
 
@@ -158,7 +154,8 @@ INSERT INTO `user` (`id`, `name`, `last_name`, `username`, `role`, `password`, `
 (11, 'Luciano', 'Frias', 'luciano123', 'Conserje', '$2a$10$Qp45Vw.vEs4rl8tZEyeA2eLRI8Wk3kHVZawn6UUlpd2q4X3sOWH9.', NULL),
 (19, 'Maximo', 'Pancani', 'maxi123', 'Administrador', '$2a$10$Y9HXway6zk/5L0YGF7bQ3uTBpE2J0Yj/TStApUZ1uHVabaCmGTznC', NULL),
 (20, 'Karina', 'Barcala', 'karina123', 'Conserje', '$2a$10$Efy6z10zZNZGYW/s5CIOAuTnHlGGcpElW4ICc8PimUPXWZ.pdiegi', NULL),
-(21, 'Homero', 'Frias', 'homero123', 'Conserje', '$2a$10$hGJkaULBIVW5tFHENozW1O9qNCbS5E1.TcDitssiZFz96gMLd7uSG', NULL);
+(21, 'Homero', 'Frias', 'homero123', 'Conserje', '$2a$10$hGJkaULBIVW5tFHENozW1O9qNCbS5E1.TcDitssiZFz96gMLd7uSG', NULL),
+(22, 'Facundo', 'Pancani', 'Facupanca', 'Conserje', '$2a$10$EtLHXCd6sBEpqw0Q1ifsR.rzDXHalwnFUp7tHczRsqDdHv2etvo1.', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -169,8 +166,7 @@ INSERT INTO `user` (`id`, `name`, `last_name`, `username`, `role`, `password`, `
 --
 ALTER TABLE `consumition`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_shift_id` (`shift_id`),
-  ADD KEY `fk_product_id` (`product_id`);
+  ADD KEY `fk_shift_id` (`shift_id`);
 
 --
 -- Indices de la tabla `hotel_room`
@@ -212,7 +208,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
@@ -224,19 +220,19 @@ ALTER TABLE `laundry`
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Restricciones para tablas volcadas
@@ -246,7 +242,6 @@ ALTER TABLE `user`
 -- Filtros para la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  ADD CONSTRAINT `fk_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_shift_id` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

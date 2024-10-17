@@ -5,7 +5,7 @@ const hotelRoomController = require('../controllers/hotelRoomController');
 // Obtener todas las habitaciones
 router.get('/rooms', hotelRoomController.getAllRooms);
 
-// // Obtener todas las habitaciones con sus respectivos shift
+// Obtener todas las habitaciones con sus respectivos shift
 router.get('/rooms/with-shift', hotelRoomController.getAllRoomsWithShift)
 
 // Crear una nueva habitación

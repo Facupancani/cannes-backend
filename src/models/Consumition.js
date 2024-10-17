@@ -12,11 +12,11 @@ const Consumition = sequelize.define('consumition', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    product_id:{
-        type: DataTypes.INTEGER,
+    description:{
+        type: DataTypes.STRING(100),
         allowNull: false,
     },
-    amount:{
+    price:{
         type: DataTypes.INTEGER,
         allowNull: false,
     }
