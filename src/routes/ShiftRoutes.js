@@ -5,12 +5,14 @@ const shiftController = require("../controllers/shiftController");
 // Crear un shift
 router.post('/shift', shiftController.createShift);
 
-
 // Obtener un shift por ID
 router.get('/shift/:id', shiftController.getShiftById);
 
+// Update de un shift por ID
+router.put('/shift/:id', shiftController.updateShift);
+
 // Borrar un shift por ID
-router.delete('/shift/:id', shiftController.deleteShift)
+router.delete('/shift/:id', shiftController.deleteShift);
 
 
 module.exports = router
