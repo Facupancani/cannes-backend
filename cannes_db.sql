@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-10-2024 a las 03:21:42
+-- Tiempo de generación: 18-10-2024 a las 02:53:46
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -34,6 +34,13 @@ CREATE TABLE `consumition` (
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `consumition`
+--
+
+INSERT INTO `consumition` (`id`, `shift_id`, `description`, `price`) VALUES
+(127, 235, 'Agua Villavicencio', 123);
+
 -- --------------------------------------------------------
 
 --
@@ -54,18 +61,18 @@ CREATE TABLE `hotel_room` (
 --
 
 INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pred_price`, `pred_time`) VALUES
-(1, 1, 'Ocupado', 171, 0, 0),
-(2, 2, 'Ocupado', 172, 0, 0),
+(1, 1, 'Disponible', NULL, 0, 0),
+(2, 2, 'Disponible', NULL, 0, 0),
 (3, 3, 'Disponible', NULL, 0, 0),
 (4, 4, 'Esperando_Limpieza', NULL, 0, 0),
 (5, 5, 'Esperando_Limpieza', NULL, 0, 0),
 (6, 6, 'Limpiando', NULL, 0, 0),
-(7, 7, 'Disponible', NULL, 0, 0),
+(7, 7, 'Ocupado', 235, 0, 0),
 (8, 8, 'Limpiando', NULL, 0, 0),
 (9, 9, 'Disponible', NULL, 0, 0),
 (10, 10, 'Disponible', NULL, 0, 0),
 (11, 11, 'Disponible', NULL, 0, 0),
-(12, 12, 'Disponible', NULL, 0, 0),
+(12, 12, 'Ocupado', 233, 0, 0),
 (13, 13, 'Disponible', NULL, 0, 0),
 (14, 14, 'Mantenimiento', NULL, 0, 0),
 (15, 15, 'Disponible', NULL, 0, 0),
@@ -126,8 +133,8 @@ CREATE TABLE `shift` (
 --
 
 INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `total_price`) VALUES
-(171, 1, '2024-10-16 22:17:04', '2024-10-17 00:17:04', 'Normal', 20000),
-(172, 2, '2024-10-16 22:17:57', '2024-10-17 00:17:57', 'Normal', 20000);
+(233, 12, '2024-10-17 21:01:37', '2024-10-17 23:01:37', 'Normal', 20000),
+(235, 7, '2024-10-17 21:05:21', '2024-10-17 23:05:21', 'Normal', 20000);
 
 -- --------------------------------------------------------
 
@@ -208,7 +215,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
@@ -226,7 +233,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=236;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
