@@ -45,7 +45,6 @@ exports.createShift = async (req, res) => {
 // Update de un turno por ID
 exports.updateShift = async (req, res) => {
     try {
-        console.log('shift_id: ' +  req.params.id);
         const shift_id = req.params.id;
         const { room_id, start, finish, type, total_price } = req.body;
         
@@ -57,8 +56,24 @@ exports.updateShift = async (req, res) => {
             return res.status(404).json({ error: 'Shift not found' });
         }
 
-        // Actualiza solo los campos recibidos en el body
-        if (room_id !== undefined) shift.room_id = room_id;
+         // Si hay un cambio de habitación, actualizar la habitación anterior a null
+         if (room_id !== undefined && shift.room_id !== room_id) {
+            // Actualiza la habitación anterior (si existe) para liberar el turno
+            await HotelRoom.update(
+                { current_shift_id: null, state:'Disponible' },
+                { where: { id: shift.room_id } }
+            );
+            // Actualiza el turno con la nueva habitación
+            shift.room_id = room_id;
+
+            // Asigna el shift a la nueva habitación
+            await HotelRoom.update(
+                { current_shift_id: shift_id, state:'Ocupado' },
+                { where: { id: room_id } }
+            );
+        }
+
+        // Actualiza los demás campos recibidos en el body
         if (start !== undefined) shift.start = start;
         if (finish !== undefined) shift.finish = finish;
         if (type !== undefined) shift.type = type;
@@ -74,7 +89,6 @@ exports.updateShift = async (req, res) => {
         res.status(500).json({ error: 'Error updating the shift' });
     }
 };
-
 
 // Borrar un shift por ID
 exports.deleteShift = async (req, res) => {
