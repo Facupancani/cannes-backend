@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-10-2024 a las 02:53:46
+-- Tiempo de generación: 23-10-2024 a las 04:02:00
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -34,13 +34,6 @@ CREATE TABLE `consumition` (
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `consumition`
---
-
-INSERT INTO `consumition` (`id`, `shift_id`, `description`, `price`) VALUES
-(127, 235, 'Agua Villavicencio', 123);
-
 -- --------------------------------------------------------
 
 --
@@ -63,16 +56,16 @@ CREATE TABLE `hotel_room` (
 INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pred_price`, `pred_time`) VALUES
 (1, 1, 'Disponible', NULL, 0, 0),
 (2, 2, 'Disponible', NULL, 0, 0),
-(3, 3, 'Disponible', NULL, 0, 0),
+(3, 3, 'Esperando_Limpieza', NULL, 0, 0),
 (4, 4, 'Esperando_Limpieza', NULL, 0, 0),
 (5, 5, 'Esperando_Limpieza', NULL, 0, 0),
 (6, 6, 'Limpiando', NULL, 0, 0),
-(7, 7, 'Ocupado', 235, 0, 0),
-(8, 8, 'Limpiando', NULL, 0, 0),
+(7, 7, 'Ocupado', 249, 0, 0),
+(8, 8, 'Ocupado', 262, 0, 0),
 (9, 9, 'Disponible', NULL, 0, 0),
 (10, 10, 'Disponible', NULL, 0, 0),
 (11, 11, 'Disponible', NULL, 0, 0),
-(12, 12, 'Ocupado', 233, 0, 0),
+(12, 12, 'Disponible', NULL, 0, 0),
 (13, 13, 'Disponible', NULL, 0, 0),
 (14, 14, 'Mantenimiento', NULL, 0, 0),
 (15, 15, 'Disponible', NULL, 0, 0),
@@ -124,6 +117,7 @@ CREATE TABLE `shift` (
   `room_id` bigint(100) NOT NULL,
   `start` datetime NOT NULL DEFAULT current_timestamp(),
   `finish` datetime DEFAULT NULL,
+  `time_left` time NOT NULL,
   `type` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'Normal',
   `total_price` decimal(10,0) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -132,9 +126,9 @@ CREATE TABLE `shift` (
 -- Volcado de datos para la tabla `shift`
 --
 
-INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `total_price`) VALUES
-(233, 12, '2024-10-17 21:01:37', '2024-10-17 23:01:37', 'Normal', 20000),
-(235, 7, '2024-10-17 21:05:21', '2024-10-17 23:05:21', 'Normal', 20000);
+INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `time_left`, `type`, `total_price`) VALUES
+(249, 7, '2024-10-22 18:22:53', '2024-10-22 22:22:53', '00:00:00', 'Normal', 20000),
+(262, 8, '2024-10-22 20:44:51', '2024-10-24 22:41:51', '00:00:00', 'Normal', 20000);
 
 -- --------------------------------------------------------
 
@@ -215,7 +209,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
@@ -233,7 +227,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=236;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=265;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
