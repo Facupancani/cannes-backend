@@ -48,3 +48,24 @@ exports.getProductById = async (req,res) => {
         res.status(500).json({ error: err.message })
     }
 }
+
+exports.updateProductById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { name, price, deposit, amount } = req.body; // Add other fields as needed
+
+        const [updated] = await Product.update(
+            { name, price, deposit, amount }, // fields to update
+            { where: { id: id } }
+        );
+
+        if (updated) {
+            const updatedProduct = await Product.findByPk(id);
+            res.json({ product: updatedProduct });
+        } else {
+            res.status(404).json({ error: 'Product not found' });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
