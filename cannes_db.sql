@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2024 a las 00:32:51
+-- Tiempo de generación: 07-11-2024 a las 23:30:44
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,7 +40,31 @@ CREATE TABLE `advance` (
 --
 
 INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUES
-(7, 23, 5000, 'Para el pibardo', '2024-11-06 23:16:37');
+(7, 23, 5000, 'Para el pibardo', '2024-11-06 23:16:37'),
+(8, 23, 30000, 'Nuevo Empleado', '2024-11-06 23:37:44');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `bill`
+--
+
+CREATE TABLE `bill` (
+  `id` bigint(100) NOT NULL,
+  `concept` varchar(50) NOT NULL,
+  `details` varchar(50) DEFAULT NULL,
+  `amount` int(100) NOT NULL,
+  `provider` varchar(50) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `bill`
+--
+
+INSERT INTO `bill` (`id`, `concept`, `details`, `amount`, `provider`, `created_at`) VALUES
+(1, 'Electricidad', 'Pagado en noviembre', 40000, 'Edea', '2024-11-07 21:59:24'),
+(2, 'Gas', 'Pago de Noviembre Gas', 50000, 'Dugas', '2024-11-07 22:23:21');
 
 -- --------------------------------------------------------
 
@@ -229,6 +253,12 @@ ALTER TABLE `advance`
   ADD KEY `user_id_foreign_key` (`user_id`);
 
 --
+-- Indices de la tabla `bill`
+--
+ALTER TABLE `bill`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `consumition`
 --
 ALTER TABLE `consumition`
@@ -275,7 +305,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `advance`
 --
 ALTER TABLE `advance`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `bill`
+--
+ALTER TABLE `bill`
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `consumition`
