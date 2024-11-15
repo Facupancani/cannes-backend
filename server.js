@@ -27,6 +27,7 @@ app.use(require('./src/routes/ProductRoutes'))
 app.use(require('./src/routes/LaundryRoutes'))
 app.use(require('./src/routes/AdvanceRoutes'))
 app.use(require('./src/routes/BillRoutes'))
+app.use(require('./src/routes/ObservationRoutes'))
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);

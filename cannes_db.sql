@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2024 a las 23:30:44
+-- Tiempo de generación: 15-11-2024 a las 01:16:47
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -41,7 +41,13 @@ CREATE TABLE `advance` (
 
 INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUES
 (7, 23, 5000, 'Para el pibardo', '2024-11-06 23:16:37'),
-(8, 23, 30000, 'Nuevo Empleado', '2024-11-06 23:37:44');
+(8, 23, 30000, 'Nuevo Empleado', '2024-11-06 23:37:44'),
+(9, 23, 4000, 'Hola Pedro', '2024-11-13 22:33:02'),
+(10, 11, 5000, 'lol', '2024-11-15 00:06:47'),
+(11, 10, 2222, '2', '2024-11-15 00:07:49'),
+(12, 21, 111, '1', '2024-11-15 00:08:17'),
+(13, 19, 111, '1', '2024-11-15 00:08:40'),
+(14, 11, 11, '11', '2024-11-15 00:09:50');
 
 -- --------------------------------------------------------
 
@@ -64,7 +70,8 @@ CREATE TABLE `bill` (
 
 INSERT INTO `bill` (`id`, `concept`, `details`, `amount`, `provider`, `created_at`) VALUES
 (1, 'Electricidad', 'Pagado en noviembre', 40000, 'Edea', '2024-11-07 21:59:24'),
-(2, 'Gas', 'Pago de Noviembre Gas', 50000, 'Dugas', '2024-11-07 22:23:21');
+(2, 'Gas', 'Pago de Noviembre Gas', 50000, 'Dugas', '2024-11-07 22:23:21'),
+(3, 'Luz', 'Hola', 1111, 'Fravega', '2024-11-15 00:10:59');
 
 -- --------------------------------------------------------
 
@@ -78,13 +85,6 @@ CREATE TABLE `consumition` (
   `description` varchar(100) NOT NULL,
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `consumition`
---
-
-INSERT INTO `consumition` (`id`, `shift_id`, `description`, `price`) VALUES
-(9, 197, 'Agua Villavicencio', 5000);
 
 -- --------------------------------------------------------
 
@@ -111,11 +111,11 @@ INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pre
 (3, 3, 'Ocupado', 196, 0, 0),
 (4, 4, 'Ocupado', 195, 0, 0),
 (5, 5, 'Disponible', NULL, 0, 0),
-(6, 6, 'Disponible', NULL, 0, 0),
-(7, 7, 'Ocupado', 197, 0, 0),
-(8, 8, 'Limpiando', NULL, 0, 0),
+(6, 6, 'Ocupado', 204, 0, 0),
+(7, 7, 'Disponible', NULL, 0, 0),
+(8, 8, 'Ocupado', 205, 0, 0),
 (9, 9, 'Disponible', NULL, 0, 0),
-(10, 10, 'Disponible', NULL, 0, 0),
+(10, 10, 'Ocupado', 203, 0, 0),
 (11, 11, 'Disponible', NULL, 0, 0),
 (12, 12, 'Disponible', NULL, 0, 0),
 (13, 13, 'Disponible', NULL, 0, 0),
@@ -170,6 +170,37 @@ INSERT INTO `laundry` (`id`, `name`, `article_id`, `deposit`, `amount`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `observation`
+--
+
+CREATE TABLE `observation` (
+  `id` bigint(100) NOT NULL,
+  `shift_id` int(11) NOT NULL,
+  `text` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `observation`
+--
+
+INSERT INTO `observation` (`id`, `shift_id`, `text`) VALUES
+(1, 195, 'Texto de prueba'),
+(2, 195, 'Texto de prueba 2'),
+(3, 203, 'Hola, que tal?'),
+(4, 203, 'Hola, que tal v2'),
+(5, 204, 'Hola, que tal'),
+(6, 204, 'Hola aaaaa'),
+(7, 204, 'Hola aaaaa'),
+(8, 204, ''),
+(9, 204, 'Holaa'),
+(10, 204, 'Tu nariz contra mis bolas'),
+(11, 204, ''),
+(12, 204, ''),
+(13, 204, 's');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `product`
 --
 
@@ -186,7 +217,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
-(1, 'Agua Villavicencio', 5000, 1, 4);
+(1, 'Agua Villavicencio', 5000, 1, 96);
 
 -- --------------------------------------------------------
 
@@ -208,9 +239,11 @@ CREATE TABLE `shift` (
 --
 
 INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `total_price`) VALUES
-(195, 4, '2024-11-03 16:31:02', '2024-11-03 20:31:02', 'Estadia', 20000),
+(195, 4, '2024-11-03 16:31:02', '2024-11-06 02:31:02', 'Estadia', 10000),
 (196, 3, '2024-11-03 20:08:44', '2024-11-03 22:08:44', 'Normal', 20000),
-(197, 7, '2024-11-06 18:34:09', '2024-11-06 20:34:09', 'Estadia', 20000);
+(203, 10, '2024-11-14 20:41:16', '2024-11-14 22:41:16', 'Normal', 20000),
+(204, 6, '2024-11-14 20:52:08', '2024-11-14 22:52:08', 'Normal', 20000),
+(205, 8, '2024-11-14 21:09:44', '2024-11-14 23:09:44', 'Normal', 20000);
 
 -- --------------------------------------------------------
 
@@ -279,6 +312,13 @@ ALTER TABLE `laundry`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `observation`
+--
+ALTER TABLE `observation`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `shift_id_foreign_key` (`shift_id`);
+
+--
 -- Indices de la tabla `product`
 --
 ALTER TABLE `product`
@@ -305,25 +345,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `advance`
 --
 ALTER TABLE `advance`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
 --
 ALTER TABLE `laundry`
   MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+
+--
+-- AUTO_INCREMENT de la tabla `observation`
+--
+ALTER TABLE `observation`
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `product`
@@ -335,7 +381,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
@@ -364,6 +410,12 @@ ALTER TABLE `consumition`
 --
 ALTER TABLE `hotel_room`
   ADD CONSTRAINT `hotel_room_to_shift_fk` FOREIGN KEY (`current_shift_id`) REFERENCES `shift` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `observation`
+--
+ALTER TABLE `observation`
+  ADD CONSTRAINT `shift_id_foreign_key` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `shift`
