@@ -34,6 +34,7 @@ exports.getConsumitionsDetails = async(req, res) => {
     SELECT
     c.id,
     c.shift_id,
+    c.type,
     c.description,
     c.price,
     p.name,
@@ -68,6 +69,7 @@ exports.getConsumitionsDetailsByRoomId = async(req, res) => {
     SELECT
     c.id,
     c.shift_id,
+    c.type,
     c.description,
     c.price
   FROM 
@@ -92,8 +94,8 @@ exports.getConsumitionsDetailsByRoomId = async(req, res) => {
 // Crear una nueva consumicion
 exports.createConsumition = async (req, res) => {
   try {
-    const { shift_id , description, price } = req.body;
-    const newConsumition = await Consumition.create({ shift_id, description, price });
+    const { shift_id, type, description, price } = req.body;
+    const newConsumition = await Consumition.create({ shift_id, type, description, price });
     res.status(201).json(newConsumition);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -103,10 +105,11 @@ exports.createConsumition = async (req, res) => {
 // Actualizar una consumicion
 exports.updateConsumition = async (req, res) => {
   try {
-    const { shift_id, description, price } = req.body;
+    const { shift_id, type, description, price } = req.body;
     const consumition = await Consumition.findByPk(req.params.id);
     if (consumition) {
       consumition.shift_id = shift_id;
+      consumition.type = type
       consumition.description = description;
       consumition.price = price;
       await consumition.save();

@@ -12,6 +12,10 @@ const Consumition = sequelize.define('consumition', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    type: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+    },
     description:{
         type: DataTypes.STRING(100),
         allowNull: false,
