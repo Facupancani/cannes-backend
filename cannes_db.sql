@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-11-2024 a las 23:23:05
+-- Tiempo de generación: 18-11-2024 a las 02:44:52
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -76,12 +76,38 @@ INSERT INTO `bill` (`id`, `concept`, `details`, `amount`, `provider`, `created_a
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `cash_movement`
+--
+
+CREATE TABLE `cash_movement` (
+  `id` bigint(20) NOT NULL,
+  `room_number` int(11) NOT NULL,
+  `finish` time NOT NULL,
+  `total_price` int(11) NOT NULL,
+  `physical_cash` int(11) DEFAULT NULL,
+  `transfer_cash` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `cash_movement`
+--
+
+INSERT INTO `cash_movement` (`id`, `room_number`, `finish`, `total_price`, `physical_cash`, `transfer_cash`, `created_at`) VALUES
+(1, 0, '00:00:00', 0, 0, 20000, '2024-11-17 23:18:59'),
+(2, 16, '24:00:00', 30000, 10000, 20000, '2024-11-18 00:21:36'),
+(3, 7, '23:34:49', 20000, 20000, 0, '2024-11-18 00:35:02');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `consumition`
 --
 
 CREATE TABLE `consumition` (
   `id` int(11) NOT NULL,
   `shift_id` int(11) NOT NULL,
+  `type` varchar(100) NOT NULL,
   `description` varchar(100) NOT NULL,
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -90,15 +116,8 @@ CREATE TABLE `consumition` (
 -- Volcado de datos para la tabla `consumition`
 --
 
-INSERT INTO `consumition` (`id`, `shift_id`, `description`, `price`) VALUES
-(24, 205, 'Se añadio 60 minutos extra a esta habitacion', 6000),
-(25, 205, 'Luciano', -123),
-(26, 205, 'Hora extra', 0),
-(27, 205, 'Holaaaa', -34),
-(28, 196, 'Agua Villavicencio', 5000),
-(29, 196, 'Agua Villavicencio', 5000),
-(30, 196, 'Agua Villavicencio', 5000),
-(31, 196, 'Agua Villavicencio', 5000);
+INSERT INTO `consumition` (`id`, `shift_id`, `type`, `description`, `price`) VALUES
+(47, 226, 'surcharge', 'Se añadio 60 minutos extra a esta habitacion', 6000);
 
 -- --------------------------------------------------------
 
@@ -122,16 +141,16 @@ CREATE TABLE `hotel_room` (
 INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pred_price`, `pred_time`) VALUES
 (1, 1, 'Disponible', NULL, 0, 0),
 (2, 2, 'Disponible', NULL, 0, 0),
-(3, 3, 'Ocupado', 196, 0, 0),
-(4, 4, 'Ocupado', 195, 0, 0),
+(3, 3, 'Disponible', NULL, 0, 0),
+(4, 4, 'Disponible', NULL, 0, 0),
 (5, 5, 'Disponible', NULL, 0, 0),
-(6, 6, 'Ocupado', 204, 0, 0),
+(6, 6, 'Disponible', NULL, 0, 0),
 (7, 7, 'Disponible', NULL, 0, 0),
-(8, 8, 'Ocupado', 205, 0, 0),
+(8, 8, 'Ocupado', 226, 0, 0),
 (9, 9, 'Disponible', NULL, 0, 0),
-(10, 10, 'Ocupado', 203, 0, 0),
+(10, 10, 'Disponible', NULL, 0, 0),
 (11, 11, 'Disponible', NULL, 0, 0),
-(12, 12, 'Ocupado', 206, 0, 0),
+(12, 12, 'Ocupado', 217, 0, 0),
 (13, 13, 'Disponible', NULL, 0, 0),
 (14, 14, 'Mantenimiento', NULL, 0, 0),
 (15, 15, 'Disponible', NULL, 0, 0),
@@ -193,31 +212,6 @@ CREATE TABLE `observation` (
   `text` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `observation`
---
-
-INSERT INTO `observation` (`id`, `shift_id`, `text`) VALUES
-(1, 195, 'Texto de prueba'),
-(2, 195, 'Texto de prueba 2'),
-(3, 203, 'Hola, que tal?'),
-(4, 203, 'Hola, que tal v2'),
-(5, 204, 'Hola, que tal'),
-(6, 204, 'Hola aaaaa'),
-(7, 204, 'Hola aaaaa'),
-(8, 204, ''),
-(9, 204, 'Holaa'),
-(10, 204, 'Tu nariz contra mis bolas'),
-(11, 204, ''),
-(12, 204, ''),
-(13, 204, 's'),
-(14, 205, 'hOLAAA'),
-(15, 205, ''),
-(16, 205, ''),
-(17, 206, 'Holaaa'),
-(18, 206, 'Tu nariz'),
-(19, 196, '<gholasda');
-
 -- --------------------------------------------------------
 
 --
@@ -237,7 +231,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
-(1, 'Agua Villavicencio', 5000, 1, 86);
+(1, 'Agua Villavicencio', 5000, 1, 81);
 
 -- --------------------------------------------------------
 
@@ -259,12 +253,8 @@ CREATE TABLE `shift` (
 --
 
 INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `total_price`) VALUES
-(195, 4, '2024-11-03 16:31:02', '2024-11-06 02:31:02', 'Estadia', 10000),
-(196, 3, '2024-11-03 20:08:44', '2024-11-03 22:08:44', 'Normal', 20000),
-(203, 10, '2024-11-14 20:41:16', '2024-11-14 22:41:16', 'Normal', 20000),
-(204, 6, '2024-11-14 20:52:08', '2024-11-14 22:52:08', 'Normal', 20000),
-(205, 8, '2024-11-14 21:09:44', '2024-11-15 04:09:44', 'Estadia', 18157),
-(206, 12, '2024-11-15 18:23:28', '2024-11-15 20:23:28', 'Normal', 20000);
+(217, 12, '2024-11-17 19:54:23', '2024-11-17 21:54:23', 'Normal', 20000),
+(226, 8, '2024-11-17 20:42:18', '2024-11-17 23:42:18', 'Normal', 20000);
 
 -- --------------------------------------------------------
 
@@ -310,6 +300,12 @@ ALTER TABLE `advance`
 -- Indices de la tabla `bill`
 --
 ALTER TABLE `bill`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `cash_movement`
+--
+ALTER TABLE `cash_movement`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -375,10 +371,16 @@ ALTER TABLE `bill`
   MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `cash_movement`
+--
+ALTER TABLE `cash_movement`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
@@ -402,7 +404,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=230;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
