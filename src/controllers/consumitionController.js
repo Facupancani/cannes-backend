@@ -59,6 +59,24 @@ exports.getConsumitionsDetails = async(req, res) => {
 
 }
 
+// Obtener comisiones por numero de turno
+exports.getCommissionsByShiftId = async(req,res) => {
+  const id = req.params.id
+
+  try {
+    const consumitions = await Consumition.findAll({
+      where: {
+        type: 'commission',
+        shift_id: id
+      }
+    })
+
+    res.json(consumitions)
+  } catch (error) {
+    res.status(500).json({error: error.message})
+  }
+}
+
 // Obtener todos los datos de una consumicion por numero de habitacion (consumicion y producto)
 exports.getConsumitionsDetailsByRoomId = async(req, res) => {
 

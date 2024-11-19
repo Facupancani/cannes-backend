@@ -28,6 +28,10 @@ const CashMovement = sequelize.define('cash_movement', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    commission_amount: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     created_at: {
         type: DataTypes.TIME,
         allowNull: true
