@@ -16,7 +16,11 @@ const CashMovement = sequelize.define('cash_movement', {
         type: DataTypes.TIME,
         allowNull: false
     },
-    total_price : {
+    bar_price : {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    shift_price : {
         type: DataTypes.INTEGER,
         allowNull: false
     },

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-11-2024 a las 02:35:47
+-- Tiempo de generación: 21-11-2024 a las 01:15:15
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -47,7 +47,8 @@ INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUE
 (11, 10, 2222, '2', '2024-11-15 00:07:49'),
 (12, 21, 111, '1', '2024-11-15 00:08:17'),
 (13, 19, 111, '1', '2024-11-15 00:08:40'),
-(14, 11, 11, '11', '2024-11-15 00:09:50');
+(14, 11, 11, '11', '2024-11-15 00:09:50'),
+(15, 11, 4000, 'asdasdasdas', '2024-11-20 19:03:48');
 
 -- --------------------------------------------------------
 
@@ -71,7 +72,8 @@ CREATE TABLE `bill` (
 INSERT INTO `bill` (`id`, `concept`, `details`, `amount`, `provider`, `created_at`) VALUES
 (1, 'Electricidad', 'Pagado en noviembre', 40000, 'Edea', '2024-11-07 21:59:24'),
 (2, 'Gas', 'Pago de Noviembre Gas', 50000, 'Dugas', '2024-11-07 22:23:21'),
-(3, 'Luz', 'Hola', 1111, 'Fravega', '2024-11-15 00:10:59');
+(3, 'Luz', 'Hola', 1111, 'Fravega', '2024-11-15 00:10:59'),
+(4, 'Agua', 'Hola', 4000, 'hola', '2024-11-20 19:03:31');
 
 -- --------------------------------------------------------
 
@@ -83,7 +85,8 @@ CREATE TABLE `cash_movement` (
   `id` bigint(20) NOT NULL,
   `room_number` int(11) NOT NULL,
   `finish` time NOT NULL,
-  `total_price` int(11) NOT NULL,
+  `bar_price` int(11) NOT NULL,
+  `shift_price` int(11) NOT NULL,
   `physical_cash` int(11) DEFAULT NULL,
   `transfer_cash` int(11) DEFAULT NULL,
   `commission_amount` int(11) DEFAULT NULL,
@@ -94,11 +97,13 @@ CREATE TABLE `cash_movement` (
 -- Volcado de datos para la tabla `cash_movement`
 --
 
-INSERT INTO `cash_movement` (`id`, `room_number`, `finish`, `total_price`, `physical_cash`, `transfer_cash`, `commission_amount`, `created_at`) VALUES
-(9, 7, '20:23:05', 20000, 20000, 0, -123, '2024-11-18 21:23:19'),
-(10, 4, '20:26:02', 20000, 20000, 0, -800, '2024-11-18 21:26:16'),
-(11, 4, '20:27:24', 20000, 20000, 0, -500, '2024-11-18 21:27:49'),
-(12, 3, '21:26:41', 20000, 20000, 0, 0, '2024-11-18 22:26:41');
+INSERT INTO `cash_movement` (`id`, `room_number`, `finish`, `bar_price`, `shift_price`, `physical_cash`, `transfer_cash`, `commission_amount`, `created_at`) VALUES
+(47, 8, '22:50:15', 14500, 20000, 25000, 0, -500, '2024-11-20 23:50:37'),
+(48, 7, '22:53:38', 20000, 20000, 40000, 0, 0, '2024-11-20 23:54:22'),
+(49, 8, '22:54:36', 10000, 20000, 30000, 0, -5000, '2024-11-20 23:55:48'),
+(50, 8, '22:56:00', 9700, 20000, 29700, 0, -300, '2024-11-20 23:56:23'),
+(51, 4, '22:28:33', 9754, 20000, 29754, 0, -123, '2024-11-21 00:02:21'),
+(52, 6, '23:05:35', 10000, 8000, 18000, 0, 0, '2024-11-21 00:07:36');
 
 -- --------------------------------------------------------
 
@@ -119,10 +124,69 @@ CREATE TABLE `consumition` (
 --
 
 INSERT INTO `consumition` (`id`, `shift_id`, `type`, `description`, `price`) VALUES
-(47, 226, 'surcharge', 'Se añadio 60 minutos extra a esta habitacion', 6000),
-(60, 226, 'product', 'Agua Villavicencio', 5000),
-(61, 226, 'product', 'Agua Villavicencio', 5000),
-(62, 245, 'product', 'Agua Villavicencio', 5000);
+(105, 338, 'product', 'Agua Villavicencio', 5000),
+(106, 338, 'commission', 'Luciano', -500);
+
+--
+-- Disparadores `consumition`
+--
+DELIMITER $$
+CREATE TRIGGER `after_consumition_delete` AFTER DELETE ON `consumition` FOR EACH ROW BEGIN
+  UPDATE shift
+  SET bar_price = (
+    SELECT COALESCE(SUM(c.price), 0)
+    FROM consumition c
+    WHERE c.shift_id = OLD.shift_id
+  )
+  WHERE id = OLD.shift_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_consumition_insert` AFTER INSERT ON `consumition` FOR EACH ROW BEGIN
+  UPDATE shift
+  SET bar_price = (
+    SELECT COALESCE(SUM(c.price), 0)
+    FROM consumition c
+    WHERE c.shift_id = NEW.shift_id
+  )
+  WHERE id = NEW.shift_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_consumition_update` AFTER UPDATE ON `consumition` FOR EACH ROW BEGIN
+  -- Recalculate bar_price for the OLD shift_id if it changes
+  IF OLD.shift_id != NEW.shift_id THEN
+    UPDATE shift
+    SET bar_price = (
+      SELECT COALESCE(SUM(c.price), 0)
+      FROM consumition c
+      WHERE c.shift_id = OLD.shift_id
+    )
+    WHERE id = OLD.shift_id;
+
+    -- Recalculate bar_price for the NEW shift_id
+    UPDATE shift
+    SET bar_price = (
+      SELECT COALESCE(SUM(c.price), 0)
+      FROM consumition c
+      WHERE c.shift_id = NEW.shift_id
+    )
+    WHERE id = NEW.shift_id;
+  ELSE
+    -- If shift_id doesn't change, update the same shift_id's bar_price
+    UPDATE shift
+    SET bar_price = (
+      SELECT COALESCE(SUM(c.price), 0)
+      FROM consumition c
+      WHERE c.shift_id = NEW.shift_id
+    )
+    WHERE id = NEW.shift_id;
+  END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -144,20 +208,20 @@ CREATE TABLE `hotel_room` (
 --
 
 INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pred_price`, `pred_time`) VALUES
-(1, 1, 'Disponible', NULL, 0, 0),
+(1, 1, 'Ocupado', 341, 0, 0),
 (2, 2, 'Disponible', NULL, 0, 0),
-(3, 3, 'Esperando_Limpieza', NULL, 0, 0),
-(4, 4, 'Esperando_Limpieza', NULL, 0, 0),
+(3, 3, 'Disponible', NULL, 0, 0),
+(4, 4, 'Disponible', NULL, 0, 0),
 (5, 5, 'Disponible', NULL, 0, 0),
 (6, 6, 'Disponible', NULL, 0, 0),
-(7, 7, 'Ocupado', 245, 0, 0),
-(8, 8, 'Ocupado', 226, 0, 0),
+(7, 7, 'Disponible', NULL, 0, 0),
+(8, 8, 'Ocupado', 338, 0, 0),
 (9, 9, 'Disponible', NULL, 0, 0),
 (10, 10, 'Disponible', NULL, 0, 0),
 (11, 11, 'Disponible', NULL, 0, 0),
-(12, 12, 'Ocupado', 217, 0, 0),
+(12, 12, 'Disponible', NULL, 0, 0),
 (13, 13, 'Disponible', NULL, 0, 0),
-(14, 14, 'Mantenimiento', NULL, 0, 0),
+(14, 14, 'Disponible', NULL, 0, 0),
 (15, 15, 'Disponible', NULL, 0, 0),
 (16, 16, 'Disponible', NULL, 0, 0);
 
@@ -217,13 +281,6 @@ CREATE TABLE `observation` (
   `text` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `observation`
---
-
-INSERT INTO `observation` (`id`, `shift_id`, `text`) VALUES
-(21, 217, 'Lucioano');
-
 -- --------------------------------------------------------
 
 --
@@ -243,7 +300,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
-(1, 'Agua Villavicencio', 5000, 1, 74);
+(1, 'Agua Villavicencio', 5000, 1, 37);
 
 -- --------------------------------------------------------
 
@@ -257,6 +314,8 @@ CREATE TABLE `shift` (
   `start` datetime NOT NULL DEFAULT current_timestamp(),
   `finish` datetime DEFAULT NULL,
   `type` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'Normal',
+  `bar_price` int(11) NOT NULL,
+  `shift_price` int(11) NOT NULL,
   `total_price` decimal(10,0) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -264,10 +323,9 @@ CREATE TABLE `shift` (
 -- Volcado de datos para la tabla `shift`
 --
 
-INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `total_price`) VALUES
-(217, 12, '2024-11-17 19:54:23', '2024-11-17 21:54:23', 'Normal', 20000),
-(226, 8, '2024-11-17 20:42:18', '2024-11-17 23:42:18', 'Normal', 20000),
-(245, 7, '2024-11-18 18:38:57', '2024-11-18 20:38:57', 'Normal', 20000);
+INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `bar_price`, `shift_price`, `total_price`) VALUES
+(338, 8, '2024-11-20 21:02:23', '2024-11-20 23:02:23', 'Normal', 4500, 19000, 25000),
+(341, 1, '2024-11-20 21:14:15', '2024-11-20 23:14:15', 'Normal', 5000, 20000, 25000);
 
 -- --------------------------------------------------------
 
@@ -375,25 +433,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `advance`
 --
 ALTER TABLE `advance`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `cash_movement`
 --
 ALTER TABLE `cash_movement`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
@@ -405,7 +463,7 @@ ALTER TABLE `laundry`
 -- AUTO_INCREMENT de la tabla `observation`
 --
 ALTER TABLE `observation`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `product`
@@ -417,7 +475,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=342;
 
 --
 -- AUTO_INCREMENT de la tabla `user`

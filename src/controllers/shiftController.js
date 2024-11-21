@@ -21,12 +21,14 @@ exports.getShiftById = async (req, res) => {
 // Crear un turno
 exports.createShift = async (req, res) => {
     try {
-        const { room_id, start, finish, type, total_price } = req.body
+        const { room_id, start, finish, type, bar_price, shift_price, total_price } = req.body
         const newShift = await Shift.create({
             room_id,
             start,
             finish,
             type,
+            bar_price,
+            shift_price,
             total_price
         })
 
@@ -46,7 +48,7 @@ exports.createShift = async (req, res) => {
 exports.updateShift = async (req, res) => {
     try {
         const shift_id = req.params.id;
-        const { room_id, start, finish, type, total_price } = req.body;
+        const { room_id, start, finish, type, bar_price, shift_price, total_price } = req.body;
         
 
         // Verifica si se encuentra el turno
@@ -77,6 +79,8 @@ exports.updateShift = async (req, res) => {
         if (start !== undefined) shift.start = start;
         if (finish !== undefined) shift.finish = finish;
         if (type !== undefined) shift.type = type;
+        if (bar_price !== undefined) shift.bar_price = bar_price;
+        if (shift_price !== undefined) shift.shift_price = shift_price;
         if (total_price !== undefined) shift.total_price = total_price;
 
         // Guarda los cambios

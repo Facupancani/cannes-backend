@@ -24,6 +24,14 @@ const Shift = sequelize.define('shift', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    bar_price: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    shift_price :{
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     total_price: {
         type: DataTypes.DECIMAL(10, 0),
         allowNull: true,  
