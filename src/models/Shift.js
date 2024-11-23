@@ -32,11 +32,6 @@ const Shift = sequelize.define('shift', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    total_price: {
-        type: DataTypes.DECIMAL(10, 0),
-        allowNull: true,  
-    }
-
 },{
     tableName: 'shift',  // Nombre de la tabla en la base de datos
     timestamps: false         // Si no tienes campos createdAt y updatedAt
