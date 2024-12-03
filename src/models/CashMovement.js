@@ -13,7 +13,7 @@ const CashMovement = sequelize.define('cash_movement', {
         allowNull: false
     },
     finish: {
-        type: DataTypes.TIME,
+        type: DataTypes.DATE,
         allowNull: false
     },
     bar_price : {

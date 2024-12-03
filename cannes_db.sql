@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-11-2024 a las 00:28:19
+-- Tiempo de generación: 03-12-2024 a las 02:15:07
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -98,8 +98,8 @@ CREATE TABLE `cash_movement` (
 --
 
 INSERT INTO `cash_movement` (`id`, `room_number`, `finish`, `bar_price`, `shift_price`, `physical_cash`, `transfer_cash`, `commission_amount`, `created_at`) VALUES
-(128, 8, '22:21:38', 10000, 18000, 28000, 0, -1000, '2024-11-26 23:23:15'),
-(129, 5, '22:25:35', 10000, 20000, 30000, 0, 0, '2024-11-26 23:25:57');
+(153, 7, '00:00:00', 5000, 20000, 25000, 0, 0, '2024-12-03 00:07:02'),
+(154, 13, '23:06:43', 5000, 20000, 25000, 0, 0, '2024-12-03 00:07:40');
 
 -- --------------------------------------------------------
 
@@ -123,17 +123,14 @@ INSERT INTO `consumition` (`id`, `shift_id`, `type`, `description`, `price`) VAL
 (147, 450, 'product', 'Agua Villavicencio', 5000),
 (148, 450, 'commission', 'Luciano', -1000),
 (149, 450, 'commission', 'Hola', -500),
-(150, 451, 'commission', 'Hola', -5000),
-(154, 456, 'commission', 'Luciano', -500),
-(155, 457, 'product', 'Agua Villavicencio', 5000),
-(156, 457, 'commission', 'hola', -500),
 (162, 460, 'product', 'Agua Villavicencio', 5000),
 (163, 460, 'commission', 'Luciano', -500),
 (166, 462, 'product', 'Agua Villavicencio', 5000),
 (167, 462, 'commission', 'Luciano', -500),
 (168, 462, 'commission', 'Frias', -500),
 (169, 463, 'product', 'Agua Villavicencio', 5000),
-(170, 463, 'product', 'Agua Villavicencio', 5000);
+(170, 463, 'product', 'Agua Villavicencio', 5000),
+(183, 450, 'surcharge', 'Se añadio 60 minutos extra a esta habitacion', 6000);
 
 -- --------------------------------------------------------
 
@@ -156,12 +153,12 @@ CREATE TABLE `hotel_room` (
 
 INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pred_price`, `pred_time`) VALUES
 (1, 1, 'Ocupado', 450, 0, 0),
-(2, 2, 'Ocupado', 451, 0, 0),
-(3, 3, 'Ocupado', 456, 0, 0),
-(4, 4, 'Ocupado', 457, 0, 0),
+(2, 2, 'Esperando_Limpieza', 479, 0, 0),
+(3, 3, 'Esperando_Limpieza', 471, 0, 0),
+(4, 4, 'Esperando_Limpieza', 472, 0, 0),
 (5, 5, 'Esperando_Limpieza', 463, 0, 0),
 (6, 6, 'Esperando_Limpieza', 460, 0, 0),
-(7, 7, 'Disponible', NULL, 0, 0),
+(7, 7, 'Esperando_Limpieza', 485, 0, 0),
 (8, 8, 'Esperando_Limpieza', 462, 0, 0),
 (9, 9, 'Disponible', NULL, 0, 0),
 (10, 10, 'Disponible', NULL, 0, 0),
@@ -247,7 +244,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
-(1, 'Agua Villavicencio', 5000, 1, 7);
+(1, 'Agua Villavicencio', 5000, 1, 6);
 
 -- --------------------------------------------------------
 
@@ -270,13 +267,14 @@ CREATE TABLE `shift` (
 --
 
 INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `bar_price`, `shift_price`) VALUES
-(450, 1, '2024-11-26 20:00:18', '2024-11-26 22:00:18', 'Normal', 3500, 15000),
-(451, 2, '2024-11-26 20:02:54', '2024-11-26 22:02:54', 'Normal', -5000, 20000),
-(456, 3, '2024-11-26 20:06:55', '2024-11-26 22:06:55', 'Normal', -500, 17500),
-(457, 4, '2024-11-26 20:09:37', '2024-11-26 22:09:37', 'Normal', 4500, 15500),
+(450, 1, '2024-11-26 20:00:18', '2024-11-26 23:00:18', 'Estadia', 3500, 21000),
 (460, 6, '2024-11-26 20:18:00', '2024-11-26 22:18:00', 'Normal', 10000, 16500),
 (462, 8, '2024-11-26 20:21:38', '2024-11-26 22:21:38', 'Normal', 10000, 18000),
-(463, 5, '2024-11-26 20:25:35', '2024-11-26 22:25:35', 'Normal', 10000, 20000);
+(463, 5, '2024-11-26 20:25:35', '2024-11-26 22:25:35', 'Normal', 10000, 20000),
+(471, 3, '2024-12-02 19:18:21', '2024-12-02 21:18:21', 'Normal', 5000, 20000),
+(472, 4, '2024-12-02 19:40:29', '2024-12-02 21:40:29', 'Normal', 5000, 20000),
+(479, 2, '2024-12-02 21:00:01', '2024-12-02 23:00:01', 'Normal', 5000, 20000),
+(485, 7, '2024-12-02 21:07:01', '2024-12-02 23:07:01', 'Normal', 5000, 20000);
 
 -- --------------------------------------------------------
 
@@ -396,13 +394,13 @@ ALTER TABLE `bill`
 -- AUTO_INCREMENT de la tabla `cash_movement`
 --
 ALTER TABLE `cash_movement`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
 
 --
 -- AUTO_INCREMENT de la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
@@ -414,7 +412,7 @@ ALTER TABLE `laundry`
 -- AUTO_INCREMENT de la tabla `observation`
 --
 ALTER TABLE `observation`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `product`
@@ -426,7 +424,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=464;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=486;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
