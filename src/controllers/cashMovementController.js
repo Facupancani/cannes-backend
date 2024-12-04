@@ -16,8 +16,8 @@ exports.getAllCashMovements = async(req, res) => {
 // Crear movimiento de caja
 exports.createCashMovement = async(req, res) => {
     try {
-        const { room_number, finish, bar_price, shift_price, physical_cash, transfer_cash, commission_amount } = req.body
-        const newCashMovement = CashMovement.create({room_number, finish, bar_price, shift_price, physical_cash, transfer_cash, commission_amount})
+        const { room_number, start, finish, bar_price, shift_price, physical_cash, transfer_cash, commission_amount } = req.body
+        const newCashMovement = CashMovement.create({room_number, start, finish, bar_price, shift_price, physical_cash, transfer_cash, commission_amount})
         res.status(201).json(newCashMovement)
     } catch (err) {
         res.status(500).json({ error: err.message })

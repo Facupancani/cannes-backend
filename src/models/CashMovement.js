@@ -12,6 +12,10 @@ const CashMovement = sequelize.define('cash_movement', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    start: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
     finish: {
         type: DataTypes.DATE,
         allowNull: false
