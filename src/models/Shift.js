@@ -32,6 +32,14 @@ const Shift = sequelize.define('shift', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    pending_cleaning_start: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
+    cleaning_start: {
+        type: DataTypes.DATE,
+        allowNull: false
+    }
 },{
     tableName: 'shift',  // Nombre de la tabla en la base de datos
     timestamps: false         // Si no tienes campos createdAt y updatedAt
