@@ -13,6 +13,20 @@ exports.getItemsInLaundry = async (req, res) => {
     }
 };
 
+// Obtiene las prendas sucias en el lavadero (deposito 3)
+exports.getDirtyItemsInLaundry = async (req, res) => {
+    try {
+        const dirtyItems = await Laundry.findAll({
+            where: { deposit: 3 }
+        })
+
+        res.json(dirtyItems)
+    } catch (err) {
+        res.status(500).json({ error: err.message })
+    }
+}
+
+
 // Envia prendas al lavadero
 exports.sendItemsToLaundry = async (req, res) => {
     try {
