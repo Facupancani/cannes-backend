@@ -19,6 +19,14 @@ const HotelRoom = sequelize.define('HotelRoom', {
   current_shift_id: {
     type: DataTypes.INTEGER,
     allowNull: true
+  },
+  pred_price: {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  },
+  pred_time: {
+    type: DataTypes.TIME,
+    allowNull: true
   }
 }, {
   tableName: 'hotel_room',  // Nombre de la tabla en la base de datos
