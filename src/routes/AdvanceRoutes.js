@@ -11,6 +11,9 @@ router.get('/advance/last', advanceController.getLastAdvance)
 // Obtener ID de ultimo avance
 router.get('/advance/last/id', advanceController.getLastAdvanceId)
 
+// Sumar la cantidad de avances de un usuario
+router.get('/advance/sum/:id', advanceController.getAllAdvancesAmountByUserId)
+
 // Crear avance
 router.post('/advance', advanceController.createAdvance)
 

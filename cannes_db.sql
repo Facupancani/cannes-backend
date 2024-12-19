@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-12-2024 a las 23:04:07
+-- Tiempo de generación: 19-12-2024 a las 23:17:47
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -31,7 +31,7 @@ CREATE TABLE `advance` (
   `id` bigint(100) NOT NULL,
   `user_id` bigint(100) NOT NULL,
   `amount` int(50) NOT NULL,
-  `details` varchar(50) DEFAULT NULL,
+  `details` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -40,15 +40,11 @@ CREATE TABLE `advance` (
 --
 
 INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUES
-(7, 23, 5000, 'Para el pibardo', '2024-11-06 23:16:37'),
-(8, 23, 30000, 'Nuevo Empleado', '2024-11-06 23:37:44'),
-(9, 23, 4000, 'Hola Pedro', '2024-11-13 22:33:02'),
-(10, 11, 5000, 'lol', '2024-11-15 00:06:47'),
-(11, 10, 2222, '2', '2024-11-15 00:07:49'),
-(12, 21, 111, '1', '2024-11-15 00:08:17'),
-(13, 19, 111, '1', '2024-11-15 00:08:40'),
-(14, 11, 11, '11', '2024-11-15 00:09:50'),
-(15, 11, 4000, 'asdasdasdas', '2024-11-20 19:03:48');
+(20, 21, 5000, 'Se transifirio un monto de 5000 al usuario Homero ', '2024-12-19 21:59:45'),
+(21, 11, 111111111, 'Se transifirio un monto de $111111111 al usuario L', '2024-12-19 22:00:16'),
+(22, 21, 4555555, 'Se transifirio un monto de $4555555 al usuario Homero Frias en habitacion 1.', '2024-12-19 22:01:05'),
+(23, 19, 10000, 'Se transifirio un monto de $10000 al usuario Maximo Pancani en habitacion 2.', '2024-12-19 22:02:00'),
+(24, 11, 10000, 'Se transifirio un monto de $10000 al usuario Luciano Frias en habitacion 2.', '2024-12-19 22:10:22');
 
 -- --------------------------------------------------------
 
@@ -73,7 +69,8 @@ INSERT INTO `bill` (`id`, `concept`, `details`, `amount`, `provider`, `created_a
 (1, 'Electricidad', 'Pagado en noviembre', 40000, 'Edea', '2024-11-07 21:59:24'),
 (2, 'Gas', 'Pago de Noviembre Gas', 50000, 'Dugas', '2024-11-07 22:23:21'),
 (3, 'Luz', 'Hola', 1111, 'Fravega', '2024-11-15 00:10:59'),
-(4, 'Agua', 'Hola', 4000, 'hola', '2024-11-20 19:03:31');
+(4, 'Agua', 'Hola', 4000, 'hola', '2024-11-20 19:03:31'),
+(5, 'Luz', 'de EDEA 17/12', 100000, 'EDEA', '2024-12-17 22:26:27');
 
 -- --------------------------------------------------------
 
@@ -151,7 +148,37 @@ INSERT INTO `cash_movement` (`id`, `room_number`, `start`, `finish`, `bar_price`
 (329, 4, '2024-12-13 21:58:43', '2024-12-14 01:58:43', 5000, 4000, 9000, 0, 0, '2024-12-13 21:58:57'),
 (330, 3, '2024-12-13 21:52:23', '2024-12-13 22:52:23', 5000, 3000, 8000, 0, 0, '2024-12-13 21:58:59'),
 (331, 2, '2024-12-13 21:58:42', '2024-12-13 23:58:42', 5000, 2000, 7000, 0, 0, '2024-12-13 21:59:01'),
-(332, 1, '2024-12-13 21:58:41', '2024-12-13 22:58:41', 5000, 1000, 6000, 0, 0, '2024-12-13 21:59:02');
+(332, 1, '2024-12-13 21:58:41', '2024-12-13 22:58:41', 5000, 1000, 6000, 0, 0, '2024-12-13 21:59:02'),
+(333, 4, '2024-12-17 21:13:04', '2024-12-18 02:13:04', 5000, 9000, 14000, 0, -1000, '2024-12-17 21:18:10'),
+(334, 8, '2024-12-17 21:18:24', '2024-12-18 07:18:24', 5000, 15000, 20000, 0, 0, '2024-12-17 21:18:38'),
+(335, 8, '2024-12-17 21:18:43', '2024-12-18 07:18:43', 5000, 15000, 20000, 0, 0, '2024-12-17 21:18:49'),
+(336, 11, '2024-12-17 21:20:05', '2024-12-18 09:20:05', 5000, 17000, 22000, 0, 0, '2024-12-17 21:22:17'),
+(337, 4, '2024-12-17 21:20:06', '2024-12-18 01:20:06', 5000, 4000, 9000, 0, 0, '2024-12-17 21:22:18'),
+(338, 11, '2024-12-17 21:22:19', '2024-12-18 10:22:19', 5000, 18000, 23000, 0, 0, '2024-12-17 21:22:26'),
+(339, 3, '2024-12-17 21:12:38', '2024-12-18 02:12:38', 5000, 10000, 15000, 0, 0, '2024-12-17 21:22:35'),
+(340, 2, '2024-12-17 21:16:03', '2024-12-18 00:16:03', 5000, 8000, 13000, 0, 0, '2024-12-17 21:22:36'),
+(341, 1, '2024-12-17 21:13:57', '2024-12-18 00:13:57', 5000, 13000, 18000, 0, 0, '2024-12-17 21:22:38'),
+(342, 4, '2024-12-17 21:27:06', '2024-12-18 02:27:06', 5000, 10000, 15000, 0, 0, '2024-12-17 21:27:47'),
+(343, 3, '2024-12-17 21:26:42', '2024-12-18 01:26:42', 5000, 9000, 14000, 0, 0, '2024-12-17 21:27:51'),
+(344, 2, '2024-12-17 21:25:47', '2024-12-18 01:25:47', 5000, 9000, 14000, 0, 0, '2024-12-17 21:27:52'),
+(345, 1, '2024-12-17 21:22:40', '2024-12-17 23:22:40', 5000, 7000, 12000, 0, 0, '2024-12-17 21:27:55'),
+(346, 2, '2024-12-17 21:30:25', '2024-12-18 00:30:25', 5000, 8000, 13000, 0, 0, '2024-12-17 21:32:24'),
+(347, 1, '2024-12-17 21:27:56', '2024-12-17 23:27:56', 5000, 13000, 18000, 0, 0, '2024-12-17 21:34:09'),
+(348, 2, '2024-12-17 21:32:54', '2024-12-18 01:32:54', 5000, 14000, 19000, 0, 0, '2024-12-17 21:35:11'),
+(349, 1, '2024-12-17 21:34:10', '2024-12-18 01:34:10', 5000, 14000, 19000, 0, 0, '2024-12-17 21:35:13'),
+(350, 7, '2024-12-17 21:51:53', '2024-12-18 06:51:53', 5000, 19000, 24000, 0, 0, '2024-12-17 21:52:05'),
+(351, 4, '2024-12-17 21:54:52', '2024-12-18 02:54:52', 5000, 5000, 10000, 0, 0, '2024-12-17 21:55:11'),
+(352, 1, '2024-12-17 22:29:37', '2024-12-18 03:09:37', 5000, 10000, 15000, 0, 0, '2024-12-17 22:33:03'),
+(353, 1, '2024-12-17 22:33:48', '2024-12-18 02:03:48', 30000, 6222, 36222, 0, -1000, '2024-12-17 22:44:00'),
+(354, 7, '2024-12-17 22:46:42', '2024-12-18 05:46:42', 5000, 7000, 12000, 0, 0, '2024-12-17 22:46:43'),
+(355, 8, '2024-12-17 22:47:40', '2024-12-18 06:47:40', 5000, 8000, 13000, 0, 0, '2024-12-17 22:47:41'),
+(356, 8, '2024-12-17 22:47:42', '2024-12-18 06:47:42', 5000, 8000, 13000, 0, 0, '2024-12-17 22:47:43'),
+(357, 4, '2024-12-17 22:40:35', '2024-12-18 06:40:35', 5000, 8444, 13444, 0, 0, '2024-12-19 01:15:21'),
+(358, 4, '2024-12-19 01:39:22', '2024-12-19 05:39:22', 5000, 4000, 9000, 0, 0, '2024-12-19 01:39:23'),
+(359, 15, '2024-12-19 01:47:05', '2024-12-19 21:47:05', 5000, 19000, 24000, 0, 0, '2024-12-19 01:47:19'),
+(360, 12, '2024-12-19 20:33:52', '2024-12-20 15:33:52', 5000, 23000, 28000, 0, 0, '2024-12-19 20:34:14'),
+(361, 16, '2024-12-19 01:15:34', '2024-12-20 08:15:34', 5000, 24000, 29000, 0, 0, '2024-12-19 20:34:16'),
+(362, 3, '2024-12-17 22:34:14', '2024-12-18 03:04:14', 5000, 11000, 16000, 0, 0, '2024-12-19 21:12:35');
 
 -- --------------------------------------------------------
 
@@ -166,6 +193,17 @@ CREATE TABLE `consumition` (
   `description` varchar(100) NOT NULL,
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `consumition`
+--
+
+INSERT INTO `consumition` (`id`, `shift_id`, `type`, `description`, `price`) VALUES
+(315, 691, 'surcharge', 'Se añadio 60 minutos extra a esta habitacion', 6000),
+(316, 691, 'surcharge', '1 horita mas', 4000),
+(318, 693, 'surcharge', 'holaaa', 2000),
+(319, 693, 'surcharge', 'Se añadio 60 minutos extra a esta habitacion', 6000),
+(331, 698, 'surcharge', 'Se añadio 60 minutos extra a esta habitacion', 6000);
 
 -- --------------------------------------------------------
 
@@ -187,9 +225,9 @@ CREATE TABLE `hotel_room` (
 --
 
 INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pred_price`, `pred_time`) VALUES
-(1, 1, 'Disponible', NULL, 1000, 1),
-(2, 2, 'Disponible', NULL, 2000, 2),
-(3, 3, 'Disponible', NULL, 3000, 3),
+(1, 1, 'Ocupado', 698, 1000, 1),
+(2, 2, 'Ocupado', 691, 2000, 2),
+(3, 3, 'Esperando_Limpieza', 693, 3000, 3),
 (4, 4, 'Disponible', NULL, 4000, 4),
 (5, 5, 'Disponible', NULL, 5000, 5),
 (6, 6, 'Disponible', NULL, 6000, 6),
@@ -279,7 +317,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
-(1, 'Agua Villavicencio', 5000, 1, 974);
+(1, 'Agua Villavicencio', 5000, 1, 969);
 
 -- --------------------------------------------------------
 
@@ -298,6 +336,15 @@ CREATE TABLE `shift` (
   `pending_cleaning_start` datetime NOT NULL,
   `cleaning_start` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `shift`
+--
+
+INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `bar_price`, `shift_price`, `pending_cleaning_start`, `cleaning_start`) VALUES
+(691, 2, '2024-12-17 22:32:14', '2024-12-18 02:32:14', 'Estadia', 5000, 12000, '1970-01-01 00:00:00', '1970-01-01 00:00:00'),
+(693, 3, '2024-12-17 22:34:14', '2024-12-18 03:04:14', 'Normal', 5000, 11000, '2024-12-19 21:12:35', '1970-01-01 00:00:00'),
+(698, 1, '2024-12-19 01:15:28', '2024-12-19 03:15:28', 'Normal', 5000, 7000, '1970-01-01 00:00:00', '1970-01-01 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -405,25 +452,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `advance`
 --
 ALTER TABLE `advance`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `cash_movement`
 --
 ALTER TABLE `cash_movement`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=333;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=363;
 
 --
 -- AUTO_INCREMENT de la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=288;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=337;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
@@ -435,7 +482,7 @@ ALTER TABLE `laundry`
 -- AUTO_INCREMENT de la tabla `observation`
 --
 ALTER TABLE `observation`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `product`
@@ -447,7 +494,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=671;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=703;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
