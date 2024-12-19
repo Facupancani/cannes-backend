@@ -5,8 +5,8 @@ const LaundryController = require('../controllers/LaundryController');
 // Obtener las prendas que debe el lavadero
 router.get('/laundry/pending', LaundryController.getItemsInLaundry);
 
-// Obtiene las prendas sucias en el lavadero (deposito 3)
-router.get('/laundry/dirty', LaundryController.getDirtyItemsInLaundry)
+// Obtiene las prendas sucias
+router.get('/laundry/dirty', LaundryController.getDirtyItems)
 
 // Envia prendas al lavadero
 router.put('/laundry/send', LaundryController.sendItemsToLaundry);

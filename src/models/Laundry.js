@@ -12,12 +12,8 @@ const Laundry = sequelize.define('laundry', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    article_id:{
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
     deposit:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true
     },
     amount:{
