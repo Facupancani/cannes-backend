@@ -5,7 +5,7 @@ const Laundry = require('../models/Laundry');
 exports.getItemsInLaundry = async (req, res) => {
     try {
         const itemsInLaundry = await Laundry.findAll({
-            where: { deposit: 4 }
+            where: { deposit: "in_laundry" }
         });
         res.json(itemsInLaundry);
     } catch (err) {
@@ -13,11 +13,11 @@ exports.getItemsInLaundry = async (req, res) => {
     }
 };
 
-// Obtiene las prendas sucias en el lavadero (deposito 3)
-exports.getDirtyItemsInLaundry = async (req, res) => {
+// Obtiene las prendas sucias en el lavadero 
+exports.getDirtyItems = async (req, res) => {
     try {
         const dirtyItems = await Laundry.findAll({
-            where: { deposit: 3 }
+            where: { deposit: "dirty" }
         })
 
         res.json(dirtyItems)
