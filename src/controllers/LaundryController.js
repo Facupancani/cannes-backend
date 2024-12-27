@@ -1,5 +1,6 @@
 const sequelize = require('../config/database');
 const Laundry = require('../models/Laundry');
+const { Op } = require('sequelize');
 
 // Obtiene prendas en el lavadero
 exports.getItemsInLaundry = async (req, res) => {
@@ -13,7 +14,7 @@ exports.getItemsInLaundry = async (req, res) => {
     }
 };
 
-// Obtiene las prendas sucias en el lavadero 
+// Obtiene las prendas sucias  
 exports.getDirtyItems = async (req, res) => {
     try {
         const dirtyItems = await Laundry.findAll({
@@ -26,39 +27,108 @@ exports.getDirtyItems = async (req, res) => {
     }
 }
 
+// Agrega prendas sucias
+exports.addDirtyItems = async (req, res) => {
+    const dirtyItems = req.body.items;
 
-// Envia prendas al lavadero
-exports.sendItemsToLaundry = async (req, res) => {
+    const transaction = await Laundry.sequelize.transaction();
     try {
-        const items = req.body.items; // Asegúrate de que los datos enviados tienen el arreglo bajo la clave 'items'
+        // 1. Extraer los nombres de los items
+        const itemNames = dirtyItems.map(item => item.name);
 
-        // Validación para asegurar que items esté definido y sea un arreglo
-        if (!Array.isArray(items)) {
-            return res.status(400).json({ error: 'El formato de datos es incorrecto. Se esperaba un arreglo de items.' });
-        }
+        // 2. Obtener todos los items "dirty" y "clean" en una sola consulta
+        const allItems = await Laundry.findAll({
+            where: {
+                name: { [Op.in]: itemNames },
+                deposit: { [Op.in]: ["dirty", "clean"] }
+            },
+            transaction,
+        });
 
-        // Procesa cada prenda en el arreglo
-        const results = await Promise.all(items.map(async (item) => {
-            const { article_id, amount, name } = item;
+        // 3. Mapear los items por nombre y depósito
+        const itemMap = allItems.reduce((map, item) => {
+            map[`${item.name}_${item.deposit}`] = item;
+            return map;
+        }, {});
 
-            // Verifica si ya existe una entrada para el artículo en el depósito 4
-            const existingItem = await Laundry.findOne({
-                where: { article_id, deposit: 4 },
-            });
+        // 4. Actualizar las cantidades
+        dirtyItems.forEach(item => {
+            const { name, dirty } = item;
 
-            if (existingItem) {
-                // Si ya existe, actualiza la cantidad sumando el nuevo envío
-                existingItem.amount += amount;
-                await existingItem.save();
-                return { article_id, name, status: 'actualizado', amount: existingItem.amount };
-            } else {
-                return res.status(500).json({ error: 'Error al enviar prendas al lavadero, el articulo no' });
+            // Actualizar los "dirty"
+            const dirtyItem = itemMap[`${name}_dirty`];
+            if (dirtyItem) {
+                dirtyItem.amount += dirty;
             }
-        }));
 
-        return res.status(200).json({ message: 'Prendas enviadas al lavadero con éxito', details: results });
-    } catch (error) {
-        console.error('Error al enviar prendas al lavadero:', error);
-        return res.status(500).json({ error: 'Error al enviar prendas al lavadero' });
+            // Actualizar los "clean"
+            const cleanItem = itemMap[`${name}_clean`];
+            if (cleanItem) {
+                cleanItem.amount -= dirty;
+            }
+        });
+
+        // 5. Guardar todos los cambios en la base de datos
+        await Promise.all(allItems.map(item => item.save({ transaction })));
+
+        // Confirmar transacción
+        await transaction.commit();
+        res.status(200).json({ message: "Dirty items updated successfully" });
+    } catch (err) {
+        // Revertir transacción en caso de error
+        await transaction.rollback();
+        res.status(500).json({ error: err.message });
     }
 };
+
+/**
+ * Envia las prendas al lavadero
+ * Aumenta la cantidad de prendas limpias segun received,
+ * disminuye la cantidad de prendas sucias segun sent
+ * y setea la cantidad de prendas en el lavadero segun la diferencia entre 
+ * recibido y enviado.
+ * 
+ * item se compone de: 
+ * name: nombre del item
+ * sent: cantidad de prendas sucias enviadas al lavadero
+ * receive: cantidad de prendas limpias recibidas del lavadero
+ * pending: cantidad de prendas en el lavadero
+ * 
+ */
+exports.sendItemsToLaundry = async (req, res) => {
+    const laundryItems = req.body.items;
+
+    try {
+        // Itera sobre cada prenda en el lavadero
+
+        for (const item of laundryItems) {
+
+            const { name, pending, sent, receive } = item;
+
+            // Resta las prendas sucias que se enviaron al lavadero
+            const dirtyItem = await Laundry.findOne({
+                where: { name, deposit: "dirty" }
+            });
+            dirtyItem.amount -= sent;
+            await dirtyItem.save();
+
+
+            // Recibe los items limpios
+            const cleanItem = await Laundry.findOne({
+                where: { name, deposit: "clean" }
+            });
+            cleanItem.amount += receive;
+            await cleanItem.save();
+
+
+            // Setea los items en el lavadero segun los recibidos y enviados
+            const laundryItem = await Laundry.findOne({
+                where: { name, deposit: "in_laundry" }
+            });
+            laundryItem.amount = pending;
+            await laundryItem.save();
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}

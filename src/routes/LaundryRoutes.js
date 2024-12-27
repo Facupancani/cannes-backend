@@ -8,7 +8,11 @@ router.get('/laundry/pending', LaundryController.getItemsInLaundry);
 // Obtiene las prendas sucias
 router.get('/laundry/dirty', LaundryController.getDirtyItems)
 
-// Envia prendas al lavadero
-router.put('/laundry/send', LaundryController.sendItemsToLaundry);
+// Obtiene las prendas sucias
+router.put('/laundry/dirty', LaundryController.addDirtyItems)
+
+
+// Manda los items a la lavanderia
+router.put('/laundry/send', LaundryController.sendItemsToLaundry)
 
 module.exports = router;

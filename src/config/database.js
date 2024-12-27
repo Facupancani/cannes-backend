@@ -7,6 +7,7 @@ const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize('cannes_db', 'root', '', {
   host: 'localhost',
   dialect: 'mysql',
+  logging: true, // Activa o Desactiva los logs de Sequelize
 });
 
 sequelize.authenticate()

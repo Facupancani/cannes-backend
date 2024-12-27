@@ -14,11 +14,12 @@ const Laundry = sequelize.define('laundry', {
     },
     deposit:{
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     amount:{
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 0
     }
 },{
     tableName: 'laundry',  // Nombre de la tabla en la base de datos
