@@ -42,6 +42,28 @@ exports.getLastAdvanceId = async(req, res) => {
     }
 }
 
+// Sumar la cantidad de avances de un usuario
+exports.getAllAdvancesAmountByUserId = async(req,res) => {
+    const user_id = req.params.id
+
+    try {
+        const [result] = await sequelize.query(
+            `
+            SELECT user_id, SUM(amount) AS total_amount
+            FROM advance
+            WHERE user_id = ${user_id}
+            GROUP BY user_id;
+            `
+        )
+
+        res.json(Number(result[0].total_amount))
+    }
+    catch (err) {
+        res.status(500).json({ error: err.message })
+    }
+
+}
+
 // Crear avance
 exports.createAdvance = async(req, res) => {
     try {

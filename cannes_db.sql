@@ -32,6 +32,7 @@ CREATE TABLE `advance` (
   `user_id` bigint(100) NOT NULL,
   `amount` int(50) NOT NULL,
   `details` varchar(100) DEFAULT NULL,
+  `details` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -40,15 +41,13 @@ CREATE TABLE `advance` (
 --
 
 INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUES
-(7, 23, 5000, 'Para el pibardo', '2024-11-06 23:16:37'),
-(8, 23, 30000, 'Nuevo Empleado', '2024-11-06 23:37:44'),
-(9, 23, 4000, 'Hola Pedro', '2024-11-13 22:33:02'),
-(10, 11, 5000, 'lol', '2024-11-15 00:06:47'),
-(11, 10, 2222, '2', '2024-11-15 00:07:49'),
-(12, 21, 111, '1', '2024-11-15 00:08:17'),
-(13, 19, 111, '1', '2024-11-15 00:08:40'),
-(14, 11, 11, '11', '2024-11-15 00:09:50'),
-(15, 11, 4000, 'asdasdasdas', '2024-11-20 19:03:48');
+(83, 10, 123, '123', '2024-12-21 00:20:28'),
+(84, 10, 234523454, '123', '2024-12-21 00:20:42'),
+(85, 10, 123, '123', '2024-12-21 01:40:24'),
+(86, 20, 4000, 'Se transifirio un monto de $4000 al usuario Karina Barcala en habitacion 2.', '2024-12-21 01:42:22'),
+(87, 11, 4000, 'Se transifirio un monto de $4000 al usuario Luciano Frias en habitacion 12.', '2024-12-21 01:46:22'),
+(88, 11, 122, 'Se transifirio un monto de $122 al usuario Luciano Frias en habitacion 12.', '2024-12-21 01:46:35'),
+(89, 10, 123, 'Se transifirio un monto de $123 al usuario John Doe en habitacion 12.', '2024-12-21 01:46:55');
 
 -- --------------------------------------------------------
 
@@ -59,7 +58,7 @@ INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUE
 CREATE TABLE `bill` (
   `id` bigint(100) NOT NULL,
   `concept` varchar(50) NOT NULL,
-  `details` varchar(50) DEFAULT NULL,
+  `details` varchar(100) DEFAULT NULL,
   `amount` int(100) NOT NULL,
   `provider` varchar(50) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp()
@@ -73,7 +72,13 @@ INSERT INTO `bill` (`id`, `concept`, `details`, `amount`, `provider`, `created_a
 (1, 'Electricidad', 'Pagado en noviembre', 40000, 'Edea', '2024-11-07 21:59:24'),
 (2, 'Gas', 'Pago de Noviembre Gas', 50000, 'Dugas', '2024-11-07 22:23:21'),
 (3, 'Luz', 'Hola', 1111, 'Fravega', '2024-11-15 00:10:59'),
-(4, 'Agua', 'Hola', 4000, 'hola', '2024-11-20 19:03:31');
+(4, 'Agua', 'Hola', 4000, 'hola', '2024-11-20 19:03:31'),
+(5, 'Agua', '123', 123, '123', '2024-12-20 23:31:43'),
+(6, 'Agua', '123', 123, '123', '2024-12-20 23:32:03'),
+(7, 'Luz', '123', 12122333, 'EDEA', '2024-12-20 23:46:09'),
+(8, 'Agua', 'asdasd', 123123, 'EDEA', '2024-12-20 23:46:40'),
+(9, 'Agua', 'agua de edea', 123123, 'EDEA', '2024-12-21 00:27:54'),
+(10, 'Agua', '123', 123, '123', '2024-12-21 00:28:00');
 
 -- --------------------------------------------------------
 
@@ -224,10 +229,10 @@ CREATE TABLE `hotel_room` (
 
 INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pred_price`, `pred_time`) VALUES
 (1, 1, 'Disponible', NULL, 1000, 1),
-(2, 2, 'Disponible', NULL, 2000, 2),
-(3, 3, 'Disponible', NULL, 3000, 3),
+(2, 2, 'Ocupado', 672, 2000, 2),
+(3, 3, 'Ocupado', 673, 3000, 3),
 (4, 4, 'Disponible', NULL, 4000, 4),
-(5, 5, 'Disponible', NULL, 5000, 5),
+(5, 5, 'Ocupado', 671, 5000, 5),
 (6, 6, 'Disponible', NULL, 6000, 6),
 (7, 7, 'Disponible', NULL, 7000, 7),
 (8, 8, 'Limpiando', 705, 8000, 8),
@@ -249,6 +254,7 @@ INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pre
 CREATE TABLE `laundry` (
   `id` bigint(100) NOT NULL,
   `name` varchar(100) NOT NULL,
+  `deposit` varchar(100) NOT NULL,
   `deposit` varchar(100) NOT NULL,
   `amount` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -314,7 +320,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
-(1, 'Agua Villavicencio', 5000, 1, 974);
+(1, 'Agua Villavicencio', 5000, 1, 960);
 
 -- --------------------------------------------------------
 
@@ -447,13 +453,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `advance`
 --
 ALTER TABLE `advance`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT de la tabla `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `cash_movement`
@@ -465,7 +471,7 @@ ALTER TABLE `cash_movement`
 -- AUTO_INCREMENT de la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=288;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=313;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
@@ -477,7 +483,7 @@ ALTER TABLE `laundry`
 -- AUTO_INCREMENT de la tabla `observation`
 --
 ALTER TABLE `observation`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `product`
