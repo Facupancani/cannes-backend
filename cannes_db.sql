@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-12-2024 a las 01:16:59
+-- Tiempo de generación: 31-12-2024 a las 02:08:20
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -47,12 +47,7 @@ INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUE
 (11, 10, 2222, '2', '2024-11-15 00:07:49'),
 (12, 21, 111, '1', '2024-11-15 00:08:17'),
 (13, 19, 111, '1', '2024-11-15 00:08:40'),
-(14, 11, 11, '11', '2024-11-15 00:09:50'),
-(15, 11, 4000, 'asdasdasdas', '2024-11-20 19:03:48'),
-(16, 11, 4000, 'Se transifirio un monto de $4000 al usuario Luciano Frias en habitacion 3.', '2024-12-30 22:44:25'),
-(17, 11, 2, 'Se trasfirio producto Agua Villavicencio con cantidad 2 y precio unitario de 5000 a la cuenta de Luc', '2024-12-31 00:01:43'),
-(18, 19, 5000, 'Se trasfirió producto Agua Villavicencio con cantidad 1 y precio unitario de 5000 a la cuenta de Maximo Pancani', '2024-12-31 00:02:53'),
-(19, 11, 5000, 'Se trasfirio producto Agua Villavicencio con cantidad 1 y precio unitario de $5000 a la cuenta de Luciano Frias', '2024-12-31 00:13:19');
+(14, 11, 11, '11', '2024-11-15 00:09:50');
 
 -- --------------------------------------------------------
 
@@ -248,6 +243,30 @@ INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pre
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `internal_consumition`
+--
+
+CREATE TABLE `internal_consumition` (
+  `id` int(11) NOT NULL,
+  `user_id` bigint(11) NOT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `amount` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `internal_consumition`
+--
+
+INSERT INTO `internal_consumition` (`id`, `user_id`, `description`, `amount`, `price`, `created_at`) VALUES
+(2, 11, 'Se trasfirio producto Agua Villavicencio con cantidad 3 y precio unitario de $5000 a la cuenta de Luciano Frias', 3, 5000, '2024-12-31 01:04:37'),
+(3, 19, 'Se transfirio producto Agua Villavicencio con cantidad 4 y precio unitario de $5000 a la cuenta de Maximo Pancani', 4, 20000, '2024-12-31 01:05:46'),
+(4, 21, 'Se transfirio producto Agua Villavicencio con cantidad 5 y precio unitario de $25000 a la cuenta de Homero Frias', 5, 25000, '2024-12-31 01:06:22');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `laundry`
 --
 
@@ -413,6 +432,12 @@ ALTER TABLE `hotel_room`
   ADD KEY `hotel_room_to_shift_fk` (`current_shift_id`);
 
 --
+-- Indices de la tabla `internal_consumition`
+--
+ALTER TABLE `internal_consumition`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `laundry`
 --
 ALTER TABLE `laundry`
@@ -452,7 +477,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `advance`
 --
 ALTER TABLE `advance`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `bill`
@@ -471,6 +496,12 @@ ALTER TABLE `cash_movement`
 --
 ALTER TABLE `consumition`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=290;
+
+--
+-- AUTO_INCREMENT de la tabla `internal_consumition`
+--
+ALTER TABLE `internal_consumition`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
