@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-12-2024 a las 14:34:36
--- Versión del servidor: 10.4.25-MariaDB
--- Versión de PHP: 7.4.30
+-- Tiempo de generación: 31-12-2024 a las 01:16:59
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,23 +31,28 @@ CREATE TABLE `advance` (
   `id` bigint(100) NOT NULL,
   `user_id` bigint(100) NOT NULL,
   `amount` int(50) NOT NULL,
-  `details` varchar(100) DEFAULT NULL,
-  `details` varchar(100) DEFAULT NULL,
+  `details` varchar(200) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `advance`
 --
 
 INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUES
-(83, 10, 123, '123', '2024-12-21 00:20:28'),
-(84, 10, 234523454, '123', '2024-12-21 00:20:42'),
-(85, 10, 123, '123', '2024-12-21 01:40:24'),
-(86, 20, 4000, 'Se transifirio un monto de $4000 al usuario Karina Barcala en habitacion 2.', '2024-12-21 01:42:22'),
-(87, 11, 4000, 'Se transifirio un monto de $4000 al usuario Luciano Frias en habitacion 12.', '2024-12-21 01:46:22'),
-(88, 11, 122, 'Se transifirio un monto de $122 al usuario Luciano Frias en habitacion 12.', '2024-12-21 01:46:35'),
-(89, 10, 123, 'Se transifirio un monto de $123 al usuario John Doe en habitacion 12.', '2024-12-21 01:46:55');
+(7, 23, 5000, 'Para el pibardo', '2024-11-06 23:16:37'),
+(8, 23, 30000, 'Nuevo Empleado', '2024-11-06 23:37:44'),
+(9, 23, 4000, 'Hola Pedro', '2024-11-13 22:33:02'),
+(10, 11, 5000, 'lol', '2024-11-15 00:06:47'),
+(11, 10, 2222, '2', '2024-11-15 00:07:49'),
+(12, 21, 111, '1', '2024-11-15 00:08:17'),
+(13, 19, 111, '1', '2024-11-15 00:08:40'),
+(14, 11, 11, '11', '2024-11-15 00:09:50'),
+(15, 11, 4000, 'asdasdasdas', '2024-11-20 19:03:48'),
+(16, 11, 4000, 'Se transifirio un monto de $4000 al usuario Luciano Frias en habitacion 3.', '2024-12-30 22:44:25'),
+(17, 11, 2, 'Se trasfirio producto Agua Villavicencio con cantidad 2 y precio unitario de 5000 a la cuenta de Luc', '2024-12-31 00:01:43'),
+(18, 19, 5000, 'Se trasfirió producto Agua Villavicencio con cantidad 1 y precio unitario de 5000 a la cuenta de Maximo Pancani', '2024-12-31 00:02:53'),
+(19, 11, 5000, 'Se trasfirio producto Agua Villavicencio con cantidad 1 y precio unitario de $5000 a la cuenta de Luciano Frias', '2024-12-31 00:13:19');
 
 -- --------------------------------------------------------
 
@@ -58,11 +63,11 @@ INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUE
 CREATE TABLE `bill` (
   `id` bigint(100) NOT NULL,
   `concept` varchar(50) NOT NULL,
-  `details` varchar(100) DEFAULT NULL,
+  `details` varchar(50) DEFAULT NULL,
   `amount` int(100) NOT NULL,
   `provider` varchar(50) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `bill`
@@ -72,13 +77,7 @@ INSERT INTO `bill` (`id`, `concept`, `details`, `amount`, `provider`, `created_a
 (1, 'Electricidad', 'Pagado en noviembre', 40000, 'Edea', '2024-11-07 21:59:24'),
 (2, 'Gas', 'Pago de Noviembre Gas', 50000, 'Dugas', '2024-11-07 22:23:21'),
 (3, 'Luz', 'Hola', 1111, 'Fravega', '2024-11-15 00:10:59'),
-(4, 'Agua', 'Hola', 4000, 'hola', '2024-11-20 19:03:31'),
-(5, 'Agua', '123', 123, '123', '2024-12-20 23:31:43'),
-(6, 'Agua', '123', 123, '123', '2024-12-20 23:32:03'),
-(7, 'Luz', '123', 12122333, 'EDEA', '2024-12-20 23:46:09'),
-(8, 'Agua', 'asdasd', 123123, 'EDEA', '2024-12-20 23:46:40'),
-(9, 'Agua', 'agua de edea', 123123, 'EDEA', '2024-12-21 00:27:54'),
-(10, 'Agua', '123', 123, '123', '2024-12-21 00:28:00');
+(4, 'Agua', 'Hola', 4000, 'hola', '2024-11-20 19:03:31');
 
 -- --------------------------------------------------------
 
@@ -97,7 +96,7 @@ CREATE TABLE `cash_movement` (
   `transfer_cash` int(11) DEFAULT NULL,
   `commission_amount` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `cash_movement`
@@ -192,7 +191,8 @@ INSERT INTO `cash_movement` (`id`, `room_number`, `start`, `finish`, `bar_price`
 (365, 12, '2024-12-27 13:09:28', '2024-12-28 01:09:28', 5000, 12000, 17000, 0, 0, '2024-12-27 13:09:29'),
 (366, 4, '2024-12-27 13:13:43', '2024-12-27 17:13:43', 5000, 4000, 9000, 0, 0, '2024-12-27 13:13:43'),
 (367, 8, '2024-12-27 13:26:26', '2024-12-27 21:26:26', 5000, 8000, 13000, 0, 0, '2024-12-27 13:26:27'),
-(368, 12, '2024-12-27 13:30:16', '2024-12-28 01:30:16', 5000, 12000, 17000, 0, 0, '2024-12-27 13:30:17');
+(368, 12, '2024-12-27 13:30:16', '2024-12-28 01:30:16', 5000, 12000, 17000, 0, 0, '2024-12-27 13:30:17'),
+(369, 3, '2024-12-30 22:41:28', '2024-12-31 01:41:28', 10000, 0, 10000, 0, -1000, '2024-12-31 00:14:19');
 
 -- --------------------------------------------------------
 
@@ -206,7 +206,7 @@ CREATE TABLE `consumition` (
   `type` varchar(100) NOT NULL,
   `description` varchar(100) NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -221,7 +221,7 @@ CREATE TABLE `hotel_room` (
   `current_shift_id` int(255) DEFAULT NULL,
   `pred_price` int(100) NOT NULL,
   `pred_time` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `hotel_room`
@@ -229,13 +229,13 @@ CREATE TABLE `hotel_room` (
 
 INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pred_price`, `pred_time`) VALUES
 (1, 1, 'Disponible', NULL, 1000, 1),
-(2, 2, 'Ocupado', 672, 2000, 2),
-(3, 3, 'Ocupado', 673, 3000, 3),
-(4, 4, 'Disponible', NULL, 4000, 4),
-(5, 5, 'Ocupado', 671, 5000, 5),
+(2, 2, 'Disponible', NULL, 2000, 2),
+(3, 3, 'Disponible', NULL, 3000, 3),
+(4, 4, 'Ocupado', 708, 4000, 4),
+(5, 5, 'Disponible', NULL, 5000, 5),
 (6, 6, 'Disponible', NULL, 6000, 6),
 (7, 7, 'Disponible', NULL, 7000, 7),
-(8, 8, 'Limpiando', 705, 8000, 8),
+(8, 8, 'Disponible', NULL, 8000, 8),
 (9, 9, 'Disponible', NULL, 9000, 9),
 (10, 10, 'Disponible', NULL, 10000, 10),
 (11, 11, 'Disponible', NULL, 11000, 11),
@@ -255,9 +255,8 @@ CREATE TABLE `laundry` (
   `id` bigint(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `deposit` varchar(100) NOT NULL,
-  `deposit` varchar(100) NOT NULL,
   `amount` int(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `laundry`
@@ -266,28 +265,28 @@ CREATE TABLE `laundry` (
 INSERT INTO `laundry` (`id`, `name`, `deposit`, `amount`) VALUES
 (25, 'fundas', 'in_use', 0),
 (26, 'fundas', 'clean', 0),
-(27, 'fundas', 'dirty', 16),
-(28, 'fundas', 'in_laundry', 1),
+(27, 'fundas', 'dirty', 0),
+(28, 'fundas', 'in_laundry', 17),
 (29, 'sabanas', 'in_use', 0),
 (30, 'sabanas', 'clean', 0),
-(31, 'sabanas', 'dirty', 4),
-(32, 'sabanas', 'in_laundry', 0),
+(31, 'sabanas', 'dirty', 0),
+(32, 'sabanas', 'in_laundry', 4),
 (33, 'cubrecamas', 'in_use', 0),
 (34, 'cubrecamas', 'clean', 0),
-(35, 'cubrecamas', 'dirty', 26),
-(36, 'cubrecamas', 'in_laundry', 0),
+(35, 'cubrecamas', 'dirty', 0),
+(36, 'cubrecamas', 'in_laundry', 26),
 (37, 'toallas', 'in_use', 0),
 (38, 'toallas', 'clean', 0),
-(39, 'toallas', 'dirty', 2),
-(40, 'toallas', 'in_laundry', 0),
+(39, 'toallas', 'dirty', 0),
+(40, 'toallas', 'in_laundry', 2),
 (41, 'toallones', 'in_use', 0),
 (42, 'toallones', 'clean', 0),
-(43, 'toallones', 'dirty', 8),
-(44, 'toallones', 'in_laundry', 0),
+(43, 'toallones', 'dirty', 0),
+(44, 'toallones', 'in_laundry', 8),
 (45, 'cortinas', 'in_use', 0),
 (46, 'cortinas', 'clean', 0),
-(47, 'cortinas', 'dirty', 3),
-(48, 'cortinas', 'in_laundry', 0);
+(47, 'cortinas', 'dirty', 0),
+(48, 'cortinas', 'in_laundry', 3);
 
 -- --------------------------------------------------------
 
@@ -299,7 +298,7 @@ CREATE TABLE `observation` (
   `id` bigint(100) NOT NULL,
   `shift_id` int(11) NOT NULL,
   `text` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -313,14 +312,14 @@ CREATE TABLE `product` (
   `price` int(11) NOT NULL,
   `deposit` int(11) NOT NULL,
   `amount` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `product`
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
-(1, 'Agua Villavicencio', 5000, 1, 960);
+(1, 'Agua Villavicencio', 5000, 1, 973);
 
 -- --------------------------------------------------------
 
@@ -338,14 +337,14 @@ CREATE TABLE `shift` (
   `shift_price` int(11) NOT NULL,
   `pending_cleaning_start` datetime NOT NULL,
   `cleaning_start` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `shift`
 --
 
 INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `bar_price`, `shift_price`, `pending_cleaning_start`, `cleaning_start`) VALUES
-(705, 8, '2024-12-27 13:26:26', '2024-12-27 21:26:26', 'Cleaning', 5000, 8000, '1970-01-01 00:00:00', '2024-12-27 13:26:29');
+(708, 4, '2024-12-30 22:41:29', '2024-12-31 02:41:29', 'Normal', 5000, 4000, '1970-01-01 00:00:00', '1970-01-01 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -361,7 +360,7 @@ CREATE TABLE `user` (
   `role` varchar(100) NOT NULL DEFAULT 'Invitado',
   `password` varchar(100) NOT NULL,
   `fingerprint` int(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `user`
@@ -453,25 +452,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `advance`
 --
 ALTER TABLE `advance`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `cash_movement`
 --
 ALTER TABLE `cash_movement`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=369;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=370;
 
 --
 -- AUTO_INCREMENT de la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=313;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=290;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
@@ -483,7 +482,7 @@ ALTER TABLE `laundry`
 -- AUTO_INCREMENT de la tabla `observation`
 --
 ALTER TABLE `observation`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `product`
@@ -495,7 +494,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=707;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=709;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
