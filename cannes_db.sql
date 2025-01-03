@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-12-2024 a las 02:08:20
+-- Tiempo de generación: 03-01-2025 a las 02:54:37
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -187,7 +187,8 @@ INSERT INTO `cash_movement` (`id`, `room_number`, `start`, `finish`, `bar_price`
 (366, 4, '2024-12-27 13:13:43', '2024-12-27 17:13:43', 5000, 4000, 9000, 0, 0, '2024-12-27 13:13:43'),
 (367, 8, '2024-12-27 13:26:26', '2024-12-27 21:26:26', 5000, 8000, 13000, 0, 0, '2024-12-27 13:26:27'),
 (368, 12, '2024-12-27 13:30:16', '2024-12-28 01:30:16', 5000, 12000, 17000, 0, 0, '2024-12-27 13:30:17'),
-(369, 3, '2024-12-30 22:41:28', '2024-12-31 01:41:28', 10000, 0, 10000, 0, -1000, '2024-12-31 00:14:19');
+(369, 3, '2024-12-30 22:41:28', '2024-12-31 01:41:28', 10000, 0, 10000, 0, -1000, '2024-12-31 00:14:19'),
+(370, 7, '2025-01-02 22:21:27', '2025-01-03 05:21:27', 5000, 7000, 12000, 0, 0, '2025-01-02 22:21:32');
 
 -- --------------------------------------------------------
 
@@ -225,12 +226,12 @@ CREATE TABLE `hotel_room` (
 INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pred_price`, `pred_time`) VALUES
 (1, 1, 'Disponible', NULL, 1000, 1),
 (2, 2, 'Disponible', NULL, 2000, 2),
-(3, 3, 'Disponible', NULL, 3000, 3),
+(3, 3, 'Ocupado', 711, 3000, 3),
 (4, 4, 'Ocupado', 708, 4000, 4),
 (5, 5, 'Disponible', NULL, 5000, 5),
-(6, 6, 'Disponible', NULL, 6000, 6),
-(7, 7, 'Disponible', NULL, 7000, 7),
-(8, 8, 'Disponible', NULL, 8000, 8),
+(6, 6, 'Ocupado', 712, 6000, 6),
+(7, 7, 'Esperando_Limpieza', 713, 7000, 7),
+(8, 8, 'Ocupado', 709, 8000, 8),
 (9, 9, 'Disponible', NULL, 9000, 9),
 (10, 10, 'Disponible', NULL, 10000, 10),
 (11, 11, 'Disponible', NULL, 11000, 11),
@@ -363,7 +364,11 @@ CREATE TABLE `shift` (
 --
 
 INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `bar_price`, `shift_price`, `pending_cleaning_start`, `cleaning_start`) VALUES
-(708, 4, '2024-12-30 22:41:29', '2024-12-31 02:41:29', 'Normal', 5000, 4000, '1970-01-01 00:00:00', '1970-01-01 00:00:00');
+(708, 4, '2024-12-30 22:41:29', '2024-12-31 02:41:29', 'Normal', 5000, 4000, '1970-01-01 00:00:00', '1970-01-01 00:00:00'),
+(709, 8, '2025-01-01 22:38:30', '2025-01-02 06:38:30', 'Normal', 5000, 8000, '2025-01-01 22:38:30', '2025-01-01 22:38:30'),
+(711, 3, '2025-01-02 22:21:30', '2025-01-03 01:21:30', 'Normal', 5000, 3000, '2025-01-02 22:21:30', '2025-01-02 22:21:30'),
+(712, 6, '2025-01-02 23:38:44', '2025-01-03 06:38:44', 'Normal', 5000, 7000, '2025-01-02 23:38:44', '2025-01-02 23:38:44'),
+(713, 7, '2025-01-02 23:38:44', '2025-01-03 06:38:44', 'Normal', 5000, 7000, '2025-01-02 23:38:52', '2025-01-02 23:38:52');
 
 -- --------------------------------------------------------
 
@@ -489,7 +494,7 @@ ALTER TABLE `bill`
 -- AUTO_INCREMENT de la tabla `cash_movement`
 --
 ALTER TABLE `cash_movement`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=370;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=371;
 
 --
 -- AUTO_INCREMENT de la tabla `consumition`
@@ -525,7 +530,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=709;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=714;
 
 --
 -- AUTO_INCREMENT de la tabla `user`

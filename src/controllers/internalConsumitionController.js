@@ -30,3 +30,22 @@ exports.createInternalConsumition = async (req, res) => {
   }
 };
 
+// Obtener ID de ultima consumicion interna 
+exports.getLastInternalConsumitionId = async (req, res) => {
+
+  try {
+    const [result] = await sequelize.query(`
+SELECT AUTO_INCREMENT 
+FROM INFORMATION_SCHEMA.TABLES 
+WHERE TABLE_SCHEMA = 'cannes_db' 
+AND TABLE_NAME = 'internal_consumition';
+`);
+
+const nextAutoIncrementId = result[0].AUTO_INCREMENT
+
+res.json(nextAutoIncrementId)
+} catch(err) {
+    res.status(500).json({ error: err.message })
+}
+
+}
