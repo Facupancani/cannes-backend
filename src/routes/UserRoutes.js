@@ -11,4 +11,6 @@ router.post('/users/login', userController.loginUser)
 // Obtener todos los usuarios
 router.get('/users', userController.getAllUsers)
 
+router.post('/users/validate-password', userController.validatePassword);
+
 module.exports = router
