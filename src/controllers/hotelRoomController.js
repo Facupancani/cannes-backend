@@ -15,7 +15,7 @@ exports.getAllRooms = async (req, res) => {
 exports.getAllRoomsWithShift = async (req,res) => {
   try {
     const sqlQuery = `
-    SELECT hotel_room.*, shift.*
+    SELECT hotel_room.*, shift.room_id, shift.start, shift.finish, shift.type, shift.bar_price, shift.shift_price, shift.pending_cleaning_start, shift.cleaning_start
     FROM hotel_room
     LEFT JOIN shift ON hotel_room.current_shift_id = shift.id;
 `
@@ -58,7 +58,7 @@ exports.createRoom = async (req, res) => {
 exports.updateRoom = async (req, res) => {
   try {
     const room_number = req.params.id; // Assuming room number is passed as a parameter
-    const { state, shift_id, room_number: newRoomNumber } = req.body;
+    const { state, shift_id, room_number: newRoomNumber , pred_price, pred_time} = req.body;
 
     // Find the room by room_number
     const room = await HotelRoom.findOne({ where: { room_number: room_number } });
@@ -68,6 +68,8 @@ exports.updateRoom = async (req, res) => {
       if (newRoomNumber) room.room_number = newRoomNumber;
       if (state) room.state = state;
       if (shift_id) room.current_shift_id = shift_id;
+      if (pred_price) room.pred_price = pred_price;
+      if (pred_time) room.pred_time = pred_time; 
 
       // Save the updated room
       await room.save();
