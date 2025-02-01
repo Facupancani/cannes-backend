@@ -11,6 +11,12 @@ router.post('/users/login', userController.loginUser)
 // Obtener todos los usuarios
 router.get('/users', userController.getAllUsers)
 
+// Actualizar usuario
+router.put('/users/:id', userController.updateUser)
+
+// Eliminar usuario
+router.delete('/users/:id', userController.deleteUser)
+
 router.post('/users/validate-password', userController.validatePassword);
 
 module.exports = router

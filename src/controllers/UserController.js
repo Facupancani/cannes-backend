@@ -128,3 +128,36 @@ exports.getAllUsers = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.updateUser = async (req,res) => {
+  try {
+    const { name, last_name, username, role } = req.body;
+    const user = await User.findByPk(req.params.id);
+    if (user) {
+      user.name = name;
+      user.last_name = last_name
+      user.username = username;
+      user.role = role;
+      await user.save();
+      res.json(user);
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    if (user) {
+      await user.destroy();
+      res.json(user);
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}

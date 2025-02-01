@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-01-2025 a las 02:23:16
+-- Tiempo de generación: 01-02-2025 a las 01:41:16
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -365,7 +365,7 @@ CREATE TABLE `hotel_room` (
 --
 
 INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pred_price`, `pred_time`) VALUES
-(1, 1, 'Disponible', NULL, 1000, 1),
+(1, 1, 'Ocupado', 825, 1000, 1),
 (2, 2, 'Esperando_Limpieza', 819, 2000, 2),
 (3, 3, 'Ocupado', 815, 3000, 3),
 (4, 4, 'Ocupado', 803, 4000, 4),
@@ -374,7 +374,7 @@ INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pre
 (7, 7, 'Ocupado', 805, 7000, 7),
 (8, 8, 'Ocupado', 810, 8000, 8),
 (9, 9, 'Disponible', NULL, 9000, 9),
-(10, 10, 'Disponible', NULL, 10000, 10),
+(10, 10, 'Ocupado', 826, 10000, 10),
 (11, 11, 'Ocupado', 812, 11000, 11),
 (12, 12, 'Ocupado', 811, 12000, 12),
 (13, 13, 'Disponible', NULL, 13000, 13),
@@ -496,7 +496,9 @@ INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `bar_price`, `s
 (812, 11, '2025-01-23 23:37:42', '2025-01-24 10:37:42', 'Normal', 40000, 11000, '2025-01-23 23:37:42', '2025-01-23 23:37:42'),
 (815, 3, '2025-01-29 23:46:25', '2025-01-30 03:46:25', 'Normal', 10000, 7000, '2025-01-29 23:46:25', '2025-01-29 23:46:25'),
 (818, 5, '2025-01-30 00:31:26', '2025-01-30 02:31:26', 'Normal', 10000, 2000, '2025-01-30 00:31:26', '2025-01-30 00:31:26'),
-(819, 2, '2025-01-30 00:31:26', '2025-01-30 02:31:26', 'Normal', 5000, 2000, '2025-01-30 00:31:32', '2025-01-30 00:31:32');
+(819, 2, '2025-01-30 00:31:26', '2025-01-30 02:31:26', 'Normal', 5000, 2000, '2025-01-30 00:31:32', '2025-01-30 00:31:32'),
+(825, 1, '2025-01-31 23:04:51', '2025-02-01 00:04:51', 'Normal', 5000, 1000, '2025-01-31 23:04:51', '2025-01-31 23:04:51'),
+(826, 10, '2025-02-01 00:15:37', '2025-02-01 10:15:37', 'Normal', 5000, 10000, '2025-02-01 00:15:37', '2025-02-01 00:15:37');
 
 -- --------------------------------------------------------
 
@@ -524,14 +526,8 @@ INSERT INTO `user` (`id`, `name`, `last_name`, `username`, `role`, `password`, `
 (19, 'Maximo', 'Pancani', 'maxi123', 'Administrador', '$2a$10$Y9HXway6zk/5L0YGF7bQ3uTBpE2J0Yj/TStApUZ1uHVabaCmGTznC', NULL),
 (20, 'Karina', 'Barcala', 'karina123', 'Conserje', '$2a$10$Efy6z10zZNZGYW/s5CIOAuTnHlGGcpElW4ICc8PimUPXWZ.pdiegi', NULL),
 (21, 'Homero', 'Frias', 'homero123', 'Conserje', '$2a$10$hGJkaULBIVW5tFHENozW1O9qNCbS5E1.TcDitssiZFz96gMLd7uSG', NULL),
-(23, 'Pedro', 'Perez', 'pedro123', 'Conserje', '$2a$10$H6aRzBYQgMrh0AvuEeSgHOIlHFnVgYaWTIQxEmgpFmASC.hmeapkC', NULL),
 (25, 'Facundo', 'Pancani', 'facupancani', 'Conserje', '$2a$10$tCUaAahFH1tcMEd7yvXHnexidneBxzST2KVoxNsJTyIEW.bONaXim', NULL),
-(26, 'Facundo', 'Pancani', 'facupanca', 'Conserje', '$2a$10$665gJo/FKYJEX6bEAjHRzu1B1XUtVhwcAQ1wbEfUJyYgeGHaFlPH.', NULL),
-(27, 'Marcelo', 'Gutierrez', 'Marcelo G', 'Conserje', '$2a$10$UKNmCQNfpelyJH7dx0mYhu1UjSXqgk7e2kmokpIPXnehUwEDHPs1a', NULL),
-(28, 'Juan', 'Perez', 'Juanperez', 'Conserje', '$2a$10$tDretPPnqmE01RgW/KIQxOGRME.OIQRcTVrL5QbxpbUmk7skR/q3m', NULL),
-(29, 'Juan pablo', 'Benito', 'Juanpi', 'Conserje', '$2a$10$VrhkGSYoQjH3.hk9WchfQer6dHNpbf9VrP9MkU58tRNLgPRqB1Hy6', NULL),
-(30, 'Luciano', 'Frias', 'Luciano123', 'Conserje', '$2a$10$l/nfKxMzUyv8YUYJNG7uN.t1sApbiaBjM45lWBtgvTZyomnu5IQwy', NULL),
-(31, 'Holy', 'Johnson', 'holy123', 'Conserje', '$2a$10$5F.AwYMwSGJSDuSmeykBdOFig1g2/jsUjg4WaE/VMbdpHbeyOfunS', NULL);
+(28, 'Juan', 'Perez', 'Juanperez', 'Conserje', '$2a$10$tDretPPnqmE01RgW/KIQxOGRME.OIQRcTVrL5QbxpbUmk7skR/q3m', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -652,7 +648,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=825;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=827;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
