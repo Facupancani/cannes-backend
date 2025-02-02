@@ -9,9 +9,11 @@ router.get('/product', productController.getAllProducts);
 router.get('/product/with-names', productController.getAllProductNames)
 
 
-
 // Obtener un producto por ID
 router.get('/product/:id', productController.getProductById)
+
+// Añadir producto
+router.post('/product', productController.addProduct)
 
 // Actualizar un producto por ID
 router.put('/product/:id', productController.updateProductById)

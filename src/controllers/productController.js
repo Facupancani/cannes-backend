@@ -49,6 +49,16 @@ exports.getProductById = async (req,res) => {
     }
 }
 
+exports.addProduct = async (req, res) => {
+    try {
+        const { name, price, deposit, amount } = req.body;
+        const product = await Product.create({ name, price, deposit, amount });
+        res.json(product);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 exports.updateProductById = async (req, res) => {
     try {
         const id = req.params.id;

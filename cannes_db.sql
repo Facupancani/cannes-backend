@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-02-2025 a las 01:41:16
+-- Tiempo de generación: 03-02-2025 a las 00:49:11
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -286,7 +286,17 @@ INSERT INTO `cash_movement` (`id`, `room_number`, `start`, `finish`, `bar_price`
 (467, 1, '2025-01-30 01:06:41', '2025-01-30 11:06:41', 5000, 1000, 6000, 0, 0, '2025-01-30 01:06:42'),
 (468, 6, '2025-01-30 01:07:51', '2025-01-30 08:07:51', 10000, 12000, 22000, 0, 0, '2025-01-30 01:07:59'),
 (469, 1, '2025-01-30 01:13:21', '2025-01-30 02:13:21', 5000, 1000, 6000, 0, 0, '2025-01-30 01:13:23'),
-(470, 1, '2025-01-30 01:13:37', '2025-01-30 02:13:37', 5000, 2000, 7000, 0, 0, '2025-01-30 01:13:41');
+(470, 1, '2025-01-30 01:13:37', '2025-01-30 02:13:37', 5000, 2000, 7000, 0, 0, '2025-01-30 01:13:41'),
+(471, 10, '2025-02-01 00:15:37', '2025-02-01 10:15:37', 5000, 10000, 15000, 0, 0, '2025-02-02 23:39:00'),
+(472, 12, '2025-01-23 23:33:36', '2025-01-24 11:33:36', 70000, 12000, 82000, 0, 0, '2025-02-02 23:39:02'),
+(473, 11, '2025-01-23 23:37:42', '2025-01-24 10:37:42', 40000, 11000, 51000, 0, 0, '2025-02-02 23:39:04'),
+(474, 8, '2025-01-23 22:37:24', '2025-01-24 12:22:24', 45000, 33000, 78000, 0, 0, '2025-02-02 23:39:06'),
+(475, 4, '2025-01-21 01:24:33', '2025-01-21 05:24:33', 65001, 2877, 67878, 0, -123, '2025-02-02 23:39:09'),
+(476, 7, '2025-01-21 01:24:33', '2025-01-21 08:24:33', 10000, 7000, 17000, 0, 0, '2025-02-02 23:39:11'),
+(477, 3, '2025-01-29 23:46:25', '2025-01-30 03:46:25', 19000, 7000, 26000, 0, 0, '2025-02-02 23:39:14'),
+(478, 6, '2025-02-02 23:32:38', '2025-02-03 05:32:38', 15000, 6000, 21000, 0, 0, '2025-02-02 23:39:16'),
+(479, 5, '2025-01-30 00:31:26', '2025-01-30 02:31:26', 10000, 2000, 12000, 0, 0, '2025-02-02 23:39:18'),
+(480, 1, '2025-01-31 23:04:51', '2025-02-01 00:04:51', 5000, 1000, 6000, 0, 0, '2025-02-02 23:39:20');
 
 -- --------------------------------------------------------
 
@@ -307,43 +317,7 @@ CREATE TABLE `consumition` (
 --
 
 INSERT INTO `consumition` (`id`, `shift_id`, `type`, `description`, `price`) VALUES
-(307, 810, 'product', 'Agua Villavicencio', 5000),
-(308, 803, 'product', 'Alfajor Jorgito', 10000),
-(309, 803, 'product', 'Alfajor Jorgito', 10000),
-(310, 803, 'product', 'Alfajor Jorgito', 30000),
-(311, 803, 'product', 'Alfajor Jorgito', 1),
-(312, 811, 'product', 'Alfajor Jorgito', 5000),
-(313, 811, 'product', 'Alfajor Jorgito', 5000),
-(314, 811, 'product', 'Alfajor Jorgito', 5000),
-(315, 811, 'product', 'Alfajor Jorgito', 5000),
-(316, 811, 'product', 'Alfajor Jorgito', 10000),
-(317, 812, 'product', 'Agua Villavicencio', 5000),
-(318, 812, 'product', 'Alfajor Jorgito', 10000),
-(319, 812, 'product', 'Alfajor Jorgito', 10000),
-(320, 812, 'product', 'Alfajor Jorgito', 10000),
-(321, 810, 'product', 'Agua Villavicencio', 5000),
-(322, 810, 'product', 'Agua Villavicencio', 5000),
-(323, 810, 'product', 'Agua Villavicencio', 5000),
-(324, 810, 'product', 'Agua Villavicencio', 5000),
-(325, 811, 'product', 'Agua Villavicencio', 5000),
-(326, 811, 'product', 'Agua Villavicencio', 5000),
-(327, 811, 'product', 'Agua Villavicencio', 5000),
-(328, 811, 'product', 'Agua Villavicencio', 5000),
-(329, 811, 'product', 'Agua Villavicencio', 5000),
-(330, 811, 'product', 'Agua Villavicencio', 5000),
-(336, 810, 'product', 'Alfajor Jorgito', 10000),
-(337, 811, 'product', 'Agua Villavicencio', 5000),
-(338, 805, 'product', 'Agua Villavicencio', 5000),
-(340, 810, 'surcharge', 'Se añadio 30 minutos extra a esta habitacion', 3000),
-(341, 810, 'surcharge', 'Se añadio 60 minutos extra a esta habitacion', 6000),
-(342, 803, 'commission', 'Luciano', -123),
-(343, 810, 'surcharge', 'Se añadio 120 minutos extra a esta habitacion', 7000),
-(344, 810, 'surcharge', 'Se añadio 120 minutos extra a esta habitacion', 7000),
-(345, 810, 'product', 'Agua Villavicencio', 5000),
-(346, 810, 'surcharge', 'asd', 2000),
-(347, 815, 'surcharge', 'Se añadio 60 minutos extra a esta habitacion', 6000),
-(348, 815, 'product', 'Agua Villavicencio', 5000),
-(351, 818, 'product', 'Agua Villavicencio', 5000);
+(358, 828, 'product', 'Cigarillos', 3000);
 
 -- --------------------------------------------------------
 
@@ -365,18 +339,18 @@ CREATE TABLE `hotel_room` (
 --
 
 INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pred_price`, `pred_time`) VALUES
-(1, 1, 'Ocupado', 825, 1000, 1),
-(2, 2, 'Esperando_Limpieza', 819, 2000, 2),
-(3, 3, 'Ocupado', 815, 3000, 3),
-(4, 4, 'Ocupado', 803, 4000, 4),
-(5, 5, 'Ocupado', 818, 5000, 5),
+(1, 1, 'Disponible', NULL, 1000, 1),
+(2, 2, 'Disponible', NULL, 2000, 2),
+(3, 3, 'Disponible', NULL, 3000, 3),
+(4, 4, 'Disponible', NULL, 4000, 4),
+(5, 5, 'Disponible', NULL, 5000, 5),
 (6, 6, 'Disponible', NULL, 6000, 6),
-(7, 7, 'Ocupado', 805, 7000, 7),
-(8, 8, 'Ocupado', 810, 8000, 8),
+(7, 7, 'Ocupado', 828, 7000, 7),
+(8, 8, 'Disponible', NULL, 8000, 8),
 (9, 9, 'Disponible', NULL, 9000, 9),
-(10, 10, 'Ocupado', 826, 10000, 10),
-(11, 11, 'Ocupado', 812, 11000, 11),
-(12, 12, 'Ocupado', 811, 12000, 12),
+(10, 10, 'Disponible', NULL, 10000, 10),
+(11, 11, 'Disponible', NULL, 11000, 11),
+(12, 12, 'Disponible', NULL, 12000, 12),
 (13, 13, 'Disponible', NULL, 13000, 13),
 (14, 14, 'Disponible', NULL, 14000, 14),
 (15, 15, 'Disponible', NULL, 15000, 15),
@@ -437,13 +411,6 @@ CREATE TABLE `observation` (
   `text` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `observation`
---
-
-INSERT INTO `observation` (`id`, `shift_id`, `text`) VALUES
-(34, 810, 'asdasd');
-
 -- --------------------------------------------------------
 
 --
@@ -463,8 +430,10 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
-(1, 'Agua Villavicencio', 5000, 1, 929),
-(2, 'Alfajor Jorgito', 10000, 1, 82);
+(1, 'Agua Villavicencio', 5000, 1, 927),
+(2, 'Alfajor Jorgito', 10000, 1, 82),
+(3, 'Preservativo Prime XL', 10000, 1, 50),
+(4, 'Cigarillos', 3000, 1, 9999);
 
 -- --------------------------------------------------------
 
@@ -489,16 +458,7 @@ CREATE TABLE `shift` (
 --
 
 INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `bar_price`, `shift_price`, `pending_cleaning_start`, `cleaning_start`) VALUES
-(803, 4, '2025-01-21 01:24:33', '2025-01-21 05:24:33', 'Normal', 55001, 2877, '2025-01-21 01:24:33', '2025-01-21 01:24:33'),
-(805, 7, '2025-01-21 01:24:33', '2025-01-21 08:24:33', 'Normal', 10000, 7000, '2025-01-21 01:24:33', '2025-01-21 01:24:33'),
-(810, 8, '2025-01-23 22:37:24', '2025-01-24 12:22:24', 'Normal', 45000, 33000, '2025-01-23 22:37:24', '2025-01-23 22:37:24'),
-(811, 12, '2025-01-23 23:33:36', '2025-01-24 11:33:36', 'Normal', 70000, 12000, '2025-01-23 23:33:36', '2025-01-23 23:33:36'),
-(812, 11, '2025-01-23 23:37:42', '2025-01-24 10:37:42', 'Normal', 40000, 11000, '2025-01-23 23:37:42', '2025-01-23 23:37:42'),
-(815, 3, '2025-01-29 23:46:25', '2025-01-30 03:46:25', 'Normal', 10000, 7000, '2025-01-29 23:46:25', '2025-01-29 23:46:25'),
-(818, 5, '2025-01-30 00:31:26', '2025-01-30 02:31:26', 'Normal', 10000, 2000, '2025-01-30 00:31:26', '2025-01-30 00:31:26'),
-(819, 2, '2025-01-30 00:31:26', '2025-01-30 02:31:26', 'Normal', 5000, 2000, '2025-01-30 00:31:32', '2025-01-30 00:31:32'),
-(825, 1, '2025-01-31 23:04:51', '2025-02-01 00:04:51', 'Normal', 5000, 1000, '2025-01-31 23:04:51', '2025-01-31 23:04:51'),
-(826, 10, '2025-02-01 00:15:37', '2025-02-01 10:15:37', 'Normal', 5000, 10000, '2025-02-01 00:15:37', '2025-02-01 00:15:37');
+(828, 7, '2025-02-02 23:40:49', '2025-02-03 06:40:49', 'Normal', 8000, 7000, '2025-02-02 23:40:49', '2025-02-02 23:40:49');
 
 -- --------------------------------------------------------
 
@@ -618,13 +578,13 @@ ALTER TABLE `bill`
 -- AUTO_INCREMENT de la tabla `cash_movement`
 --
 ALTER TABLE `cash_movement`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=471;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=481;
 
 --
 -- AUTO_INCREMENT de la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=354;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=359;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
@@ -642,13 +602,13 @@ ALTER TABLE `observation`
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=827;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=829;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
