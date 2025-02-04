@@ -11,6 +11,9 @@ router.post('/users/login', userController.loginUser)
 // Obtener todos los usuarios
 router.get('/users', userController.getAllUsers)
 
+// Obtener usuario por nombre
+router.get('/users/name', userController.getUserByName)
+
 // Actualizar usuario
 router.put('/users/:id', userController.updateUser)
 

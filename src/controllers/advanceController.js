@@ -1,5 +1,6 @@
 const sequelize = require('../config/database');
 const Advance = require('../models/Advance');
+const User = require('../models/User')
 
 // Obtener avances
 exports.getAllAdvances = async(req, res) => {
@@ -10,6 +11,22 @@ exports.getAllAdvances = async(req, res) => {
         res.status(500).json({ error: err.message })
     }
 
+}
+
+// Obtener avances con datos de usuario
+exports.getAllAdvancesWithUser = async(req,res) => {
+    try {
+        const sqlQuery = `
+        SELECT advance.*, user.name, user.last_name, user.role
+        FROM advance
+        LEFT JOIN user ON advance.user_id = user.id;
+    `
+        const [results, metadata] = await sequelize.query(sqlQuery)
+        res.json(results)
+    
+      } catch (err) {
+        res.status(500).json({ error: err.message })
+      }
 }
 
 // Obtener ultimo avance
@@ -74,4 +91,27 @@ exports.createAdvance = async(req, res) => {
         res.status(500).json({ error: err.message })
     }
 
+}
+
+// Actualizar avance
+
+exports.updateAdvance = async(req,res) => {
+    try {
+        const id = req.params.id;
+        const { amount, details } = req.body; // Add other fields as needed
+
+        const [updated] = await Advance.update(
+            { amount, details }, // fields to update
+            { where: { id: id } }
+        );
+
+        if (updated) {
+            const updatedAdvance = await Advance.findByPk(id);
+            res.json({ updatedAdvance });
+        } else {
+            res.status(404).json({ error: 'Advance not found' });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 }

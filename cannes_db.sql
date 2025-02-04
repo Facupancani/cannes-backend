@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-02-2025 a las 00:49:11
+-- Tiempo de generación: 04-02-2025 a las 04:20:01
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -42,7 +42,8 @@ CREATE TABLE `advance` (
 INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUES
 (40, 19, 10000, 'Consumición interna de Maximo Pancani - 1 Alfajor Jorgito - $ 10.000,00', '2025-01-29 23:50:56'),
 (41, 11, 5000, 'Consumición interna de Luciano Frias - 1 Agua Villavicencio - $ 5.000,00', '2025-01-29 23:51:00'),
-(42, 11, 10000, 'Consumición interna de Luciano Frias - 2 Agua Villavicencio - $ 10.000,00', '2025-01-29 23:51:10');
+(42, 11, 10000, 'Consumición interna de Luciano Frias - 2 Agua Villavicencio - $ 10.000,00', '2025-01-29 23:51:10'),
+(43, 19, 10000, 'Holaaa', '2025-02-04 02:04:56');
 
 -- --------------------------------------------------------
 
@@ -566,7 +567,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `advance`
 --
 ALTER TABLE `advance`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de la tabla `bill`

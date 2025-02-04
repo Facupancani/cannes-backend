@@ -129,6 +129,26 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
+// Obtener un usuario por nombre
+exports.getUserByName = async (req, res) => {
+  try {
+    const { name } = req.body; // Get the name from URL parameters
+
+    const user = await User.findOne({
+      where: { name },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json(user); // Send the user data as JSON
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 exports.updateUser = async (req,res) => {
   try {
     const { name, last_name, username, role } = req.body;
