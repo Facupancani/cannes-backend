@@ -12,7 +12,7 @@ router.post('/users/login', userController.loginUser)
 router.get('/users', userController.getAllUsers)
 
 // Obtener usuario por nombre
-router.get('/users/name', userController.getUserByName)
+router.get('/users/name/:name', userController.getUserByName)
 
 // Actualizar usuario
 router.put('/users/:id', userController.updateUser)

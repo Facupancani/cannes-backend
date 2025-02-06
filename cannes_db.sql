@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-02-2025 a las 04:20:01
+-- Tiempo de generación: 06-02-2025 a las 02:32:28
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,10 +40,12 @@ CREATE TABLE `advance` (
 --
 
 INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUES
-(40, 19, 10000, 'Consumición interna de Maximo Pancani - 1 Alfajor Jorgito - $ 10.000,00', '2025-01-29 23:50:56'),
-(41, 11, 5000, 'Consumición interna de Luciano Frias - 1 Agua Villavicencio - $ 5.000,00', '2025-01-29 23:51:00'),
-(42, 11, 10000, 'Consumición interna de Luciano Frias - 2 Agua Villavicencio - $ 10.000,00', '2025-01-29 23:51:10'),
-(43, 19, 10000, 'Holaaa', '2025-02-04 02:04:56');
+(60, 11, 123123, 'asdfasdf', '2025-02-05 23:07:51'),
+(61, 11, 123123, 'asdfasdf', '2025-02-05 23:08:29'),
+(62, 11, 2147483647, 'sdfgsdfgfgshfghj', '2025-02-05 23:08:40'),
+(63, 11, 2147483647, 'fghkjfghk', '2025-02-05 23:08:59'),
+(64, 11, 10000, 'Test 123', '2025-02-05 23:24:14'),
+(65, 19, 1000, 'test maximo', '2025-02-05 23:32:08');
 
 -- --------------------------------------------------------
 
@@ -65,13 +67,7 @@ CREATE TABLE `bill` (
 --
 
 INSERT INTO `bill` (`id`, `concept`, `details`, `amount`, `provider`, `created_at`) VALUES
-(1, 'Electricidad', 'Pagado en noviembre', 40000, 'Edea', '2024-11-07 21:59:24'),
-(2, 'Gas', 'Pago de Noviembre Gas', 50000, 'Dugas', '2024-11-07 22:23:21'),
-(3, 'Luz', 'Hola', 1111, 'Fravega', '2024-11-15 00:10:59'),
-(4, 'Agua', 'Hola', 4000, 'hola', '2024-11-20 19:03:31'),
-(5, 'Agua', '12/12', 50000, 'edea', '2025-01-24 23:35:29'),
-(6, 'Luz', 'EDEA', 1300, 'EDEA', '2025-01-27 23:33:31'),
-(7, 'Agua', '123123', 123123, '123123', '2025-01-29 23:49:45');
+(10, 'Electricidad', 'Electricidad pagada el 5/2/2025', 50000, 'EDEA', '2025-02-06 01:19:53');
 
 -- --------------------------------------------------------
 
@@ -434,7 +430,8 @@ INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
 (1, 'Agua Villavicencio', 5000, 1, 927),
 (2, 'Alfajor Jorgito', 10000, 1, 82),
 (3, 'Preservativo Prime XL', 10000, 1, 50),
-(4, 'Cigarillos', 3000, 1, 9999);
+(4, 'Cigarillos', 3000, 1, 9999),
+(6, 'Agua Mineral', 1000, 1, 200);
 
 -- --------------------------------------------------------
 
@@ -483,12 +480,11 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `name`, `last_name`, `username`, `role`, `password`, `fingerprint`) VALUES
 (10, 'John', 'Doe', 'johndoe123', 'Conserje', '$2a$10$IdwXT/zJsX2p/3hxXe0SYON5KBrz9nPrErxnFsaJlOWP4Cn80za0C', NULL),
-(11, 'Luciano', 'Frias', 'luciano123', 'Conserje', '$2a$10$Qp45Vw.vEs4rl8tZEyeA2eLRI8Wk3kHVZawn6UUlpd2q4X3sOWH9.', NULL),
+(11, 'Luciano', 'Frias', 'luciano123', 'Administrador', '$2a$10$Qp45Vw.vEs4rl8tZEyeA2eLRI8Wk3kHVZawn6UUlpd2q4X3sOWH9.', NULL),
 (19, 'Maximo', 'Pancani', 'maxi123', 'Administrador', '$2a$10$Y9HXway6zk/5L0YGF7bQ3uTBpE2J0Yj/TStApUZ1uHVabaCmGTznC', NULL),
 (20, 'Karina', 'Barcala', 'karina123', 'Conserje', '$2a$10$Efy6z10zZNZGYW/s5CIOAuTnHlGGcpElW4ICc8PimUPXWZ.pdiegi', NULL),
 (21, 'Homero', 'Frias', 'homero123', 'Conserje', '$2a$10$hGJkaULBIVW5tFHENozW1O9qNCbS5E1.TcDitssiZFz96gMLd7uSG', NULL),
-(25, 'Facundo', 'Pancani', 'facupancani', 'Conserje', '$2a$10$tCUaAahFH1tcMEd7yvXHnexidneBxzST2KVoxNsJTyIEW.bONaXim', NULL),
-(28, 'Juan', 'Perez', 'Juanperez', 'Conserje', '$2a$10$tDretPPnqmE01RgW/KIQxOGRME.OIQRcTVrL5QbxpbUmk7skR/q3m', NULL);
+(25, 'Facundo', 'Pancani', 'facupancani', 'Conserje', '$2a$10$tCUaAahFH1tcMEd7yvXHnexidneBxzST2KVoxNsJTyIEW.bONaXim', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -567,13 +563,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `advance`
 --
 ALTER TABLE `advance`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT de la tabla `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `cash_movement`
@@ -603,7 +599,7 @@ ALTER TABLE `observation`
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `shift`
@@ -615,7 +611,7 @@ ALTER TABLE `shift`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Restricciones para tablas volcadas

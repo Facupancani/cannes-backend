@@ -132,7 +132,7 @@ exports.getAllUsers = async (req, res) => {
 // Obtener un usuario por nombre
 exports.getUserByName = async (req, res) => {
   try {
-    const { name } = req.body; // Get the name from URL parameters
+    const { name } = req.params; // Get the name from URL parameters
 
     const user = await User.findOne({
       where: { name },

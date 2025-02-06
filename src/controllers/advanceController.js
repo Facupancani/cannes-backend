@@ -85,7 +85,7 @@ exports.getAllAdvancesAmountByUserId = async(req,res) => {
 exports.createAdvance = async(req, res) => {
     try {
         const { user_id, amount, details } = req.body
-        const newAdvance = Advance.create({user_id, amount, details})
+        const newAdvance = await Advance.create({user_id, amount, details})
         res.status(201).json(newAdvance)
     } catch (err) {
         res.status(500).json({ error: err.message })

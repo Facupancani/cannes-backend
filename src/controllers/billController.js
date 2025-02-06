@@ -46,10 +46,32 @@ exports.getLastBillId = async(req, res) => {
 exports.createBill = async(req, res) => {
     try {
         const { concept, details, amount, provider } = req.body
-        const newBill = Bill.create({concept, details, amount, provider})
+        const newBill = await Bill.create({concept, details, amount, provider})
         res.status(201).json(newBill)
     } catch (err) {
         res.status(500).json({ error: err.message })
     }
 
+}
+
+// Actualizar gasto
+exports.updateBill = async(req,res) => {
+    try {
+        const id = req.params.id;
+        const { concept, provider, amount, details} = req.body; // Add other fields as needed
+
+        const [updated] = await Bill.update(
+            { amount, details, concept, provider }, // fields to update
+            { where: { id: id } }
+        );
+
+        if (updated) {
+            const updatedBill = await Bill.findByPk(id);
+            res.json(updatedBill);
+        } else {
+            res.status(404).json({ error: 'Bill not found' });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 }
