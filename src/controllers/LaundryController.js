@@ -2,6 +2,39 @@ const sequelize = require('../config/database');
 const Laundry = require('../models/Laundry');
 const { Op } = require('sequelize');
 
+// Obtiene todas las prendas
+exports.getAllLaundryItems = async (req,res) => {
+    try {
+        const items = await Laundry.findAll()
+        res.json(items)
+    } catch (err) {
+        res.status(500).json({ error: err.message })
+    }
+}
+
+// Actualiza una prenda
+exports.updateLaundryItem = async (req,res) => {
+    try {
+        const id = req.params.id;
+        const { name, deposit, amount} = req.body; // Add other fields as needed
+
+        const [updated] = await Laundry.update(
+            { deposit, amount, name }, // fields to update
+            { where: { id: id } }
+        );
+
+        if (updated) {
+            const updatedLaundryItem = await Laundry.findByPk(id);
+            res.json(updatedLaundryItem);
+        } else {
+            res.status(404).json({ error: 'Laundry not found' });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+
 // Obtiene prendas en el lavadero
 exports.getItemsInLaundry = async (req, res) => {
     try {

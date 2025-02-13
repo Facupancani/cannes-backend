@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-02-2025 a las 02:32:28
+-- Tiempo de generación: 13-02-2025 a las 02:38:29
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,12 +40,19 @@ CREATE TABLE `advance` (
 --
 
 INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUES
-(60, 11, 123123, 'asdfasdf', '2025-02-05 23:07:51'),
+(60, 11, 123123, 'hello12312sadfasdfasdfg', '2025-02-05 23:07:51'),
 (61, 11, 123123, 'asdfasdf', '2025-02-05 23:08:29'),
 (62, 11, 2147483647, 'sdfgsdfgfgshfghj', '2025-02-05 23:08:40'),
-(63, 11, 2147483647, 'fghkjfghk', '2025-02-05 23:08:59'),
+(63, 11, 2147, 'fghkjfghk', '2025-02-05 23:08:59'),
 (64, 11, 10000, 'Test 123', '2025-02-05 23:24:14'),
-(65, 19, 1000, 'test maximo', '2025-02-05 23:32:08');
+(65, 19, 1000, 'test maximo', '2025-02-05 23:32:08'),
+(66, 11, 10001, 'Avance de prueba', '2025-02-07 23:28:12'),
+(67, 11, 1234523545, '34563246', '2025-02-09 23:59:29'),
+(68, 11, 2147483647, '4567864578', '2025-02-09 23:59:32'),
+(69, 11, 2147483647, '657856785678', '2025-02-09 23:59:36'),
+(70, 11, 2147483647, '5679865798567', '2025-02-09 23:59:40'),
+(71, 11, 123123, '123123', '2025-02-10 00:11:59'),
+(72, 11, 23452345, '23454235', '2025-02-10 00:12:03');
 
 -- --------------------------------------------------------
 
@@ -67,7 +74,7 @@ CREATE TABLE `bill` (
 --
 
 INSERT INTO `bill` (`id`, `concept`, `details`, `amount`, `provider`, `created_at`) VALUES
-(10, 'Electricidad', 'Electricidad pagada el 5/2/2025', 50000, 'EDEA', '2025-02-06 01:19:53');
+(10, 'Electricidad', 'Electricidad pagada el 5/2/2025', 50000, 'EDEAasdas123123', '2025-02-06 01:19:53');
 
 -- --------------------------------------------------------
 
@@ -293,7 +300,10 @@ INSERT INTO `cash_movement` (`id`, `room_number`, `start`, `finish`, `bar_price`
 (477, 3, '2025-01-29 23:46:25', '2025-01-30 03:46:25', 19000, 7000, 26000, 0, 0, '2025-02-02 23:39:14'),
 (478, 6, '2025-02-02 23:32:38', '2025-02-03 05:32:38', 15000, 6000, 21000, 0, 0, '2025-02-02 23:39:16'),
 (479, 5, '2025-01-30 00:31:26', '2025-01-30 02:31:26', 10000, 2000, 12000, 0, 0, '2025-02-02 23:39:18'),
-(480, 1, '2025-01-31 23:04:51', '2025-02-01 00:04:51', 5000, 1000, 6000, 0, 0, '2025-02-02 23:39:20');
+(480, 1, '2025-01-31 23:04:51', '2025-02-01 00:04:51', 5000, 1000, 6000, 0, 0, '2025-02-02 23:39:20'),
+(481, 2, '2025-02-10 00:36:45', '2025-02-10 02:36:45', 5000, 2000, 7000, 0, 0, '2025-02-10 00:36:48'),
+(482, 7, '2025-02-02 23:40:49', '2025-02-03 06:40:49', 8000, 7000, 15000, 0, 0, '2025-02-13 01:36:36'),
+(483, 8, '2025-02-13 01:36:38', '2025-02-13 09:36:38', 5000, 8000, 13000, 0, 0, '2025-02-13 01:36:39');
 
 -- --------------------------------------------------------
 
@@ -308,13 +318,6 @@ CREATE TABLE `consumition` (
   `description` varchar(100) NOT NULL,
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `consumition`
---
-
-INSERT INTO `consumition` (`id`, `shift_id`, `type`, `description`, `price`) VALUES
-(358, 828, 'product', 'Cigarillos', 3000);
 
 -- --------------------------------------------------------
 
@@ -342,7 +345,7 @@ INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pre
 (4, 4, 'Disponible', NULL, 4000, 4),
 (5, 5, 'Disponible', NULL, 5000, 5),
 (6, 6, 'Disponible', NULL, 6000, 6),
-(7, 7, 'Ocupado', 828, 7000, 7),
+(7, 7, 'Disponible', NULL, 7000, 7),
 (8, 8, 'Disponible', NULL, 8000, 8),
 (9, 9, 'Disponible', NULL, 9000, 9),
 (10, 10, 'Disponible', NULL, 10000, 10),
@@ -372,17 +375,17 @@ CREATE TABLE `laundry` (
 
 INSERT INTO `laundry` (`id`, `name`, `deposit`, `amount`) VALUES
 (25, 'fundas', 'in_use', 0),
-(26, 'fundas', 'clean', -2),
-(27, 'fundas', 'dirty', 2),
-(28, 'fundas', 'in_laundry', 28),
-(29, 'sabanas', 'in_use', 0),
-(30, 'sabanas', 'clean', -2),
-(31, 'sabanas', 'dirty', 2),
-(32, 'sabanas', 'in_laundry', 15),
+(26, 'fundas', 'clean', 0),
+(27, 'fundas', 'dirty', 0),
+(28, 'fundas', 'in_laundry', 12),
+(29, 'sabanas', 'in_use', 5),
+(30, 'sabanas', 'clean', 0),
+(31, 'sabanas', 'dirty', 0),
+(32, 'sabanas', 'in_laundry', 19),
 (33, 'cubrecamas', 'in_use', 0),
-(34, 'cubrecamas', 'clean', -2),
-(35, 'cubrecamas', 'dirty', 2),
-(36, 'cubrecamas', 'in_laundry', 37),
+(34, 'cubrecamas', 'clean', 0),
+(35, 'cubrecamas', 'dirty', 0),
+(36, 'cubrecamas', 'in_laundry', 41),
 (37, 'toallas', 'in_use', 0),
 (38, 'toallas', 'clean', 0),
 (39, 'toallas', 'dirty', 0),
@@ -431,7 +434,13 @@ INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
 (2, 'Alfajor Jorgito', 10000, 1, 82),
 (3, 'Preservativo Prime XL', 10000, 1, 50),
 (4, 'Cigarillos', 3000, 1, 9999),
-(6, 'Agua Mineral', 1000, 1, 200);
+(6, 'Agua Mineral', 1000, 1, 200),
+(7, 'Coca Cola XL 2L', 10000, 1, 80000),
+(8, 'test', 10000, 2, 2000),
+(9, 'Chicle Boobaloo', 1000, 1, 1000),
+(10, 'Citrus Pomelo', 5000, 1, 20000),
+(11, 'lol', 50000, 1, 20000),
+(12, 'Luciano', 12341243, 12341243, 12344123);
 
 -- --------------------------------------------------------
 
@@ -450,13 +459,6 @@ CREATE TABLE `shift` (
   `pending_cleaning_start` datetime NOT NULL,
   `cleaning_start` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `shift`
---
-
-INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `bar_price`, `shift_price`, `pending_cleaning_start`, `cleaning_start`) VALUES
-(828, 7, '2025-02-02 23:40:49', '2025-02-03 06:40:49', 'Normal', 8000, 7000, '2025-02-02 23:40:49', '2025-02-02 23:40:49');
 
 -- --------------------------------------------------------
 
@@ -563,7 +565,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `advance`
 --
 ALTER TABLE `advance`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT de la tabla `bill`
@@ -575,7 +577,7 @@ ALTER TABLE `bill`
 -- AUTO_INCREMENT de la tabla `cash_movement`
 --
 ALTER TABLE `cash_movement`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=481;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=484;
 
 --
 -- AUTO_INCREMENT de la tabla `consumition`
@@ -599,13 +601,13 @@ ALTER TABLE `observation`
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=829;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=831;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
