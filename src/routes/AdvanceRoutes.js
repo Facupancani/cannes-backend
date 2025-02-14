@@ -23,4 +23,7 @@ router.post('/advance', advanceController.createAdvance)
 // Actualizar avance
 router.put('/advance/:id', advanceController.updateAdvance)
 
+// Eliminar avance
+router.delete('/advance/:id', advanceController.deleteAdvance)
+
 module.exports = router

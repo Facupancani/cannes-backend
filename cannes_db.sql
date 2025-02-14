@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-02-2025 a las 02:38:29
+-- Tiempo de generación: 15-02-2025 a las 00:53:19
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -43,16 +43,13 @@ INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUE
 (60, 11, 123123, 'hello12312sadfasdfasdfg', '2025-02-05 23:07:51'),
 (61, 11, 123123, 'asdfasdf', '2025-02-05 23:08:29'),
 (62, 11, 2147483647, 'sdfgsdfgfgshfghj', '2025-02-05 23:08:40'),
-(63, 11, 2147, 'fghkjfghk', '2025-02-05 23:08:59'),
-(64, 11, 10000, 'Test 123', '2025-02-05 23:24:14'),
-(65, 19, 1000, 'test maximo', '2025-02-05 23:32:08'),
 (66, 11, 10001, 'Avance de prueba', '2025-02-07 23:28:12'),
 (67, 11, 1234523545, '34563246', '2025-02-09 23:59:29'),
-(68, 11, 2147483647, '4567864578', '2025-02-09 23:59:32'),
-(69, 11, 2147483647, '657856785678', '2025-02-09 23:59:36'),
 (70, 11, 2147483647, '5679865798567', '2025-02-09 23:59:40'),
 (71, 11, 123123, '123123', '2025-02-10 00:11:59'),
-(72, 11, 23452345, '23454235', '2025-02-10 00:12:03');
+(72, 11, 23452345, '23454235', '2025-02-10 00:12:03'),
+(73, 11, 1213, '12423423', '2025-02-14 23:40:23'),
+(74, 11, 23524135, '23453245', '2025-02-14 23:40:25');
 
 -- --------------------------------------------------------
 
@@ -342,11 +339,11 @@ INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pre
 (1, 1, 'Disponible', NULL, 1000, 1),
 (2, 2, 'Disponible', NULL, 2000, 2),
 (3, 3, 'Disponible', NULL, 3000, 3),
-(4, 4, 'Disponible', NULL, 4000, 4),
+(4, 4, 'Ocupado', 831, 4000, 4),
 (5, 5, 'Disponible', NULL, 5000, 5),
 (6, 6, 'Disponible', NULL, 6000, 6),
 (7, 7, 'Disponible', NULL, 7000, 7),
-(8, 8, 'Disponible', NULL, 8000, 8),
+(8, 8, 'Ocupado', 832, 8000, 8),
 (9, 9, 'Disponible', NULL, 9000, 9),
 (10, 10, 'Disponible', NULL, 10000, 10),
 (11, 11, 'Disponible', NULL, 11000, 11),
@@ -431,12 +428,10 @@ CREATE TABLE `product` (
 
 INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
 (1, 'Agua Villavicencio', 5000, 1, 927),
-(2, 'Alfajor Jorgito', 10000, 1, 82),
+(2, 'Alfajor Jorgito', 10000, 1, 821),
 (3, 'Preservativo Prime XL', 10000, 1, 50),
-(4, 'Cigarillos', 3000, 1, 9999),
 (6, 'Agua Mineral', 1000, 1, 200),
 (7, 'Coca Cola XL 2L', 10000, 1, 80000),
-(8, 'test', 10000, 2, 2000),
 (9, 'Chicle Boobaloo', 1000, 1, 1000),
 (10, 'Citrus Pomelo', 5000, 1, 20000),
 (11, 'lol', 50000, 1, 20000),
@@ -459,6 +454,14 @@ CREATE TABLE `shift` (
   `pending_cleaning_start` datetime NOT NULL,
   `cleaning_start` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `shift`
+--
+
+INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `bar_price`, `shift_price`, `pending_cleaning_start`, `cleaning_start`) VALUES
+(831, 4, '2025-02-13 23:28:01', '2025-02-14 03:28:01', 'Normal', 5000, 4000, '2025-02-13 23:28:01', '2025-02-13 23:28:01'),
+(832, 8, '2025-02-13 23:38:09', '2025-02-14 07:38:09', 'Normal', 5000, 8000, '2025-02-13 23:38:09', '2025-02-13 23:38:09');
 
 -- --------------------------------------------------------
 
@@ -565,7 +568,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `advance`
 --
 ALTER TABLE `advance`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT de la tabla `bill`
@@ -607,7 +610,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=831;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=833;
 
 --
 -- AUTO_INCREMENT de la tabla `user`

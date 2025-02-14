@@ -115,3 +115,18 @@ exports.updateAdvance = async(req,res) => {
         res.status(500).json({ error: err.message });
     }
 }
+
+// Eliminar avance
+exports.deleteAdvance = async (req, res) => {
+    try {
+        const advance = await Advance.findByPk(req.params.id);
+        if (advance) {
+          await advance.destroy();
+          res.json(advance);
+        } else {
+          res.status(404).json({ error: 'Advance not found' });
+        }
+      } catch (err) {
+        res.status(500).json({ error: err.message });
+      }
+}

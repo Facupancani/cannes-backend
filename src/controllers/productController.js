@@ -79,3 +79,18 @@ exports.updateProductById = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+// Eliminar producto
+exports.deleteProduct = async (req,res) => {
+    try {
+        const product = await Product.findByPk(req.params.id);
+        if (product) {
+          await product.destroy();
+          res.json(product);
+        } else {
+          res.status(404).json({ error: 'Product not found' });
+        }
+      } catch (err) {
+        res.status(500).json({ error: err.message });
+      }
+}

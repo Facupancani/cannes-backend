@@ -22,5 +22,7 @@ router.put('/product/:id', productController.updateProductById)
 // Obtener un producto por deposito
 router.get('/product/deposit/:id', productController.getAllProductsFromDeposit)
 
+// Eliminar producto
+router.delete('/product/:id', productController.deleteProduct)
 
 module.exports = router
