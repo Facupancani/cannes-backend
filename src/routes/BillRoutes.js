@@ -17,4 +17,7 @@ router.post('/bill', billController.createBill)
 // Actualizar gasto
 router.put('/bill/:id', billController.updateBill)
 
+// Eliminar gasto
+router.delete('/bill/:id', billController.deleteBill)
+
 module.exports = router

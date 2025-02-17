@@ -75,3 +75,18 @@ exports.updateBill = async(req,res) => {
         res.status(500).json({ error: err.message });
     }
 }
+
+// Eliminar gasto
+exports.deleteBill = async (req, res) => {
+    try {
+        const bill = await Bill.findByPk(req.params.id);
+        if (bill) {
+          await bill.destroy();
+          res.json(bill);
+        } else {
+          res.status(404).json({ error: 'Bill not found' });
+        }
+      } catch (err) {
+        res.status(500).json({ error: err.message });
+      }
+}

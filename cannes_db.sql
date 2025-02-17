@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-02-2025 a las 00:53:19
+-- Tiempo de generación: 17-02-2025 a las 01:44:29
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,14 +40,6 @@ CREATE TABLE `advance` (
 --
 
 INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUES
-(60, 11, 123123, 'hello12312sadfasdfasdfg', '2025-02-05 23:07:51'),
-(61, 11, 123123, 'asdfasdf', '2025-02-05 23:08:29'),
-(62, 11, 2147483647, 'sdfgsdfgfgshfghj', '2025-02-05 23:08:40'),
-(66, 11, 10001, 'Avance de prueba', '2025-02-07 23:28:12'),
-(67, 11, 1234523545, '34563246', '2025-02-09 23:59:29'),
-(70, 11, 2147483647, '5679865798567', '2025-02-09 23:59:40'),
-(71, 11, 123123, '123123', '2025-02-10 00:11:59'),
-(72, 11, 23452345, '23454235', '2025-02-10 00:12:03'),
 (73, 11, 1213, '12423423', '2025-02-14 23:40:23'),
 (74, 11, 23524135, '23453245', '2025-02-14 23:40:25');
 
@@ -338,9 +330,9 @@ CREATE TABLE `hotel_room` (
 INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pred_price`, `pred_time`) VALUES
 (1, 1, 'Disponible', NULL, 1000, 1),
 (2, 2, 'Disponible', NULL, 2000, 2),
-(3, 3, 'Disponible', NULL, 3000, 3),
+(3, 3, 'Esperando_Limpieza', 834, 3000, 3),
 (4, 4, 'Ocupado', 831, 4000, 4),
-(5, 5, 'Disponible', NULL, 5000, 5),
+(5, 5, 'Ocupado', 833, 5000, 5),
 (6, 6, 'Disponible', NULL, 6000, 6),
 (7, 7, 'Disponible', NULL, 7000, 7),
 (8, 8, 'Ocupado', 832, 8000, 8),
@@ -461,7 +453,9 @@ CREATE TABLE `shift` (
 
 INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `bar_price`, `shift_price`, `pending_cleaning_start`, `cleaning_start`) VALUES
 (831, 4, '2025-02-13 23:28:01', '2025-02-14 03:28:01', 'Normal', 5000, 4000, '2025-02-13 23:28:01', '2025-02-13 23:28:01'),
-(832, 8, '2025-02-13 23:38:09', '2025-02-14 07:38:09', 'Normal', 5000, 8000, '2025-02-13 23:38:09', '2025-02-13 23:38:09');
+(832, 8, '2025-02-13 23:38:09', '2025-02-14 07:38:09', 'Normal', 5000, 8000, '2025-02-13 23:38:09', '2025-02-13 23:38:09'),
+(833, 5, '2025-02-17 00:42:20', '2025-02-17 03:42:20', 'Normal', 5000, 3000, '2025-02-17 00:42:20', '2025-02-17 00:42:20'),
+(834, 3, '2025-02-17 00:42:20', '2025-02-17 03:42:20', 'Normal', 5000, 3000, '2025-02-17 00:42:24', '2025-02-17 00:42:24');
 
 -- --------------------------------------------------------
 
@@ -574,7 +568,7 @@ ALTER TABLE `advance`
 -- AUTO_INCREMENT de la tabla `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `cash_movement`
@@ -610,7 +604,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=833;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=835;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
