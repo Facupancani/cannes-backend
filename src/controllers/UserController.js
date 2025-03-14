@@ -42,8 +42,6 @@ exports.registerUser = async (req, res) => {
 // Inicio de sesion de usuario
 exports.loginUser = async (req, res) => {
   try {
-    const JWT_SECRET = "cannes123";
-
     const { username, password } = req.body;
 
     if (!username || !password) {
@@ -53,35 +51,12 @@ exports.loginUser = async (req, res) => {
     }
 
     const user = await User.findOne({ where: { username } });
-    if (!user) return res.status(402).send({ error: "User not found" });
+    if (!user) return res.status(401).send({ error: "User not found" });
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid)
       return res.status(403).send({ error: "Invalid password" });
 
-    const token = jwt.sign(
-      {
-        id: user.id,
-        name: user.name,
-        last_name: user.last_name,
-        username: user.username,
-        role: user.role,
-      },
-      JWT_SECRET,
-      { expiresIn: "8h" }
-    );
-    res
-      .status(200)
-      .send({
-        token,
-        user: {
-          id: user.id,
-          name: user.name,
-          last_name: user.last_name,
-          username: user.username,
-          role: user.role,
-        },
-      });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Something went wrong" });
