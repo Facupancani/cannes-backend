@@ -1,19 +1,21 @@
-// Archivo principal que arranca el servidor Express
 
+//  Srranca el servidor Express
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+
 
 
 // Es necesario para que CORS no deniegue la conexion
 const cors = require('cors');
 const allowedOrigins = ['http://localhost:5173', 'https://dominio-aceptado-porCORS.com'];
 app.use(cors({
-  origin: function(origin, callback){
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true)
+  origin: function(origin, callback) {
+    if (!origin || /^http:\/\/localhost:\d+$/.test(origin) || origin === 'https://dominio-aceptado-porCORS.com') {
+      callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(new Error('Not allowed by CORS'));
     }
   }
 }));
@@ -31,6 +33,11 @@ app.use(require('./src/routes/ObservationRoutes'))
 app.use(require('./src/routes/CashMovementRoutes'))
 app.use(require('./src/routes/InternalConsumitionRoutes'))
 
+const comModuleAPI = require('./src/communication/comModuleAPI.js');
+app.use('/api/com', comModuleAPI); // Cambiar la ruta base si es necesario
+
+
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
+

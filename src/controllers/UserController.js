@@ -39,7 +39,7 @@ exports.registerUser = async (req, res) => {
   }
 };
 
-// Inicio de sesion de usuario
+// Inicio de sesión de usuario
 exports.loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -57,11 +57,15 @@ exports.loginUser = async (req, res) => {
     if (!isPasswordValid)
       return res.status(403).send({ error: "Invalid password" });
 
+    // Login exitoso
+    res.status(200).json({ message: "Login successful", user });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Something went wrong" });
   }
 };
+
 
 exports.validatePassword = async (req, res) => {
   try {
@@ -114,34 +118,34 @@ exports.getUserByName = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     res.json(user); // Send the user data as JSON
   } catch (error) {
-    console.error('Error fetching user:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
-exports.updateUser = async (req,res) => {
+exports.updateUser = async (req, res) => {
   try {
     const { name, last_name, username, role } = req.body;
     const user = await User.findByPk(req.params.id);
     if (user) {
       user.name = name;
-      user.last_name = last_name
+      user.last_name = last_name;
       user.username = username;
       user.role = role;
       await user.save();
       res.json(user);
     } else {
-      res.status(404).json({ error: 'User not found' });
+      res.status(404).json({ error: "User not found" });
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-}
+};
 
 exports.deleteUser = async (req, res) => {
   try {
@@ -150,9 +154,9 @@ exports.deleteUser = async (req, res) => {
       await user.destroy();
       res.json(user);
     } else {
-      res.status(404).json({ error: 'User not found' });
+      res.status(404).json({ error: "User not found" });
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-}
+};
