@@ -2,7 +2,7 @@
   "name": "cannes-backend",
   "version": "1.0.0",
   "scripts": {
-    "dev": "concurrently \"nodemon server.js\""
+    "dev": "nodemon server.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
