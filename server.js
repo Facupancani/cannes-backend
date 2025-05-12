@@ -32,6 +32,7 @@ app.use(require('./src/routes/BillRoutes'))
 app.use(require('./src/routes/ObservationRoutes'))
 app.use(require('./src/routes/CashMovementRoutes'))
 app.use(require('./src/routes/InternalConsumitionRoutes'))
+app.use(require('./src/routes/NotificationRoutes'))
 
 const comModuleAPI = require('./src/communication/comModuleAPI.js');
 app.use('/api/com', comModuleAPI); // Cambiar la ruta base si es necesario
