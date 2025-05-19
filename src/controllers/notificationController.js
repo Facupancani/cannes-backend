@@ -1,10 +1,10 @@
 const sequelize = require('../config/database');
-const notification = require('../models/Notification');
+const Notification = require('../models/Notification');
 
 // Obtener todas las notificaciones
 exports.getAllNotifications = async(req, res) => {
     try {
-        const notifications = await notification.findAll()
+        const notifications = await Notification.findAll()
         res.json(notifications)
     } catch (err){
         res.status(500).json({ error: err.message })
@@ -15,7 +15,7 @@ exports.getAllNotifications = async(req, res) => {
 exports.getNotificationById = async(req, res) => {
     try {
         const id = req.params.id
-        const notification = await notification.findOne({where: {id: id}})
+        const notification = await Notification.findOne({where: {id: id}})
 
         if (notification) {
             res.json(notification)
@@ -32,8 +32,8 @@ exports.getNotificationById = async(req, res) => {
 exports.createNotification = async(req, res) => {
     try {
         const { title, content } = req.body
-        const created = await notification.create({ title, content });
-        const newNotification = await notification.findByPk(created.id);
+        const created = await Notification.create({ title, content });
+        const newNotification = await Notification.findByPk(created.id);
         
         res.status(201).json(newNotification)
     } catch (err) {
@@ -45,7 +45,7 @@ exports.createNotification = async(req, res) => {
 exports.deleteNotification = async(req, res) => {
     try {
         const id = req.params.id
-        const notification = await notification.destroy({where: {id: id}})
+        const notification = await Notification.destroy({where: {id: id}})
 
         if (notification) {
             res.status(204).send()
@@ -63,7 +63,7 @@ exports.updateNotification = async(req, res) => {
     try {
         const id = req.params.id
         const { title, content } = req.body
-        const notification = await notification.update({title, content}, {where: {id: id}})
+        const notification = await Notification.update({title, content}, {where: {id: id}})
 
         if (notification) {
             res.status(204).send()
