@@ -40,7 +40,8 @@ exports.createShift = async (req, res) => {
 
         res.status(201).json(newShift)
     } catch (err) {
-        res.status(500).json({ error: err.message })
+        console.error("❌ Error en createShift:", err); // LOG CRÍTICO
+        return res.status(500).json({ message: "Internal server error", error: err.message });
     }
 }
 
@@ -111,3 +112,25 @@ exports.deleteShift = async (req, res) => {
         res.status(500).json({ error: err.message })
     }
 }
+
+
+// Obtener historial de una habitación (últimos 3 turnos)
+exports.getRoomHistory = async (req, res) => {
+    try {
+        const { roomNumber } = req.params;
+        console.log("Params del getRoomHistory: ", req.params);
+
+        const shifts = await Shift.findAll({
+            where: { room_id: roomNumber },
+            order: [['start', 'DESC']],
+            limit: 3
+        });
+
+        console.log("Historial de turnos:", shifts);
+        
+        res.json(shifts);
+    } catch (error) {
+        console.error("❌ Error al obtener el historial de la habitación:", error.message);
+        res.status(500).json({ error: 'Error al obtener el historial de la habitación' });
+    }
+};
