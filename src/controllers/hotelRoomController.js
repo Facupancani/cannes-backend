@@ -1,5 +1,7 @@
 const sequelize = require('../config/database');
 const HotelRoom = require('../models/HotelRoom');
+const { format, differenceInCalendarDays } = require('date-fns');
+const { es } = require('date-fns/locale');
 
 // Obtener todas las habitaciones
 exports.getAllRooms = async (req, res) => {
@@ -97,5 +99,44 @@ exports.deleteRoom = async (req, res) => {
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+//Libera una habitacion del turno asociado
+exports.releaseRoomShift = async (req, res) => {
+  try {
+    const room_number = req.params.id
+    const room = await HotelRoom.findOne({ where: {room_number: room_number} })
+    if (room) {
+      room.current_shift_id = null
+      await room.save()
+      res.status(204).end()
+    } else {
+      res.status(404).json({ error: 'Room not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+exports.getRoomHistory = async (req, res) => {
+  const { roomNumber } = req.params;
+
+  try {
+    const sqlQuery = `
+      SELECT * FROM shift
+      WHERE room_id = :roomNumber
+      ORDER BY start DESC
+      LIMIT 3;
+    `;
+
+    const [results, metadata] = await sequelize.query(sqlQuery, {
+      replacements: { roomNumber },
+    });
+
+    res.json(results);
+  } catch (error) {
+    console.error("Error al obtener el historial de la habitación:", error);
+    res.status(500).json({ error: "Error interno al obtener el historial." });
   }
 };
