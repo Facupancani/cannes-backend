@@ -28,6 +28,10 @@ const CashMovement = sequelize.define('cash_movement', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    discount_price: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
     physical_cash:{
         type: DataTypes.INTEGER,
         allowNull: true,

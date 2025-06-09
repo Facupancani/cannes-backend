@@ -32,6 +32,10 @@ const Shift = sequelize.define('shift', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    discount_price: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     pending_cleaning_start: {
         type: DataTypes.DATE,
         allowNull: false

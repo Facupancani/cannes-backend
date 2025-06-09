@@ -21,7 +21,7 @@ exports.getShiftById = async (req, res) => {
 // Crear un turno
 exports.createShift = async (req, res) => {
     try {
-        const { room_id, start, finish, type, bar_price, shift_price, pending_cleaning_start, cleaning_start } = req.body
+        const { room_id, start, finish, type, bar_price, shift_price, discount_price, pending_cleaning_start, cleaning_start } = req.body
         const newShift = await Shift.create({
             room_id,
             start,
@@ -29,6 +29,7 @@ exports.createShift = async (req, res) => {
             type,
             bar_price,
             shift_price,
+            discount_price,
             pending_cleaning_start,
             cleaning_start
         })
@@ -50,7 +51,7 @@ exports.createShift = async (req, res) => {
 exports.updateShift = async (req, res) => {
     try {
         const shift_id = req.params.id;
-        const { room_id, start, finish, type, bar_price, shift_price, pending_cleaning_start, cleaning_start } = req.body;
+        const { room_id, start, finish, type, bar_price, shift_price, discount_price, pending_cleaning_start, cleaning_start } = req.body;
         
 
         // Verifica si se encuentra el turno
@@ -83,6 +84,7 @@ exports.updateShift = async (req, res) => {
         if (type !== undefined) shift.type = type;
         if (bar_price !== undefined) shift.bar_price = bar_price;
         if (shift_price !== undefined) shift.shift_price = shift_price;
+        if (discount_price !== undefined) shift.discount_price = discount_price;
         if (pending_cleaning_start !== undefined) shift.pending_cleaning_start = pending_cleaning_start
         if (cleaning_start !== undefined) shift.cleaning_start = cleaning_start
 
