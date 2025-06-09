@@ -3,7 +3,7 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+const path = require('path');
 
 
 
@@ -37,6 +37,13 @@ app.use(require('./src/routes/OvertimePresetRoutes'))
 
 const comModuleAPI = require('./src/communication/comModuleAPI.js');
 app.use('/api/com', comModuleAPI); // Cambiar la ruta base si es necesario
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Para rutas que no son API, servir el index.html del build (React Router)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 
 app.listen(PORT, () => {
