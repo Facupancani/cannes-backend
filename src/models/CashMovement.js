@@ -30,7 +30,7 @@ const CashMovement = sequelize.define('cash_movement', {
     },
     discount_price: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
     },
     physical_cash:{
         type: DataTypes.INTEGER,

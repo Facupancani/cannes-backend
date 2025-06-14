@@ -9,16 +9,21 @@ const PORT = process.env.PORT || 3000;
 
 // Es necesario para que CORS no deniegue la conexion
 const cors = require('cors');
-const allowedOrigins = ['http://localhost:5173', 'https://dominio-aceptado-porCORS.com'];
+const allowedOrigins = ['http://localhost:5173', 'https://dominio-aceptado-porCORS.com', '*'];
+
 app.use(cors({
-  origin: function(origin, callback) {
-    if (!origin || /^http:\/\/localhost:\d+$/.test(origin) || origin === 'https://dominio-aceptado-porCORS.com') {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
+  origin: '*'
 }));
+
+// app.use(cors({
+//   origin: function(origin, callback) {
+//     if (!origin || /^http:\/\/localhost:\d+$/.test(origin) || origin === 'https://dominio-aceptado-porCORS.com') {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   }
+// }));
 
 app.use(express.json());
 app.use(require('./src/routes/HotelRoomRoutes'));

@@ -39,7 +39,7 @@ exports.updateLaundryItem = async (req,res) => {
 exports.getItemsInLaundry = async (req, res) => {
     try {
         const itemsInLaundry = await Laundry.findAll({
-            where: { deposit: "in_laundry" }
+            where: { deposit: "en_lavanderia" }
         });
         res.json(itemsInLaundry);
     } catch (err) {
@@ -51,7 +51,7 @@ exports.getItemsInLaundry = async (req, res) => {
 exports.getDirtyItems = async (req, res) => {
     try {
         const dirtyItems = await Laundry.findAll({
-            where: { deposit: "dirty" }
+            where: { deposit: "sucio" }
         })
 
         res.json(dirtyItems)
@@ -69,11 +69,11 @@ exports.addDirtyItems = async (req, res) => {
         // 1. Extraer los nombres de los items
         const itemNames = dirtyItems.map(item => item.name);
 
-        // 2. Obtener todos los items "dirty" y "clean" en una sola consulta
+        // 2. Obtener todos los items "sucio" y "limpio" en una sola consulta
         const allItems = await Laundry.findAll({
             where: {
                 name: { [Op.in]: itemNames },
-                deposit: { [Op.in]: ["dirty", "clean"] }
+                deposit: { [Op.in]: ["sucio", "limpio"] }
             },
             transaction,
         });
@@ -86,18 +86,18 @@ exports.addDirtyItems = async (req, res) => {
 
         // 4. Actualizar las cantidades
         dirtyItems.forEach(item => {
-            const { name, dirty } = item;
+            const { name, sucio } = item;
 
-            // Actualizar los "dirty"
-            const dirtyItem = itemMap[`${name}_dirty`];
+            // Actualizar los "sucio"
+            const dirtyItem = itemMap[`${name}_sucio`];
             if (dirtyItem) {
-                dirtyItem.amount += dirty;
+                dirtyItem.amount += sucio;
             }
 
-            // Actualizar los "clean"
-            const cleanItem = itemMap[`${name}_clean`];
+            // Actualizar los "limpio"
+            const cleanItem = itemMap[`${name}_limpio`];
             if (cleanItem) {
-                cleanItem.amount -= dirty;
+                cleanItem.amount -= sucio;
             }
         });
 
@@ -106,7 +106,7 @@ exports.addDirtyItems = async (req, res) => {
 
         // Confirmar transacción
         await transaction.commit();
-        res.status(200).json({ message: "Dirty items updated successfully" });
+        res.status(200).json({ message: "sucio items updated successfully" });
     } catch (err) {
         // Revertir transacción en caso de error
         await transaction.rollback();
@@ -140,7 +140,7 @@ exports.sendItemsToLaundry = async (req, res) => {
 
             // Resta las prendas sucias que se enviaron al lavadero
             const dirtyItem = await Laundry.findOne({
-                where: { name, deposit: "dirty" }
+                where: { name, deposit: "sucio" }
             });
             dirtyItem.amount -= sent;
             await dirtyItem.save();
@@ -148,7 +148,7 @@ exports.sendItemsToLaundry = async (req, res) => {
 
             // Recibe los items limpios
             const cleanItem = await Laundry.findOne({
-                where: { name, deposit: "clean" }
+                where: { name, deposit: "limpio" }
             });
             cleanItem.amount += receive;
             await cleanItem.save();
@@ -156,7 +156,7 @@ exports.sendItemsToLaundry = async (req, res) => {
 
             // Setea los items en el lavadero segun los recibidos y enviados
             const laundryItem = await Laundry.findOne({
-                where: { name, deposit: "in_laundry" }
+                where: { name, deposit: "en_lavanderia" }
             });
             laundryItem.amount = pending;
             await laundryItem.save();

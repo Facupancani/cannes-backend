@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-06-2025 a las 03:50:27
+-- Tiempo de generación: 14-06-2025 a las 03:53:48
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -65,7 +65,13 @@ INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUE
 (96, 11, 3000, 'Se transifirio un monto de $3000 al usuario Luciano Frias en habitacion 8.', '2025-06-08 23:44:32'),
 (97, 11, 5000, 'Consumición interna de Luciano Frias - 1 Agua Villavicencio - $ 5.000,00', '2025-06-08 23:48:47'),
 (98, 11, 5000, 'Consumición interna de Luciano Frias - 1 Agua Villavicencio - $ 5.000,00', '2025-06-08 23:49:18'),
-(99, 11, 2000, 'Se transifirio un monto de $2000 al usuario Luciano Frias en habitacion 16.', '2025-06-09 00:57:56');
+(99, 11, 2000, 'Se transifirio un monto de $2000 al usuario Luciano Frias en habitacion 16.', '2025-06-09 00:57:56'),
+(100, 19, 2000, 'Te doy 2000 pe', '2025-06-13 22:00:30'),
+(101, 19, 10000, 'Consumición interna de Maximo Pancani - 2 Agua Villavicencio - $ 10.000,00', '2025-06-13 22:08:56'),
+(102, 19, 2000, 'Se transifirio un monto de $2000 al usuario Maximo Pancani en habitacion 1.', '2025-06-13 23:14:23'),
+(103, 19, 2000, 'Se transifirio un monto de $2000 al usuario Maximo Pancani en habitacion 1.', '2025-06-13 23:21:02'),
+(104, 19, 2000, 'Se transifirio un monto de $2000 al usuario Maximo Pancani en habitacion 1.', '2025-06-13 23:30:03'),
+(105, 19, 2000, 'Se transifirio un monto de $2000 al usuario Maximo Pancani para habitacion 3.', '2025-06-14 00:09:57');
 
 -- --------------------------------------------------------
 
@@ -87,7 +93,8 @@ CREATE TABLE `bill` (
 --
 
 INSERT INTO `bill` (`id`, `concept`, `details`, `amount`, `provider`, `created_at`) VALUES
-(10, 'Electricidad', 'Electricidad pagada el 5/2/2025', 50000, 'EDEAasdas123123', '2025-02-06 01:19:53');
+(10, 'Electricidad', 'Electricidad pagada el 5/2/2025', 50000, 'EDEAasdas123123', '2025-02-06 01:19:53'),
+(12, 'Agua', 'Pagamos el agua el 13/06', 2000, 'EDEA', '2025-06-13 22:04:38');
 
 -- --------------------------------------------------------
 
@@ -102,7 +109,7 @@ CREATE TABLE `cash_movement` (
   `finish` datetime NOT NULL,
   `bar_price` int(11) NOT NULL,
   `shift_price` int(11) NOT NULL,
-  `discount_price` int(11) NOT NULL,
+  `discount_price` int(11) DEFAULT NULL,
   `physical_cash` int(11) DEFAULT NULL,
   `transfer_cash` int(11) DEFAULT NULL,
   `commission_amount` int(11) DEFAULT NULL,
@@ -470,7 +477,23 @@ INSERT INTO `cash_movement` (`id`, `room_number`, `start`, `finish`, `bar_price`
 (633, 7, '2025-06-09 01:04:16', '2025-06-09 08:04:16', 0, 7000, 0, 7000, 0, 0, '2025-06-09 01:05:05'),
 (634, 4, '2025-06-09 01:37:59', '2025-06-09 05:37:59', 0, 4000, 0, 4000, 0, 0, '2025-06-09 01:38:00'),
 (635, 4, '2025-06-09 01:38:03', '2025-06-09 06:38:03', 10000, 11500, 0, 21500, 0, -500, '2025-06-09 01:39:05'),
-(636, 4, '2025-06-09 01:44:53', '2025-06-09 05:44:53', 5000, 3500, 2000, 6500, 0, -500, '2025-06-09 01:45:56');
+(636, 4, '2025-06-09 01:44:53', '2025-06-09 05:44:53', 5000, 3500, 2000, 6500, 0, -500, '2025-06-09 01:45:56'),
+(637, 1, '2025-06-13 22:06:29', '2025-06-13 23:06:29', 0, 1000, 0, 1000, 0, 0, '2025-06-13 22:06:54'),
+(638, 2, '2025-06-13 22:06:58', '2025-06-14 00:06:58', 0, 2000, 0, 2000, 0, 0, '2025-06-13 22:07:12'),
+(639, 3, '2025-06-13 22:07:20', '2025-06-14 01:07:20', 0, 3000, 0, 3000, 0, 0, '2025-06-13 22:07:53'),
+(640, 2, '2025-06-13 22:11:30', '2025-06-14 00:11:30', 0, 2000, 0, 2000, 0, 0, '2025-06-13 22:12:30'),
+(641, 2, '2025-06-13 23:04:00', '2025-06-14 01:04:00', 0, 2000, 0, 2000, 0, 0, '2025-06-13 23:05:48'),
+(642, 4, '2025-06-13 23:07:45', '2025-06-14 03:07:45', 0, 4000, NULL, 4000, 0, 0, '2025-06-13 23:07:46'),
+(643, 8, '2025-06-13 23:07:52', '2025-06-14 07:07:52', 0, 8000, 4000, 4000, 0, 0, '2025-06-13 23:08:08'),
+(644, 4, '2025-06-13 23:08:45', '2025-06-14 03:08:45', 10000, 13000, 2000, 21000, 0, -1000, '2025-06-13 23:11:23'),
+(645, 8, '2025-06-13 23:11:28', '2025-06-14 03:11:28', 0, 4000, 0, 4000, 0, 0, '2025-06-13 23:11:37'),
+(646, 4, '2025-06-13 23:13:27', '2025-06-14 03:13:27', 0, 4000, NULL, 4000, 0, 0, '2025-06-13 23:13:30'),
+(647, 6, '2025-06-13 23:13:38', '2025-06-14 05:13:38', 0, 6000, NULL, 6000, 0, 0, '2025-06-13 23:13:40'),
+(648, 6, '2025-06-13 23:13:42', '2025-06-14 05:13:42', 0, 6000, NULL, 6000, 0, 0, '2025-06-13 23:13:43'),
+(649, 1, '2025-06-13 22:29:15', '2025-06-14 01:29:15', 25000, 15000, 4000, 36000, 0, -3000, '2025-06-13 23:31:24'),
+(650, 2, '2025-06-13 23:31:54', '2025-06-14 01:31:54', 10000, 2000, 0, 12000, 0, 0, '2025-06-13 23:38:32'),
+(651, 3, '2025-06-13 23:05:51', '2025-06-14 02:05:51', 0, 3000, 0, 3000, 0, 0, '2025-06-14 01:44:48'),
+(652, 4, '2025-06-14 01:45:56', '2025-06-14 05:45:56', 0, 4000, NULL, 4000, 0, 0, '2025-06-14 01:45:57');
 
 -- --------------------------------------------------------
 
@@ -516,7 +539,20 @@ INSERT INTO `consumition` (`id`, `shift_id`, `type`, `description`, `price`) VAL
 (406, 1001, 'product', 'Alfajor Jorgito', 10000),
 (407, 1001, 'commission', 'Luciano', -500),
 (408, 1002, 'commission', 'Luciano', -500),
-(409, 1002, 'product', 'Agua Villavicencio', 5000);
+(409, 1002, 'product', 'Agua Villavicencio', 5000),
+(410, 1007, 'product', 'Alfajor Jorgito', 10000),
+(411, 1007, 'product', 'Alfajor Jorgito', 10000),
+(412, 1007, 'product', 'Agua Villavicencio', 5000),
+(413, 1007, 'commission', 'Luciano', -1000),
+(414, 1007, 'commission', 'Luciano 2(COMISIÓN)', -1000),
+(415, 1007, 'commission', 'Luciano 3 (COMISIÓN)', -1000),
+(416, 1007, 'surcharge', 'Se añadio 1 hora extra a esta habitacion. (PRESET)', 8000),
+(417, 1007, 'surcharge', 'Recarga personalizada (PERSONALIZADO)', 8000),
+(418, 1007, 'surcharge', 'Se añadio recargo por 3 personas a esta habitacion. (PRESET)', 1000),
+(419, 1012, 'product', 'Alfajor Jorgito', 10000),
+(420, 1012, 'surcharge', 'Se añadio 2 horas extra a esta habitacion. (PRESET)', 12000),
+(421, 1012, 'commission', 'Lucaino (COMISIÓN)', -1000),
+(422, 1017, 'product', 'Alfajor Jorgito', 10000);
 
 -- --------------------------------------------------------
 
@@ -574,30 +610,30 @@ CREATE TABLE `laundry` (
 --
 
 INSERT INTO `laundry` (`id`, `name`, `deposit`, `amount`) VALUES
-(25, 'fundas', 'in_use', 0),
-(26, 'fundas', 'clean', -2),
-(27, 'fundas', 'dirty', 2),
-(28, 'fundas', 'in_laundry', 12),
-(29, 'sabanas', 'in_use', 5),
-(30, 'sabanas', 'clean', -2),
-(31, 'sabanas', 'dirty', 2),
-(32, 'sabanas', 'in_laundry', 19),
-(33, 'cubrecamas', 'in_use', 0),
-(34, 'cubrecamas', 'clean', 20),
-(35, 'cubrecamas', 'dirty', 2),
-(36, 'cubrecamas', 'in_laundry', 21),
-(37, 'toallas', 'in_use', 0),
-(38, 'toallas', 'clean', 0),
-(39, 'toallas', 'dirty', 0),
-(40, 'toallas', 'in_laundry', 2),
-(41, 'toallones', 'in_use', 0),
-(42, 'toallones', 'clean', 0),
-(43, 'toallones', 'dirty', 0),
-(44, 'toallones', 'in_laundry', 8),
-(45, 'cortinas', 'in_use', 0),
-(46, 'cortinas', 'clean', 0),
-(47, 'cortinas', 'dirty', 0),
-(48, 'cortinas', 'in_laundry', 9);
+(25, 'fundas', 'en_uso', 0),
+(26, 'fundas', 'limpio', 0),
+(27, 'fundas', 'sucio', 0),
+(28, 'fundas', 'en_lavanderia', 16),
+(29, 'sabanas', 'en_uso', 5),
+(30, 'sabanas', 'limpio', 0),
+(31, 'sabanas', 'sucio', 0),
+(32, 'sabanas', 'en_lavanderia', 23),
+(33, 'cubrecamas', 'en_uso', 0),
+(34, 'cubrecamas', 'limpio', 0),
+(35, 'cubrecamas', 'sucio', 0),
+(36, 'cubrecamas', 'en_lavanderia', 25),
+(37, 'toallas', 'en_uso', 0),
+(38, 'toallas', 'limpio', 0),
+(39, 'toallas', 'sucio', 0),
+(40, 'toallas', 'en_lavanderia', 4),
+(41, 'toallones', 'en_uso', 0),
+(42, 'toallones', 'limpio', 0),
+(43, 'toallones', 'sucio', 0),
+(44, 'toallones', 'en_lavanderia', 10),
+(45, 'cortinas', 'en_uso', 0),
+(46, 'cortinas', 'limpio', 0),
+(47, 'cortinas', 'sucio', 0),
+(48, 'cortinas', 'en_lavanderia', 11);
 
 -- --------------------------------------------------------
 
@@ -629,7 +665,8 @@ CREATE TABLE `observation` (
 --
 
 INSERT INTO `observation` (`id`, `shift_id`, `text`) VALUES
-(39, 951, 'Hola');
+(39, 951, 'Hola'),
+(40, 1007, 'asopldfasop');
 
 -- --------------------------------------------------------
 
@@ -675,8 +712,8 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
-(1, 'Agua Villavicencio', 5000, 1, 905),
-(2, 'Alfajor Jorgito', 10000, 1, 808),
+(1, 'Agua Villavicencio', 5000, 1, 902),
+(2, 'Alfajor Jorgito', 10000, 1, 804),
 (3, 'Preservativo Prime XL', 10000, 1, 50),
 (6, 'Agua Mineral', 1000, 1, 200),
 (7, 'Coca Cola XL 2L', 10000, 1, 79998),
@@ -793,7 +830,23 @@ INSERT INTO `shift` (`id`, `room_id`, `start`, `finish`, `type`, `bar_price`, `s
 (999, 10, '2025-06-09 01:04:54', '2025-06-09 11:04:54', 'Normal', 0, 10000, 0, '2025-06-09 01:04:54', '2025-06-09 01:04:54'),
 (1000, 4, '2025-06-09 01:37:59', '2025-06-09 01:38:00', 'Cleaning', 0, 4000, 0, '1970-01-01 00:00:00', '2025-06-09 01:38:00'),
 (1001, 4, '2025-06-09 01:38:03', '2025-06-09 01:39:08', 'Cleaning', 10000, 11500, 18000, '1970-01-01 00:00:00', '2025-06-09 01:39:07'),
-(1002, 4, '2025-06-09 01:44:53', '2025-06-09 01:45:58', 'Cleaning', 5000, 3500, 2000, '1970-01-01 00:00:00', '2025-06-09 01:45:57');
+(1002, 4, '2025-06-09 01:44:53', '2025-06-09 01:45:58', 'Cleaning', 5000, 3500, 2000, '1970-01-01 00:00:00', '2025-06-09 01:45:57'),
+(1003, 1, '2025-06-13 22:06:29', '2025-06-13 22:06:55', 'Cleaning', 0, 1000, 0, '1970-01-01 00:00:00', '2025-06-13 22:06:55'),
+(1004, 2, '2025-06-13 22:06:58', '2025-06-13 22:07:15', 'Cleaning', 0, 2000, 0, '1970-01-01 00:00:00', '2025-06-13 22:07:13'),
+(1005, 3, '2025-06-13 22:07:20', '2025-06-13 22:07:55', 'Cleaning', 0, 3000, 0, '1970-01-01 00:00:00', '2025-06-13 22:07:54'),
+(1006, 2, '2025-06-13 22:11:30', '2025-06-13 22:12:31', 'Cleaning', 0, 2000, 0, '1970-01-01 00:00:00', '2025-06-13 22:12:30'),
+(1007, 1, '2025-06-13 22:29:15', '2025-06-13 23:31:37', 'Cleaning', 25000, 15000, 4000, '1970-01-01 00:00:00', '2025-06-13 23:31:32'),
+(1008, 2, '2025-06-13 23:04:00', '2025-06-13 23:05:49', 'Cleaning', 0, 2000, 0, '1970-01-01 00:00:00', '2025-06-13 23:05:48'),
+(1009, 3, '2025-06-13 23:05:51', '2025-06-14 01:44:52', 'Cleaning', 0, 3000, 0, '1970-01-01 00:00:00', '2025-06-14 01:44:49'),
+(1010, 4, '2025-06-13 23:07:45', '2025-06-13 23:07:47', 'Cleaning', 0, 4000, 0, '1970-01-01 00:00:00', '2025-06-13 23:07:46'),
+(1011, 8, '2025-06-13 23:07:52', '2025-06-13 23:08:08', 'Cleaning', 0, 8000, 4000, '1970-01-01 00:00:00', '2025-06-13 23:08:08'),
+(1012, 4, '2025-06-13 23:08:45', '2025-06-13 23:11:24', 'Cleaning', 10000, 13000, 2000, '1970-01-01 00:00:00', '2025-06-13 23:11:24'),
+(1013, 8, '2025-06-13 23:11:28', '2025-06-13 23:11:39', 'Cleaning', 0, 4000, 0, '1970-01-01 00:00:00', '2025-06-13 23:11:38'),
+(1014, 4, '2025-06-13 23:13:27', '2025-06-13 23:13:31', 'Cleaning', 0, 4000, 0, '1970-01-01 00:00:00', '2025-06-13 23:13:30'),
+(1015, 6, '2025-06-13 23:13:38', '2025-06-13 23:13:41', 'Cleaning', 0, 6000, 0, '1970-01-01 00:00:00', '2025-06-13 23:13:41'),
+(1016, 6, '2025-06-13 23:13:42', '2025-06-13 23:13:44', 'Cleaning', 0, 6000, 0, '1970-01-01 00:00:00', '2025-06-13 23:13:43'),
+(1017, 2, '2025-06-13 23:31:54', '2025-06-13 23:38:33', 'Cleaning', 10000, 2000, 0, '1970-01-01 00:00:00', '2025-06-13 23:38:33'),
+(1018, 4, '2025-06-14 01:45:56', '2025-06-14 01:46:01', 'Cleaning', 0, 4000, 0, '1970-01-01 00:00:00', '2025-06-14 01:45:57');
 
 -- --------------------------------------------------------
 
@@ -822,7 +875,9 @@ INSERT INTO `user` (`id`, `name`, `last_name`, `username`, `role`, `password`, `
 (20, 'Karina', 'Barcala', 'karina123', 'Conserje', '$2a$10$Efy6z10zZNZGYW/s5CIOAuTnHlGGcpElW4ICc8PimUPXWZ.pdiegi', NULL),
 (21, 'Homero', 'Frias', 'homero123', 'Conserje', '$2a$10$hGJkaULBIVW5tFHENozW1O9qNCbS5E1.TcDitssiZFz96gMLd7uSG', NULL),
 (25, 'Facundo', 'Pancani', 'facupancani', 'Administrador', '$2a$10$tCUaAahFH1tcMEd7yvXHnexidneBxzST2KVoxNsJTyIEW.bONaXim', NULL),
-(33, 'Marcelo', 'Gutierrez', 'Marcelo G', 'Conserje', '$2a$10$w3NQhKBxOq8sNPRQXUubT.t84UrC.4YJ.z39SY9GyPeZGv3jTU5P6', NULL);
+(33, 'Marcelo', 'Gutierrez', 'Marcelo G', 'Conserje', '$2a$10$w3NQhKBxOq8sNPRQXUubT.t84UrC.4YJ.z39SY9GyPeZGv3jTU5P6', NULL),
+(34, 'friman', 'friman', 'friman', 'Conserje', '$2a$10$qD55VhvjkBaK0idEKX.naeQjc8Y4cHX/VC2PzSh.9jhEmjbNRzaqK', NULL),
+(35, 'jojojo', 'jojojo', 'jojojo', 'Conserje', '$2a$10$sMfbG3OSTqnXpA1f7iGG6eU/P72qDlHtXdRA/ZBTaVK925X6qIEpm', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -919,25 +974,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `advance`
 --
 ALTER TABLE `advance`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT de la tabla `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `cash_movement`
 --
 ALTER TABLE `cash_movement`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=637;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=653;
 
 --
 -- AUTO_INCREMENT de la tabla `consumition`
 --
 ALTER TABLE `consumition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=410;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=423;
 
 --
 -- AUTO_INCREMENT de la tabla `laundry`
@@ -955,7 +1010,7 @@ ALTER TABLE `notification`
 -- AUTO_INCREMENT de la tabla `observation`
 --
 ALTER TABLE `observation`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `overtime_preset`
@@ -979,13 +1034,13 @@ ALTER TABLE `room_history`
 -- AUTO_INCREMENT de la tabla `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1003;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1019;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Restricciones para tablas volcadas
