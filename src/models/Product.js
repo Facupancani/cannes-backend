@@ -17,7 +17,7 @@ const Product = sequelize.define('product', {
         allowNull: false,
     },
     deposit:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(50),
         allowNull: false,
     },
     amount:{

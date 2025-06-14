@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-06-2025 a las 03:53:48
+-- Tiempo de generación: 14-06-2025 a las 04:17:20
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -703,7 +703,7 @@ CREATE TABLE `product` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `price` int(11) NOT NULL,
-  `deposit` int(11) NOT NULL,
+  `deposit` varchar(50) NOT NULL,
   `amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -712,12 +712,12 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `deposit`, `amount`) VALUES
-(1, 'Agua Villavicencio', 5000, 1, 902),
-(2, 'Alfajor Jorgito', 10000, 1, 804),
-(3, 'Preservativo Prime XL', 10000, 1, 50),
-(6, 'Agua Mineral', 1000, 1, 200),
-(7, 'Coca Cola XL 2L', 10000, 1, 79998),
-(10, 'Citrus Pomelo', 5000, 1, 20000);
+(1, 'Agua Villavicencio', 5000, 'venta', 902),
+(2, 'Alfajor Jorgito', 10000, 'venta', 804),
+(3, 'Preservativo Prime XL', 10000, 'venta', 50),
+(6, 'Agua Mineral', 1000, 'venta', 200),
+(7, 'Coca Cola XL 2L', 10000, 'venta', 79998),
+(10, 'Citrus Pomelo', 5000, 'venta', 20000);
 
 -- --------------------------------------------------------
 
@@ -1022,7 +1022,7 @@ ALTER TABLE `overtime_preset`
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `room_history`
