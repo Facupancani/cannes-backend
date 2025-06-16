@@ -3,9 +3,9 @@ const sequelize = require('../config/database')
 
 const CashMovement = sequelize.define('cash_movement', {
   id: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.INTEGER,
     primaryKey: true,
-    allowNull: false
+    autoIncrement: true
   },
   date: {
     type: DataTypes.DATE,

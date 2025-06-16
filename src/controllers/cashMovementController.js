@@ -17,13 +17,12 @@ exports.getAllCashMovements = async (req, res) => {
 exports.createCashMovement = async (req, res) => {
   try {
     const {
-      id,
       date,
       type,
       details,
       room,
       room_price,
-      consumptions, // debería venir como array de objetos [{ name, price }, ...]
+      consumptions,
       commission,
       discount,
       cash_amount,
@@ -32,14 +31,23 @@ exports.createCashMovement = async (req, res) => {
       conserje
     } = req.body
 
+    // Validar que consumptions sea null o un array
+    let safeConsumptions = null;
+    if (consumptions !== undefined && consumptions !== null) {
+      if (!Array.isArray(consumptions)) {
+        return res.status(400).json({ error: 'El campo consumptions debe ser un array o null' });
+      }
+      safeConsumptions = consumptions.length > 0 ? consumptions : null;
+    }
+
+
     const newCashMovement = await CashMovement.create({
-      id,
       date,
       type,
       details,
       room,
       room_price,
-      consumptions, // el modelo lo convierte a string JSON automáticamente
+      consumptions: safeConsumptions,
       commission,
       discount,
       cash_amount,
