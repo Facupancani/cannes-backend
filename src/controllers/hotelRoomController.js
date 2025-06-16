@@ -14,7 +14,7 @@ exports.getAllRooms = async (req, res) => {
 };
 
 // Obtener todas las habitaciones con sus respectivos shift
-exports.getAllRoomsWithShift = async (req,res) => {
+exports.getAllRoomsWithShift = async (req, res) => {
   try {
     const sqlQuery = `
     SELECT hotel_room.*, shift.room_id, shift.start, shift.finish, shift.type, shift.bar_price, shift.shift_price, shift.discount_price, shift.pending_cleaning_start, shift.cleaning_start
