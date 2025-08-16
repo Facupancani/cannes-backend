@@ -21,7 +21,7 @@ exports.getShiftById = async (req, res) => {
 // Crear un turno
 exports.createShift = async (req, res) => {
     try {
-        const { room_id, start, finish, type, bar_price, shift_price, discount_price, pending_cleaning_start, cleaning_start } = req.body
+        const { room_id, start, finish, type, bar_price, shift_price, discount_price, commission, pending_cleaning_start, cleaning_start } = req.body
         const newShift = await Shift.create({
             room_id,
             start,
@@ -30,6 +30,7 @@ exports.createShift = async (req, res) => {
             bar_price,
             shift_price,
             discount_price,
+            commission,
             pending_cleaning_start,
             cleaning_start
         })
@@ -41,7 +42,7 @@ exports.createShift = async (req, res) => {
 
         res.status(201).json(newShift)
     } catch (err) {
-        console.error("❌ Error en createShift:", err); // LOG CRÍTICO
+        console.error("❌ Error en createShift:", err);
         return res.status(500).json({ message: "Internal server error", error: err.message });
     }
 }
@@ -51,7 +52,7 @@ exports.createShift = async (req, res) => {
 exports.updateShift = async (req, res) => {
     try {
         const shift_id = req.params.id;
-        const { room_id, start, finish, type, bar_price, shift_price, discount_price, pending_cleaning_start, cleaning_start } = req.body;
+        const { room_id, start, finish, type, bar_price, shift_price, discount_price, commission, pending_cleaning_start, cleaning_start } = req.body;
         
 
         // Verifica si se encuentra el turno
@@ -85,6 +86,7 @@ exports.updateShift = async (req, res) => {
         if (bar_price !== undefined) shift.bar_price = bar_price;
         if (shift_price !== undefined) shift.shift_price = shift_price;
         if (discount_price !== undefined) shift.discount_price = discount_price;
+        if (commission !== undefined) shift.commission = commission;
         if (pending_cleaning_start !== undefined) shift.pending_cleaning_start = pending_cleaning_start
         if (cleaning_start !== undefined) shift.cleaning_start = cleaning_start
 
@@ -120,15 +122,12 @@ exports.deleteShift = async (req, res) => {
 exports.getRoomHistory = async (req, res) => {
     try {
         const { roomNumber } = req.params;
-        console.log("Params del getRoomHistory: ", req.params);
 
         const shifts = await Shift.findAll({
             where: { room_id: roomNumber },
             order: [['start', 'DESC']],
             limit: 3
         });
-
-        console.log("Historial de turnos:", shifts);
         
         res.json(shifts);
     } catch (error) {

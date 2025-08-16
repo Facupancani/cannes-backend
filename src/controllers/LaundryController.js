@@ -69,7 +69,7 @@ exports.addDirtyItems = async (req, res) => {
         // 1. Extraer los nombres de los items
         const itemNames = dirtyItems.map(item => item.name);
 
-        // 2. Obtener todos los items "dirty" y "clean" en una sola consulta
+        // 2. Obtener todos los items "dirty" y "clean"
         const allItems = await Laundry.findAll({
             where: {
                 name: { [Op.in]: itemNames },
@@ -96,6 +96,8 @@ exports.addDirtyItems = async (req, res) => {
 
             // Actualizar los "clean"
             const cleanItem = itemMap[`${name}_clean`];
+            console.log("articulos limpios: ",cleanItem, " se le restan : ", dirty);
+            
             if (cleanItem) {
                 cleanItem.amount -= dirty;
             }

@@ -17,7 +17,7 @@ exports.getAllRooms = async (req, res) => {
 exports.getAllRoomsWithShift = async (req, res) => {
   try {
     const sqlQuery = `
-    SELECT hotel_room.*, shift.room_id, shift.start, shift.finish, shift.type, shift.bar_price, shift.shift_price, shift.discount_price, shift.pending_cleaning_start, shift.cleaning_start
+    SELECT hotel_room.*, shift.room_id, shift.start, shift.finish, shift.type, shift.bar_price, shift.shift_price, shift.discount_price, shift.commission, shift.pending_cleaning_start, shift.cleaning_start
     FROM hotel_room
     LEFT JOIN shift ON hotel_room.current_shift_id = shift.id;
 `
