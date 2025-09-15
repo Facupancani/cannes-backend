@@ -90,8 +90,27 @@ The system was tailored to the **specific needs of a short-stay hotel**, includi
 
 ## 📷 Screenshots & Demo
 
-// ➡️ Add screenshots here (room grid, side panel, cashier control, laundry control).  
-// ➡️ Optional: Add a GIF showing real-time room updates.  
+#### Room & Shift Management
+![Free Room Screen](src/assets/screenshots/free-room-screen.png)
+![Occupied Room & Dynamic Window](src/assets/screenshots/close-room-screen.png)
+![Pending Cleaning](src/assets/screenshots/pending-cleaning.png)
+![In Cleaning](src/assets/screenshots/cleaning.png)
+![Observations & Notes](src/assets/screenshots/observations.png)
+
+#### Cashier & Advances
+![Advances](src/assets/screenshots/Advances.png)
+![Bills](src/assets/screenshots/bills.png)
+![Surcharge](src/assets/screenshots/surcharge.png)
+
+#### Laundry & Consumptions
+![Domestic Consumptions](src/assets/screenshots/domesticConsumptions.png)
+![Linen Control](src/assets/screenshots/linen.png)
+
+#### UI Enhancements
+![Dark Mode](src/assets/screenshots/darkMode.png)
+![Shift Window](src/assets/screenshots/shift_window.png)
+![Room Change](src/assets/screenshots/roomChange.png)
+
 
 ---
 
