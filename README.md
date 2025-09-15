@@ -88,29 +88,50 @@ The system was tailored to the **specific needs of a short-stay hotel**, includi
 
 ---
 
-## 📷 Screenshots & Demo
+## Core Features & Demos
 
-#### Room & Shift Management
+### 1. Gestión de Habitaciones y Turnos
+Gestión completa de estados de habitación: disponible, ocupado, esperando limpieza, en limpieza y en mantenimiento.  
+Permite iniciar turnos manualmente, renovar turnos, agregar tiempo extra, añadir observaciones y consumiciones.  
+
+**Screenshots / Videos:**
 ![Free Room Screen](src/assets/screenshots/free-room-screen.png)
 ![Occupied Room & Dynamic Window](src/assets/screenshots/close-room-screen.png)
 ![Pending Cleaning](src/assets/screenshots/pending-cleaning.png)
 ![In Cleaning](src/assets/screenshots/cleaning.png)
 ![Observations & Notes](src/assets/screenshots/observations.png)
+[Room Change Demo](src/assets/vids/roomChange.mp4)
 
-#### Cashier & Advances
+---
+
+### 2. Control de Caja y Movimientos
+Registro de movimientos de caja, filtrado por categorías, generación de reportes y métricas automáticas para control financiero.  
+
+**Screenshots / Videos:**
 ![Advances](src/assets/screenshots/Advances.png)
 ![Bills](src/assets/screenshots/bills.png)
 ![Surcharge](src/assets/screenshots/surcharge.png)
+[Cash Movements Demo](src/assets/vids/cashMovements.mp4)
+[Commission & Discount Demo](src/assets/vids/comision-discount.mp4)
 
-#### Laundry & Consumptions
+---
+
+### 3. Control de Lavandería y Ropa Blanca
+Seguimiento en tiempo real de la cantidad de prendas por artículo, registro de prendas sucias durante limpieza y control de inventario.  
+
+**Screenshots / Videos:**
 ![Domestic Consumptions](src/assets/screenshots/domesticConsumptions.png)
 ![Linen Control](src/assets/screenshots/linen.png)
+[Laundry Movements Demo](src/assets/vids/laundryMovements.mp4)
 
-#### UI Enhancements
+---
+
+### 4. Interfaz y Experiencia de Usuario
+SPA clara, minimalista, basada en principios de UX/UI. Modo oscuro, ventana dinámica interactiva y panel lateral colapsable con accesos rápidos.  
+
+**Screenshots:**
 ![Dark Mode](src/assets/screenshots/darkMode.png)
 ![Shift Window](src/assets/screenshots/shift_window.png)
-![Room Change](src/assets/screenshots/roomChange.png)
-
 
 ---
 
