@@ -3,6 +3,7 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
+const path = require('path');
 
 
 
@@ -38,6 +39,14 @@ app.use(require('./src/routes/OvertimePresetRoutes'))
 const comModuleAPI = require('./src/communication/comModuleAPI.js');
 app.use('/api/com', comModuleAPI); // Cambiar la ruta base si es necesario
 
+// --- Servir frontend ---
+const frontendPath = path.join(__dirname, 'public'); // tu carpeta dist
+app.use(express.static(frontendPath));
+
+// SPA: cualquier otra ruta la redirige al index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
