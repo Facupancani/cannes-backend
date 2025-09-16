@@ -51,7 +51,6 @@ The system tracks multiple room states with real-time updates through WebSockets
 - **Available / Free:** Shows recent history, option to start a manual shift, and maintenance toggle.
 - **Maintenance:** Room cannot be booked until marked as available again.
 
-**Screenshots / Videos:**
 
 ![Free Room Screen](src/assets/screenshots/free-room-screen.png)  
 This screenshot illustrates the SPA layout with the room grid, interactive window, and side navigation.
@@ -62,15 +61,6 @@ Shows timer and manual cleaning button for pending rooms.
 ![Cleaning in Progress](src/assets/screenshots/cleaning.png)  
 Displays cleaning duration and laundry registration form.
 
-![Occupied Room](src/assets/screenshots/observations.png)  
-Occupied room with check-in/out times and available actions.
-
-![Close Room modal](src/assets/screenshots/close-room-screen.png)  
-Room-closing modal allows cash, wire transfer, or mixed payments, and verifies that the amounts are correct.
-
-[Room Change Demo](src/assets/vids/roomChange.mp4)  
-Video demonstration of changing a room assignment.
-
 ---
 
 ## ⏱️ Shift / Turn Management
@@ -79,9 +69,24 @@ Video demonstration of changing a room assignment.
 - Apply discounts or surcharges.
 - Add observations and consumptions to a shift.
 
-**Screenshots / Videos:**
 ![Shift Window](src/assets/screenshots/shift_window.png)  
 Dynamic window for managing room shifts with all actions.
+
+![Surcharge](src/assets/screenshots/surcharge.png)  
+Inner window for managing surcharges, shift renovals and extra time
+
+![Room Change Demo](src/assets/screenshots/roomChange.png)  
+Video demonstration of changing a room assignment.
+
+![Observations & Notes](src/assets/screenshots/observations.png)  
+Interactive window for notes and observations.
+
+[Commission & Discount Demo](src/assets/vids/comision-discount.mp4)  
+Comision and discount video Demo
+
+![Close Room](src/assets/screenshots/close-room-screen.png)  
+Close room modal, where you choose to pay in cash, card or mixed and the amounts are checked before closing.
+
 
 ---
 
@@ -102,12 +107,10 @@ Track laundry operations and update inventory in real-time.
 ### Cash Movements
 Detailed view of cash operations with filtering and categorization.  
 [Cash Movements Demo](src/assets/vids/cashMovements.mp4)  
-[Commission & Discount Demo](src/assets/vids/comision-discount.mp4)  
 
 ### Linen / Stock Control
 Track inventory of linens and other stock items.  
 ![Linen](src/assets/screenshots/linen.png)  
-![Domestic Consumptions](src/assets/screenshots/domesticConsumptions.png)  
 
 ### Internal Consumptions
 Register consumptions made internally by staff.  
@@ -115,54 +118,27 @@ Register consumptions made internally by staff.
 
 ---
 
-## 💰 Cash Control & Financial Reports
-Automatic tracking of cash movements, categorization, and report generation.  
-Metrics for shift efficiency and cash discrepancies.
-
-**Screenshots / Videos:**
-![Advances](src/assets/screenshots/Advances.png)  
-![Bills](src/assets/screenshots/bills.png)  
-![Surcharge](src/assets/screenshots/surcharge.png)  
-[Cash Movements Demo](src/assets/vids/cashMovements.mp4)  
-[Commission & Discount Demo](src/assets/vids/comision-discount.mp4)  
-
----
-
-## 🧺 Laundry & Linen Control
-Real-time monitoring of linen stock and laundry operations.  
-Tracks items replaced during cleaning and updates inventory automatically.
-
-**Screenshots / Videos:**
-![Domestic Consumptions](src/assets/screenshots/domesticConsumptions.png)  
-![Linen Control](src/assets/screenshots/linen.png)  
-[Laundry Movements Demo](src/assets/vids/laundryMovements.mp4)  
-
----
-
 ## 🖥️ UI & UX
 SPA with minimalistic and user-friendly interface.  
 Dark mode support, interactive dynamic window, collapsible side navigation with quick access buttons.
 
-**Screenshots:**
 ![Dark Mode](src/assets/screenshots/darkMode.png)  
-![Shift Window](src/assets/screenshots/shift_window.png)  
-![Observations & Notes](src/assets/screenshots/observations.png)  
-
 
 ---
 
+## 👥 Developers
+This project was developed by two developers:
 
-## 👥 Authors & Contact
+- **Facundo Pancani**  
+📧 facupancani@gmail.com  
 
-**Developers**  
-- 👤 **Facundo Pancani**  
-  📧 facupancani@gmail.com  
-  🌐 Portfolio (coming soon)  
-  💼 [[LinkedIn](https://www.linkedin.com/in/facundopancani/)]  
-
-- 👤 **Luciano Frias**  
-  📧 lucianofrias1@hotmail.com
-  🌐 [[Portfolio](https://lucianofrias.github.io/portfolio/#/)]
-  💼 [[LinkedIn](https://www.linkedin.com/in/luciano-frias-1439b71b7/)]
+- **[Your Partner’s Name]**  
+📧 [Partner Email]
 
 ---
+
+## 📞 Contact
+For more information or to view the portfolio:
+
+- Portfolio: [Add Link]  
+- LinkedIn: [Add Link]
