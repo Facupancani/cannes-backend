@@ -27,6 +27,40 @@ This project is a full management system for **Hotel Cannes** (Mar del Plata, Ar
 
 ---
 
+## 📡 Integrations & Methodologies
+
+### 🔌 Hardware Integrations
+- **RFID Card Reader (RS232):** Used for guest check-ins/check-outs. Integrated via serial communication with Node.js backend.  
+  **Screenshot:**  
+  ![RFID Reader](src/assets/screenshots/rfid-reader.png)  
+  // This photo illustrates the RFID card reader module used in the system.
+
+- **Fingerprint Scanner (DigitalPersona U.are.U 4500):** Integrated using the official Java SDK and exposed through a REST API, connected to the main system for biometric authentication.  
+  **Screenshot:**  
+  ![Fingerprint Scanner](src/assets/screenshots/fingerprint-scanner.png)  
+  // This photo shows the biometric scanner integrated into the system.
+
+---
+
+### ⚡ Real-Time Communication
+- **WebSockets:** Implemented for instant updates of room states, shift data, and stock changes across all active sessions.  
+
+---
+
+### 📋 Project Management
+- **Agile / Scrum:** Managed tasks and sprints with Trello boards.  
+
+---
+
+### 🎨 Design & Prototyping
+- **Figma:** Prototyped UI/UX flows before implementation to validate with the client.  
+  **Screenshot:**  
+  ![Figma Mockup](src/assets/screenshots/figma-mockup.png)  
+  // This screenshot shows the design mockups created in Figma.
+
+---
+
+
 ## 🎯 Problem & Solution
 
 **Problem:**
