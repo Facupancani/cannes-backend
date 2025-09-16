@@ -10,7 +10,7 @@ const path = require('path');
 
 // Es necesario para que CORS no deniegue la conexion
 const cors = require('cors');
-const allowedOrigins = ['http://localhost:5173', 'https://dominio-aceptado-porCORS.com'];
+const allowedOrigins = ['http://localhost:5174', 'https://dominio-aceptado-porCORS.com'];
 app.use(cors({
   origin: function(origin, callback) {
     if (!origin || /^http:\/\/localhost:\d+$/.test(origin) || origin === 'https://dominio-aceptado-porCORS.com') {
