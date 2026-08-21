@@ -261,6 +261,28 @@ INSERT INTO `hotel_room` (`id`, `room_number`, `state`, `current_shift_id`, `pre
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `internal_consumition`
+--
+
+CREATE TABLE `internal_consumition` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `description` varchar(200) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `created_at` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `internal_consumition`
+--
+
+INSERT INTO `internal_consumition` (`id`, `user_id`, `description`, `amount`, `price`, `created_at`) VALUES
+(1, 25, 'Café y medialunas', 2, 3000, '10:30:00');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `laundry`
 --
 
@@ -416,6 +438,7 @@ CREATE TABLE `shift` (
   `bar_price` int(11) NOT NULL,
   `shift_price` int(11) NOT NULL,
   `discount_price` int(11) DEFAULT NULL,
+  `commission` int(11) DEFAULT NULL,
   `pending_cleaning_start` datetime NOT NULL,
   `cleaning_start` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -586,6 +609,13 @@ ALTER TABLE `hotel_room`
   ADD KEY `hotel_room_to_shift_fk` (`current_shift_id`);
 
 --
+-- Indices de la tabla `internal_consumition`
+--
+ALTER TABLE `internal_consumition`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `internal_consumition_user_id_foreign_key` (`user_id`);
+
+--
 -- Indices de la tabla `laundry`
 --
 ALTER TABLE `laundry`
@@ -664,6 +694,12 @@ ALTER TABLE `consumition`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=413;
 
 --
+-- AUTO_INCREMENT de la tabla `internal_consumition`
+--
+ALTER TABLE `internal_consumition`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `laundry`
 --
 ALTER TABLE `laundry`
@@ -732,6 +768,12 @@ ALTER TABLE `consumition`
 --
 ALTER TABLE `hotel_room`
   ADD CONSTRAINT `hotel_room_to_shift_fk` FOREIGN KEY (`current_shift_id`) REFERENCES `shift` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `internal_consumition`
+--
+ALTER TABLE `internal_consumition`
+  ADD CONSTRAINT `internal_consumition_user_id_foreign_key` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `observation`
