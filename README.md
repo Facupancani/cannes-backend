@@ -82,7 +82,16 @@ npm start       # production
 The API is served at `http://localhost:3000` (or whatever `PORT` you set).
 
 ### About `/public`
-This server also serves the frontend's production build (React + Vite) as static files from `public/`, via `express.static` + a SPA fallback in [server.js](server.js) — so the whole app (backend + frontend) can be shipped and installed at the hotel as a single deployable unit. The frontend source lives in a separate repository, [cannes-hotel-sistema](https://github.com/LucianoFrias/cannes-hotel-sistema); to refresh this build, run `npm run build` there and copy the resulting `dist/` contents into `public/`.
+This server also serves the frontend's production build (React + Vite) as static files from `public/`, via `express.static` + a SPA fallback in [server.js](server.js) — so the whole app (backend + frontend) can be shipped and installed at the hotel as a single deployable unit. The frontend source lives in a separate repository, [cannes-hotel-sistema](https://github.com/LucianoFrias/cannes-hotel-sistema) (branch `facundo`).
+
+To refresh `/public` with the latest frontend build:
+```bash
+npm run sync-frontend
+```
+This builds the frontend and copies its `dist/` into `public/`. It assumes `cannes-hotel-sistema` is cloned as a sibling folder next to this repo; if it's somewhere else, point to it with `FRONTEND_DIR`:
+```bash
+FRONTEND_DIR=/path/to/cannes-hotel-sistema npm run sync-frontend
+```
 
 ---
 
