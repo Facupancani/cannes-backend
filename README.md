@@ -82,7 +82,7 @@ npm start       # production
 The API is served at `http://localhost:3000` (or whatever `PORT` you set).
 
 ### About `/public`
-This server also serves the frontend's production build (React + Vite) as static files from `public/`, via `express.static` + a SPA fallback in [server.js](server.js) — so the whole app (backend + frontend) can be shipped and installed at the hotel as a single deployable unit. The frontend source lives in a separate repository; to refresh this build, run `npm run build` there and copy the resulting `dist/` contents into `public/`.
+This server also serves the frontend's production build (React + Vite) as static files from `public/`, via `express.static` + a SPA fallback in [server.js](server.js) — so the whole app (backend + frontend) can be shipped and installed at the hotel as a single deployable unit. The frontend source lives in a separate repository, [cannes-hotel-sistema](https://github.com/LucianoFrias/cannes-hotel-sistema); to refresh this build, run `npm run build` there and copy the resulting `dist/` contents into `public/`.
 
 ---
 
