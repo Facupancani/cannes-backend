@@ -3,135 +3,151 @@ const Shift = require('../models/Shift');
 
 // Obtener turno por ID
 exports.getShiftById = async (req, res) => {
-    try {
-        const shift_id = req.params.id
+  try {
+    const shift_id = req.params.id;
 
-        const currentShift = await Shift.findByPk(shift_id);
-        if (currentShift) {
-            res.json(currentShift);
-        } else {
-            res.status(404).json({ error: 'Shift not found' });
-        }
-    } catch (err) {
-        console.error('Error fetching shift:', err); // Log para debugging
-        res.status(500).json({ error: 'Internal Server Error' });
+    const currentShift = await Shift.findByPk(shift_id);
+    if (currentShift) {
+      res.json(currentShift);
+    } else {
+      res.status(404).json({ error: 'Shift not found' });
     }
-}
+  } catch (err) {
+    console.error('Error fetching shift:', err); // Log para debugging
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
 
 // Crear un turno
 exports.createShift = async (req, res) => {
-    try {
-        const { room_id, start, finish, type, bar_price, shift_price, discount_price, commission, pending_cleaning_start, cleaning_start } = req.body
-        const newShift = await Shift.create({
-            room_id,
-            start,
-            finish,
-            type,
-            bar_price,
-            shift_price,
-            discount_price,
-            commission,
-            pending_cleaning_start,
-            cleaning_start
-        })
+  try {
+    const {
+      room_id,
+      start,
+      finish,
+      type,
+      bar_price,
+      shift_price,
+      discount_price,
+      commission,
+      pending_cleaning_start,
+      cleaning_start
+    } = req.body;
+    const newShift = await Shift.create({
+      room_id,
+      start,
+      finish,
+      type,
+      bar_price,
+      shift_price,
+      discount_price,
+      commission,
+      pending_cleaning_start,
+      cleaning_start
+    });
 
-        await HotelRoom.update(
-            { current_shift_id: newShift.id },
-            { where: { room_number: room_id } }
-        )
+    await HotelRoom.update({ current_shift_id: newShift.id }, { where: { room_number: room_id } });
 
-        res.status(201).json(newShift)
-    } catch (err) {
-        console.error("❌ Error en createShift:", err);
-        return res.status(500).json({ message: "Internal server error", error: err.message });
-    }
-}
-
+    res.status(201).json(newShift);
+  } catch (err) {
+    console.error('❌ Error en createShift:', err);
+    return res.status(500).json({ message: 'Internal server error', error: err.message });
+  }
+};
 
 // Update de un turno por ID
 exports.updateShift = async (req, res) => {
-    try {
-        const shift_id = req.params.id;
-        const { room_id, start, finish, type, bar_price, shift_price, discount_price, commission, pending_cleaning_start, cleaning_start } = req.body;
-        
+  try {
+    const shift_id = req.params.id;
+    const {
+      room_id,
+      start,
+      finish,
+      type,
+      bar_price,
+      shift_price,
+      discount_price,
+      commission,
+      pending_cleaning_start,
+      cleaning_start
+    } = req.body;
 
-        // Verifica si se encuentra el turno
-        const shift = await Shift.findOne({ where: { id: shift_id } });
+    // Verifica si se encuentra el turno
+    const shift = await Shift.findOne({ where: { id: shift_id } });
 
-        if (!shift) {
-            return res.status(404).json({ error: 'Shift not found' });
-        }
-
-         // Si hay un cambio de habitación, actualizar la habitación anterior a null
-         if (room_id !== undefined && shift.room_id !== room_id) {
-            // Actualiza la habitación anterior (si existe) para liberar el turno
-            await HotelRoom.update(
-                { current_shift_id: null, state:'Disponible' },
-                { where: { id: shift.room_id } }
-            );
-            // Actualiza el turno con la nueva habitación
-            shift.room_id = room_id;
-
-            // Asigna el shift a la nueva habitación
-            await HotelRoom.update(
-                { current_shift_id: shift_id, state:'Ocupado' },
-                { where: { id: room_id } }
-            );
-        }
-
-        // Actualiza los demás campos recibidos en el body
-        if (start !== undefined) shift.start = start;
-        if (finish !== undefined) shift.finish = finish;
-        if (type !== undefined) shift.type = type;
-        if (bar_price !== undefined) shift.bar_price = bar_price;
-        if (shift_price !== undefined) shift.shift_price = shift_price;
-        if (discount_price !== undefined) shift.discount_price = discount_price;
-        if (commission !== undefined) shift.commission = commission;
-        if (pending_cleaning_start !== undefined) shift.pending_cleaning_start = pending_cleaning_start
-        if (cleaning_start !== undefined) shift.cleaning_start = cleaning_start
-
-        // Guarda los cambios
-        await shift.save();
-
-        // Retorna el turno actualizado
-        res.status(200).json(shift);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Error updating the shift' });
+    if (!shift) {
+      return res.status(404).json({ error: 'Shift not found' });
     }
+
+    // Si hay un cambio de habitación, actualizar la habitación anterior a null
+    if (room_id !== undefined && shift.room_id !== room_id) {
+      // Actualiza la habitación anterior (si existe) para liberar el turno
+      await HotelRoom.update(
+        { current_shift_id: null, state: 'Disponible' },
+        { where: { id: shift.room_id } }
+      );
+      // Actualiza el turno con la nueva habitación
+      shift.room_id = room_id;
+
+      // Asigna el shift a la nueva habitación
+      await HotelRoom.update(
+        { current_shift_id: shift_id, state: 'Ocupado' },
+        { where: { id: room_id } }
+      );
+    }
+
+    // Actualiza los demás campos recibidos en el body
+    if (start !== undefined) shift.start = start;
+    if (finish !== undefined) shift.finish = finish;
+    if (type !== undefined) shift.type = type;
+    if (bar_price !== undefined) shift.bar_price = bar_price;
+    if (shift_price !== undefined) shift.shift_price = shift_price;
+    if (discount_price !== undefined) shift.discount_price = discount_price;
+    if (commission !== undefined) shift.commission = commission;
+    if (pending_cleaning_start !== undefined) shift.pending_cleaning_start = pending_cleaning_start;
+    if (cleaning_start !== undefined) shift.cleaning_start = cleaning_start;
+
+    // Guarda los cambios
+    await shift.save();
+
+    // Retorna el turno actualizado
+    res.status(200).json(shift);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error updating the shift' });
+  }
 };
 
 // Borrar un shift por ID
 exports.deleteShift = async (req, res) => {
-    try {
-        const shift = await Shift.findByPk(req.params.id)
+  try {
+    const shift = await Shift.findByPk(req.params.id);
 
-        if (shift) {
-            await shift.destroy()
-            res.json(shift)
-        } else {
-            res.status(404).json({ error: 'Shift not found' })
-        }
-    } catch (err) {
-        res.status(500).json({ error: err.message })
+    if (shift) {
+      await shift.destroy();
+      res.json(shift);
+    } else {
+      res.status(404).json({ error: 'Shift not found' });
     }
-}
-
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 // Obtener historial de una habitación (últimos 3 turnos)
 exports.getRoomHistory = async (req, res) => {
-    try {
-        const { roomNumber } = req.params;
+  try {
+    const { roomNumber } = req.params;
 
-        const shifts = await Shift.findAll({
-            where: { room_id: roomNumber },
-            order: [['start', 'DESC']],
-            limit: 3
-        });
-        
-        res.json(shifts);
-    } catch (error) {
-        console.error("❌ Error al obtener el historial de la habitación:", error.message);
-        res.status(500).json({ error: 'Error al obtener el historial de la habitación' });
-    }
+    const shifts = await Shift.findAll({
+      where: { room_id: roomNumber },
+      order: [['start', 'DESC']],
+      limit: 3
+    });
+
+    res.json(shifts);
+  } catch (error) {
+    console.error('❌ Error al obtener el historial de la habitación:', error.message);
+    res.status(500).json({ error: 'Error al obtener el historial de la habitación' });
+  }
 };

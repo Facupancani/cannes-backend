@@ -1,33 +1,36 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');  // Importa la conexión
+const sequelize = require('../config/database'); // Importa la conexión
 
-const Advance = sequelize.define('advance', {
-    id:{
-        type: DataTypes.BIGINT,
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true
+const Advance = sequelize.define(
+  'advance',
+  {
+    id: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true
     },
-    user_id:{
-        type: DataTypes.BIGINT,
-        allowNull: false,
+    user_id: {
+      type: DataTypes.BIGINT,
+      allowNull: false
     },
-    amount:{
-        type: DataTypes.INTEGER,
-        allowNull: false,
+    amount: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
-    details:{
-        type: DataTypes.STRING(100),
-        allowNull: true,
+    details: {
+      type: DataTypes.STRING(100),
+      allowNull: true
     },
     created_at: {
-        type: DataTypes.TIME,
-        allowNull: true
+      type: DataTypes.TIME,
+      allowNull: true
     }
-
-}, {
-    tableName: 'advance',  // Nombre de la tabla en la base de datos
+  },
+  {
+    tableName: 'advance', // Nombre de la tabla en la base de datos
     timestamps: false
-  })
+  }
+);
 
-module.exports = Advance
+module.exports = Advance;

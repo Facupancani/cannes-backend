@@ -6,8 +6,10 @@ const internalConsumitionController = require('../controllers/internalConsumitio
 router.get('/internal-consumitions', internalConsumitionController.getAllInternalConsumitions);
 
 // Obtener ID de ultima consumicion interna
-router.get('/internal-consumitions/last-id', internalConsumitionController.getLastInternalConsumitionId);
-
+router.get(
+  '/internal-consumitions/last-id',
+  internalConsumitionController.getLastInternalConsumitionId
+);
 
 // Crear una consumición interna
 router.post('/internal-consumitions', internalConsumitionController.createInternalConsumition);

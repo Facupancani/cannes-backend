@@ -36,6 +36,56 @@ The new solution centralizes all hotel operations into a **Single Page Applicati
 
 ---
 
+## 🚀 Getting Started
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) 18 or 20 (LTS) and npm. Newer major versions may fail to load the native `serialport` module (used for the RFID reader) if it wasn't rebuilt for that Node ABI — this only affects the hardware-integration endpoints, not the rest of the API.
+- MySQL / MariaDB (e.g. via [XAMPP](https://www.apachefriends.org/)).
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/Facupancani/cannes-backend.git
+cd cannes-backend
+```
+
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+Copy the example file and fill in your local values:
+```bash
+cp .env.example .env
+```
+| Variable | Description | Default |
+|---|---|---|
+| `PORT` | Port the Express server listens on | `3000` |
+| `DB_NAME` | MySQL database name | `cannes_db` |
+| `DB_USER` | MySQL user | `root` |
+| `DB_PASSWORD` | MySQL password | *(empty)* |
+| `DB_HOST` | MySQL host | `localhost` |
+| `DB_DIALECT` | Sequelize dialect | `mysql` |
+
+### 4. Create the database
+Create a database matching `DB_NAME` and import the provided schema + sample data:
+```bash
+mysql -u root -p cannes_db < cannes_db.sql
+```
+(or import `cannes_db.sql` from phpMyAdmin if you're using XAMPP). The seed data (users, advances, cash movements, etc.) is anonymized/fictional so the project can be run locally without any real guest or staff data.
+
+### 5. Run the server
+```bash
+npm run dev     # development, with auto-reload (nodemon)
+npm start       # production
+```
+The API is served at `http://localhost:3000` (or whatever `PORT` you set).
+
+### About `/public`
+This server also serves the frontend's production build (React + Vite) as static files from `public/`, via `express.static` + a SPA fallback in [server.js](server.js) — so the whole app (backend + frontend) can be shipped and installed at the hotel as a single deployable unit. The frontend source lives in a separate repository; to refresh this build, run `npm run build` there and copy the resulting `dist/` contents into `public/`.
+
+---
+
 ## 📡 Integrations & Methodologies
 
 ### 🔌 Hardware Integrations

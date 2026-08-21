@@ -56,16 +56,16 @@ INSERT INTO `advance` (`id`, `user_id`, `amount`, `details`, `created_at`) VALUE
 (87, 25, 10000, 'Consumición interna de Facundo Pancani - 1 Coca Cola XL 2L - $ 10.000,00', '2025-04-29 20:36:15'),
 (88, 25, 5000, 'Se transifirio un monto de $5000 al usuario Facundo Pancani en habitacion 4.', '2025-06-08 20:03:48'),
 (89, 25, 10000, 'Se transifirio un monto de $10000 al usuario Facundo Pancani en habitacion 6.', '2025-06-08 20:04:09'),
-(90, 11, 1000, 'Se transifirio un monto de $1000 al usuario Luciano Frias en habitacion 10.', '2025-06-08 22:19:55'),
-(91, 11, 1000, 'Se transifirio un monto de $1000 al usuario Luciano Frias en habitacion 10.', '2025-06-08 22:20:04'),
-(92, 11, 1, 'Se transifirio un monto de $1 al usuario Luciano Frias en habitacion 7.', '2025-06-08 23:36:52'),
-(93, 11, 2000, 'Se transifirio un monto de $2000 al usuario Luciano Frias en habitacion 7.', '2025-06-08 23:37:02'),
-(94, 19, 2000, 'Se transifirio un monto de $2000 al usuario Maximo Pancani en habitacion 12.', '2025-06-08 23:37:29'),
-(95, 11, 2000, 'Se transifirio un monto de $2000 al usuario Luciano Frias en habitacion 12.', '2025-06-08 23:38:23'),
-(96, 11, 3000, 'Se transifirio un monto de $3000 al usuario Luciano Frias en habitacion 8.', '2025-06-08 23:44:32'),
-(97, 11, 5000, 'Consumición interna de Luciano Frias - 1 Agua Villavicencio - $ 5.000,00', '2025-06-08 23:48:47'),
-(98, 11, 5000, 'Consumición interna de Luciano Frias - 1 Agua Villavicencio - $ 5.000,00', '2025-06-08 23:49:18'),
-(99, 11, 2000, 'Se transifirio un monto de $2000 al usuario Luciano Frias en habitacion 16.', '2025-06-09 00:57:56');
+(90, 11, 1000, 'Se transifirio un monto de $1000 al usuario Lucas Medina en habitacion 10.', '2025-06-08 22:19:55'),
+(91, 11, 1000, 'Se transifirio un monto de $1000 al usuario Lucas Medina en habitacion 10.', '2025-06-08 22:20:04'),
+(92, 11, 1, 'Se transifirio un monto de $1 al usuario Lucas Medina en habitacion 7.', '2025-06-08 23:36:52'),
+(93, 11, 2000, 'Se transifirio un monto de $2000 al usuario Lucas Medina en habitacion 7.', '2025-06-08 23:37:02'),
+(94, 19, 2000, 'Se transifirio un monto de $2000 al usuario Nicolas Suarez en habitacion 12.', '2025-06-08 23:37:29'),
+(95, 11, 2000, 'Se transifirio un monto de $2000 al usuario Lucas Medina en habitacion 12.', '2025-06-08 23:38:23'),
+(96, 11, 3000, 'Se transifirio un monto de $3000 al usuario Lucas Medina en habitacion 8.', '2025-06-08 23:44:32'),
+(97, 11, 5000, 'Consumición interna de Lucas Medina - 1 Agua Villavicencio - $ 5.000,00', '2025-06-08 23:48:47'),
+(98, 11, 5000, 'Consumición interna de Lucas Medina - 1 Agua Villavicencio - $ 5.000,00', '2025-06-08 23:49:18'),
+(99, 11, 2000, 'Se transifirio un monto de $2000 al usuario Lucas Medina en habitacion 16.', '2025-06-09 00:57:56');
 
 -- --------------------------------------------------------
 
@@ -213,8 +213,8 @@ INSERT INTO `consumition` (`id`, `shift_id`, `type`, `description`, `price`) VAL
 (404, 976, 'product', 'Alfajor Jorgito', 10000),
 (405, 1001, 'surcharge', 'Se añadio 1 hora extra a esta habitacion. (PRESET)', 8000),
 (406, 1001, 'product', 'Alfajor Jorgito', 10000),
-(407, 1001, 'commission', 'Luciano', -500),
-(408, 1002, 'commission', 'Luciano', -500),
+(407, 1001, 'commission', 'Lucas', -500),
+(408, 1002, 'commission', 'Lucas', -500),
 (409, 1002, 'product', 'Agua Villavicencio', 5000),
 (410, 1003, 'product', 'Citrus Pomelo', 5000),
 (411, 1003, 'product', 'Citrus Pomelo', 5000),
@@ -541,12 +541,12 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `name`, `last_name`, `username`, `role`, `password`, `fingerprint`) VALUES
 (10, 'John', 'Doe', 'johndoe123', 'Conserje', '$2a$10$IdwXT/zJsX2p/3hxXe0SYON5KBrz9nPrErxnFsaJlOWP4Cn80za0C', NULL),
-(11, 'Luciano', 'Frias', 'luciano123', 'Administrador', '$2a$10$Qp45Vw.vEs4rl8tZEyeA2eLRI8Wk3kHVZawn6UUlpd2q4X3sOWH9.', NULL),
-(19, 'Maximo', 'Pancani', 'maxi123', 'Administrador', '$2a$10$Y9HXway6zk/5L0YGF7bQ3uTBpE2J0Yj/TStApUZ1uHVabaCmGTznC', NULL),
-(20, 'Karina', 'Barcala', 'karina123', 'Conserje', '$2a$10$Efy6z10zZNZGYW/s5CIOAuTnHlGGcpElW4ICc8PimUPXWZ.pdiegi', NULL),
-(21, 'Homero', 'Frias', 'homero123', 'Conserje', '$2a$10$hGJkaULBIVW5tFHENozW1O9qNCbS5E1.TcDitssiZFz96gMLd7uSG', NULL),
+(11, 'Lucas', 'Medina', 'lucas123', 'Administrador', '$2a$10$c7CmvK9/5QF/5wftKfqiVe/lNW1a5JxUiOcq5b9EFkbjE9n78d8zO', NULL),
+(19, 'Nicolas', 'Suarez', 'nicolas123', 'Administrador', '$2a$10$CFdDp7u2TcrTA2/.ygh8T.JN5XdhxMLbJTjCsB5iCH/J3oOg4.pue', NULL),
+(20, 'Valeria', 'Rios', 'valeria123', 'Conserje', '$2a$10$Vxfbd91KYTlKFRTnpyhm9.MmVbXPG/wlFG4NQK1GybuCDEkBsbAp2', NULL),
+(21, 'Hugo', 'Aguirre', 'hugo123', 'Conserje', '$2a$10$INF8atqJPXRH946bb9FRJ.X9P.Qgn4xXhBUQdvVjOFG2OYIF.kKmq', NULL),
 (25, 'Facundo', 'Pancani', 'facupancani', 'Administrador', '$2a$10$tCUaAahFH1tcMEd7yvXHnexidneBxzST2KVoxNsJTyIEW.bONaXim', NULL),
-(33, 'Marcelo', 'Gutierrez', 'Marcelo G', 'Conserje', '$2a$10$w3NQhKBxOq8sNPRQXUubT.t84UrC.4YJ.z39SY9GyPeZGv3jTU5P6', NULL);
+(33, 'Diego', 'Torres', 'diego123', 'Conserje', '$2a$10$3uOOCleITmuZmqXK5K6Lsuq8k7iVoxZVAG9lyNCwurOg1iJH.Ktc2', NULL);
 
 --
 -- Índices para tablas volcadas

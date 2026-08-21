@@ -1,17 +1,17 @@
-const sequelize = require('../config/database')
-const CashMovement = require('../models/CashMovement')
+const sequelize = require('../config/database');
+const CashMovement = require('../models/CashMovement');
 
 // Obtener todos los movimientos de caja
 exports.getAllCashMovements = async (req, res) => {
   try {
     const cashMovements = await CashMovement.findAll({
       order: [['date', 'DESC']] // opcional: orden por fecha descendente
-    })
-    res.json(cashMovements)
+    });
+    res.json(cashMovements);
   } catch (err) {
-    res.status(500).json({ error: err.message })
+    res.status(500).json({ error: err.message });
   }
-}
+};
 
 // Crear un nuevo movimiento de caja
 exports.createCashMovement = async (req, res) => {
@@ -29,7 +29,7 @@ exports.createCashMovement = async (req, res) => {
       transfer_amount,
       total,
       conserje
-    } = req.body
+    } = req.body;
 
     // Validar que consumptions sea null o un array
     let safeConsumptions = null;
@@ -39,7 +39,6 @@ exports.createCashMovement = async (req, res) => {
       }
       safeConsumptions = consumptions.length > 0 ? consumptions : null;
     }
-
 
     const newCashMovement = await CashMovement.create({
       date,
@@ -54,27 +53,27 @@ exports.createCashMovement = async (req, res) => {
       transfer_amount,
       total,
       conserje
-    })
+    });
 
-    res.status(201).json(newCashMovement)
+    res.status(201).json(newCashMovement);
   } catch (err) {
-    res.status(500).json({ error: err.message })
+    res.status(500).json({ error: err.message });
   }
-}
+};
 
 // Obtener todos los conserjes únicos (no null) de movimientos de caja
 exports.getAllConserjes = async (req, res) => {
   try {
     // Raw query o Sequelize distinct
     const [results] = await sequelize.query(
-      "SELECT DISTINCT conserje FROM cash_movement WHERE conserje IS NOT NULL"
-    )
+      'SELECT DISTINCT conserje FROM cash_movement WHERE conserje IS NOT NULL'
+    );
 
     // results es un array de objetos { conserje: "Juan Pérez" }, map para simplificar
-    const conserjes = results.map(row => row.conserje).filter(Boolean)
+    const conserjes = results.map((row) => row.conserje).filter(Boolean);
 
-    res.json(conserjes)
+    res.json(conserjes);
   } catch (err) {
-    res.status(500).json({ error: err.message })
+    res.status(500).json({ error: err.message });
   }
-}
+};

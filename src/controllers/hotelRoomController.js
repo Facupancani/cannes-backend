@@ -20,21 +20,20 @@ exports.getAllRoomsWithShift = async (req, res) => {
     SELECT hotel_room.*, shift.room_id, shift.start, shift.finish, shift.type, shift.bar_price, shift.shift_price, shift.discount_price, shift.commission, shift.pending_cleaning_start, shift.cleaning_start
     FROM hotel_room
     LEFT JOIN shift ON hotel_room.current_shift_id = shift.id;
-`
-    const [results, metadata] = await sequelize.query(sqlQuery)
-    res.json(results)
-
+`;
+    const [results, metadata] = await sequelize.query(sqlQuery);
+    res.json(results);
   } catch (err) {
-    res.status(500).json({ error: err.message })
+    res.status(500).json({ error: err.message });
   }
-}
+};
 
 // Obtener una habitación por ID
 exports.getRoomById = async (req, res) => {
   try {
-    const room_number = req.params.id
-    const room = await HotelRoom.findOne({ where: {room_number: room_number} })
-    
+    const room_number = req.params.id;
+    const room = await HotelRoom.findOne({ where: { room_number: room_number } });
+
     if (room) {
       res.json(room);
     } else {
@@ -60,7 +59,7 @@ exports.createRoom = async (req, res) => {
 exports.updateRoom = async (req, res) => {
   try {
     const room_number = req.params.id; // Assuming room number is passed as a parameter
-    const { state, shift_id, room_number: newRoomNumber , pred_price, pred_time} = req.body;
+    const { state, shift_id, room_number: newRoomNumber, pred_price, pred_time } = req.body;
 
     // Find the room by room_number
     const room = await HotelRoom.findOne({ where: { room_number: room_number } });
@@ -71,7 +70,7 @@ exports.updateRoom = async (req, res) => {
       if (state) room.state = state;
       if (shift_id) room.current_shift_id = shift_id;
       if (pred_price) room.pred_price = pred_price;
-      if (pred_time) room.pred_time = pred_time; 
+      if (pred_time) room.pred_time = pred_time;
 
       // Save the updated room
       await room.save();
@@ -87,13 +86,12 @@ exports.updateRoom = async (req, res) => {
 // Eliminar una habitación
 exports.deleteRoom = async (req, res) => {
   try {
+    const room_number = req.params.id;
 
-    const room_number = req.params.id
-
-    const room = await HotelRoom.findOne({ where: {room_number: room_number} })
+    const room = await HotelRoom.findOne({ where: { room_number: room_number } });
     if (room) {
       await room.destroy();
-      res.status(204).end();
+      res.status(204).send();
     } else {
       res.status(404).json({ error: 'Room not found' });
     }
@@ -105,19 +103,19 @@ exports.deleteRoom = async (req, res) => {
 //Libera una habitacion del turno asociado
 exports.releaseRoomShift = async (req, res) => {
   try {
-    const room_number = req.params.id
-    const room = await HotelRoom.findOne({ where: {room_number: room_number} })
+    const room_number = req.params.id;
+    const room = await HotelRoom.findOne({ where: { room_number: room_number } });
     if (room) {
-      room.current_shift_id = null
-      await room.save()
-      res.status(204).end()
+      room.current_shift_id = null;
+      await room.save();
+      res.status(204).send();
     } else {
       res.status(404).json({ error: 'Room not found' });
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-}
+};
 
 exports.getRoomHistory = async (req, res) => {
   const { roomNumber } = req.params;
@@ -131,12 +129,12 @@ exports.getRoomHistory = async (req, res) => {
     `;
 
     const [results, metadata] = await sequelize.query(sqlQuery, {
-      replacements: { roomNumber },
+      replacements: { roomNumber }
     });
 
     res.json(results);
   } catch (error) {
-    console.error("Error al obtener el historial de la habitación:", error);
-    res.status(500).json({ error: "Error interno al obtener el historial." });
+    console.error('Error al obtener el historial de la habitación:', error);
+    res.status(500).json({ error: 'Error interno al obtener el historial.' });
   }
 };

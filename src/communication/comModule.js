@@ -16,7 +16,7 @@ try {
     baudRate: BAUD_RATE,
     dataBits: 8,
     parity: 'none',
-    stopBits: 1,
+    stopBits: 1
   });
 
   serialPort.on('open', () => console.log(`Puerto serial ${SERIAL_PORT} abierto correctamente.`));
@@ -24,7 +24,6 @@ try {
   serialPort.on('error', (err) => {
     console.error(`Error en el puerto serial: ${err.message}`);
   });
-
 } catch (error) {
   console.error(`No se pudo abrir el puerto serial ${SERIAL_PORT}: ${error.message}`);
 }
@@ -76,9 +75,8 @@ function getEstadoLectores() {
 function setEstadoLectores(nuevoEstado) {
   lectores = nuevoEstado;
 }
-  
 
 module.exports = {
   getEstadoLectores,
-  setEstadoLectores,
+  setEstadoLectores
 };

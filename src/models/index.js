@@ -1,14 +1,15 @@
 const sequelize = require('../config/database');
 const HotelRoom = require('./HotelRoom');
-const User = require('./User')
-const Shift = require('./Shift')
+const User = require('./User');
+const Shift = require('./Shift');
 
 // Sincronize models with database
-sequelize.sync()
+sequelize
+  .sync()
   .then(() => {
     console.log('Tablas sincronizadas con éxito.');
   })
-  .catch(err => {
+  .catch((err) => {
     console.error('Error al sincronizar las tablas:', err);
   });
 

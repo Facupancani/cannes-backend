@@ -1,7 +1,5 @@
 const sequelize = require('../config/database');
-const { Sequelize } = require('sequelize')
 const Consumition = require('../models/Consumition');
-const Product = require('../models/Product')
 
 // Obtener todas las consumiciones
 exports.getAllConsumitions = async (req, res) => {
@@ -28,7 +26,7 @@ exports.getConsumitionById = async (req, res) => {
 };
 
 // Obtener todos los datos sobre consumiciones (consumicion y producto)
-exports.getConsumitionsDetails = async(req, res) => {
+exports.getConsumitionsDetails = async (req, res) => {
   try {
     const sqlQuery = `
     SELECT
@@ -43,25 +41,22 @@ exports.getConsumitionsDetails = async(req, res) => {
     consumition c
   JOIN 
     product p ON c.product_id = p.id
-  `
-    const [results, metadata] = await sequelize.query(sqlQuery)
+  `;
+    const [results, metadata] = await sequelize.query(sqlQuery);
 
     if (results) {
-      res.json(results)
+      res.json(results);
     } else {
-      res.status(404).json({ error: 'Consumition details not found' })
+      res.status(404).json({ error: 'Consumition details not found' });
     }
-
-
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ error: error.message });
   }
-
-}
+};
 
 // Obtener comisiones por numero de turno
-exports.getCommissionsByShiftId = async(req,res) => {
-  const id = req.params.id
+exports.getCommissionsByShiftId = async (req, res) => {
+  const id = req.params.id;
 
   try {
     const consumitions = await Consumition.findAll({
@@ -69,18 +64,17 @@ exports.getCommissionsByShiftId = async(req,res) => {
         type: 'commission',
         shift_id: id
       }
-    })
+    });
 
-    res.json(consumitions)
+    res.json(consumitions);
   } catch (error) {
-    res.status(500).json({error: error.message})
+    res.status(500).json({ error: error.message });
   }
-}
+};
 
 // Obtener todos los datos de una consumicion por numero de habitacion (consumicion y producto)
-exports.getConsumitionsDetailsByRoomId = async(req, res) => {
-
-  const room_id = req.params.id
+exports.getConsumitionsDetailsByRoomId = async (req, res) => {
+  const room_id = req.params.id;
 
   try {
     const sqlQuery = `
@@ -94,20 +88,18 @@ exports.getConsumitionsDetailsByRoomId = async(req, res) => {
     consumition c
   WHERE
   c.shift_id = ${room_id}
-  `
-    const [results, metadata] = await sequelize.query(sqlQuery)
+  `;
+    const [results, metadata] = await sequelize.query(sqlQuery);
 
     if (results) {
-      res.json(results)
+      res.json(results);
     } else {
-      res.status(404).json({ error: 'Consumition not found' })
+      res.status(404).json({ error: 'Consumition not found' });
     }
-
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ error: error.message });
   }
-
-}
+};
 
 // Crear una nueva consumicion
 exports.createConsumition = async (req, res) => {
@@ -127,7 +119,7 @@ exports.updateConsumition = async (req, res) => {
     const consumition = await Consumition.findByPk(req.params.id);
     if (consumition) {
       consumition.shift_id = shift_id;
-      consumition.type = type
+      consumition.type = type;
       consumition.description = description;
       consumition.price = price;
       await consumition.save();
@@ -146,7 +138,7 @@ exports.deleteConsumition = async (req, res) => {
     const consumition = await Consumition.findByPk(req.params.id);
     if (consumition) {
       await consumition.destroy();
-      res.status(204).end();
+      res.status(204).send();
     } else {
       res.status(404).json({ error: 'Consumition not found' });
     }

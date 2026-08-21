@@ -17,5 +17,4 @@ router.delete('/notification/:id', notificationController.deleteNotification);
 // Actualizar notificacion por ID
 router.put('/notification/:id', notificationController.updateNotification);
 
-
-module.exports = router
+module.exports = router;

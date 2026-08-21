@@ -6,7 +6,7 @@ const hotelRoomController = require('../controllers/hotelRoomController');
 router.get('/rooms', hotelRoomController.getAllRooms);
 
 // Obtener todas las habitaciones con sus respectivos shift
-router.get('/rooms/with-shift', hotelRoomController.getAllRoomsWithShift)
+router.get('/rooms/with-shift', hotelRoomController.getAllRoomsWithShift);
 
 // Crear una nueva habitación
 router.post('/rooms', hotelRoomController.createRoom);
@@ -22,6 +22,5 @@ router.put('/rooms/:id/release-shift', hotelRoomController.releaseRoomShift);
 
 // Eliminar una habitación por ID
 router.delete('/rooms/:id', hotelRoomController.deleteRoom);
-
 
 module.exports = router;

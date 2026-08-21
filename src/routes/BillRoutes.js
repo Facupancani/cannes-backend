@@ -3,21 +3,21 @@ const router = express.Router();
 const billController = require('../controllers/billController');
 
 // Obtener gastos
-router.get('/bill', billController.getAllBills)
+router.get('/bill', billController.getAllBills);
 
 // Obtener ultimo gasto
-router.get('/bill/last', billController.getLastBill)
+router.get('/bill/last', billController.getLastBill);
 
 // Obtener ID de ultimo gasto
-router.get('/bill/last/id', billController.getLastBillId)
+router.get('/bill/last/id', billController.getLastBillId);
 
 // Crear gasto
-router.post('/bill', billController.createBill)
+router.post('/bill', billController.createBill);
 
 // Actualizar gasto
-router.put('/bill/:id', billController.updateBill)
+router.put('/bill/:id', billController.updateBill);
 
 // Eliminar gasto
-router.delete('/bill/:id', billController.deleteBill)
+router.delete('/bill/:id', billController.deleteBill);
 
-module.exports = router
+module.exports = router;

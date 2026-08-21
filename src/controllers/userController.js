@@ -1,6 +1,5 @@
-const User = require("../models/User");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const User = require('../models/User');
+const bcrypt = require('bcryptjs');
 
 // Registrar usuario
 exports.registerUser = async (req, res) => {
@@ -8,19 +7,15 @@ exports.registerUser = async (req, res) => {
     const { username, name, last_name, password, role, fingerprint } = req.body;
 
     if (!username || !name || !last_name || !role || !password) {
-      return res.status(401).json({ error: "All fields are required" });
+      return res.status(401).json({ error: 'All fields are required' });
     }
 
     if (username.length < 5) {
-      return res
-        .status(402)
-        .json({ error: "Username should be longer than 5 characters" });
+      return res.status(402).json({ error: 'Username should be longer than 5 characters' });
     }
 
     if (password.length < 5) {
-      return res
-        .status(403)
-        .json({ error: "Password should be longer than 5 characters" });
+      return res.status(403).json({ error: 'Password should be longer than 5 characters' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -30,12 +25,12 @@ exports.registerUser = async (req, res) => {
       last_name,
       username,
       password: hashedPassword,
-      role,
+      role
     });
 
     res.status(201).json({ newUser });
   } catch (error) {
-    res.status(400).send({ error: "User already exists" });
+    res.status(400).json({ error: 'User already exists' });
   }
 };
 
@@ -45,56 +40,47 @@ exports.loginUser = async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
-      return res
-        .status(401)
-        .json({ error: "Username and password are required" });
+      return res.status(401).json({ error: 'Username and password are required' });
     }
 
     const user = await User.findOne({ where: { username } });
-    if (!user) return res.status(401).send({ error: "User not found" });
+    if (!user) return res.status(401).json({ error: 'User not found' });
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid)
-      return res.status(403).send({ error: "Invalid password" });
+    if (!isPasswordValid) return res.status(403).json({ error: 'Invalid password' });
 
     // Login exitoso
-    res.status(200).json({ message: "Login successful", user });
-
+    res.status(200).json({ message: 'Login successful', user });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Something went wrong" });
+    res.status(500).json({ error: 'Something went wrong' });
   }
 };
-
 
 exports.validatePassword = async (req, res) => {
   try {
     const { username, password, role } = req.body;
 
     // Validar contraseña vacía
-    if (!password || password.trim() === "") {
-      return res
-        .status(400)
-        .send({ error: `La contraseña para ${role} no puede estar vacía` });
+    if (!password || password.trim() === '') {
+      return res.status(400).json({ error: `La contraseña para ${role} no puede estar vacía` });
     }
 
     const user = await User.findOne({ where: { username } });
 
     if (!user) {
-      return res.status(404).send({ error: `Usuario no encontrado: ${role}` });
+      return res.status(404).json({ error: `Usuario no encontrado: ${role}` });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res
-        .status(403)
-        .send({ error: `Contraseña incorrecta para ${role}` });
+      return res.status(403).json({ error: `Contraseña incorrecta para ${role}` });
     }
 
-    res.status(200).send(true);
+    res.status(200).json(true);
   } catch (err) {
     console.error(err);
-    res.status(500).send({ error: "Error interno del servidor" });
+    res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
 
@@ -114,17 +100,17 @@ exports.getUserByName = async (req, res) => {
     const { name } = req.params; // Get the name from URL parameters
 
     const user = await User.findOne({
-      where: { name },
+      where: { name }
     });
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
 
     res.json(user); // Send the user data as JSON
   } catch (error) {
-    console.error("Error fetching user:", error);
-    res.status(500).json({ message: "Internal server error" });
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
@@ -140,7 +126,7 @@ exports.updateUser = async (req, res) => {
       await user.save();
       res.json(user);
     } else {
-      res.status(404).json({ error: "User not found" });
+      res.status(404).json({ error: 'User not found' });
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -154,7 +140,7 @@ exports.deleteUser = async (req, res) => {
       await user.destroy();
       res.json(user);
     } else {
-      res.status(404).json({ error: "User not found" });
+      res.status(404).json({ error: 'User not found' });
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
